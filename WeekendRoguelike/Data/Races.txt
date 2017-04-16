@@ -1,0 +1,2 @@
+﻿[Human]
+Strength = 100

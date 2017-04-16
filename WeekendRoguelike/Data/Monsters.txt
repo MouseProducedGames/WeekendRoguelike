@@ -1,0 +1,2 @@
+﻿[Zombie]
+Strength = 250
