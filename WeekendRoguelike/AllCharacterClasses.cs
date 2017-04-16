@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WeekendRoguelike
 {
     public static class AllCharacterClasses
     {
+        #region Private Fields
+
         private static Dictionary<string, CharacterClass> classesLookup =
             new Dictionary<string, CharacterClass>();
+
+        #endregion Private Fields
+
+        #region Public Methods
+
+        public static CharacterClass GetCharacterClass(string name)
+        {
+            return classesLookup[name.ToUpper()];
+        }
 
         public static Dictionary<string, CharacterClass>.Enumerator GetEnumerator()
         {
@@ -33,9 +40,6 @@ namespace WeekendRoguelike
             }
         }
 
-        public static CharacterClass GetCharacterClass(string name)
-        {
-            return classesLookup[name.ToUpper()];
-        }
+        #endregion Public Methods
     }
 }

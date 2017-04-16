@@ -1,20 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WeekendRoguelike
 {
     public static class AllRaces
     {
+        #region Private Fields
+
         private static Dictionary<string, Race> racesLookup =
             new Dictionary<string, Race>();
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         public static Dictionary<string, Race>.Enumerator GetEnumerator()
         {
             return racesLookup.GetEnumerator();
+        }
+
+        public static Race GetRace(string name)
+        {
+            return racesLookup[name.ToUpper()];
         }
 
         public static void LoadRaces(string filename)
@@ -33,9 +40,6 @@ namespace WeekendRoguelike
             }
         }
 
-        public static Race GetRace(string name)
-        {
-            return racesLookup[name.ToUpper()];
-        }
+        #endregion Public Methods
     }
 }

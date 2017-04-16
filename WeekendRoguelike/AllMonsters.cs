@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WeekendRoguelike
 {
     public static class AllMonsters
     {
+        #region Private Fields
+
         private static Dictionary<string, Monster> monstersLookup =
             new Dictionary<string, Monster>();
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         public static Dictionary<string, Monster>.Enumerator GetEnumerator()
         {
@@ -37,5 +39,7 @@ namespace WeekendRoguelike
                 }
             }
         }
+
+        #endregion Public Methods
     }
 }

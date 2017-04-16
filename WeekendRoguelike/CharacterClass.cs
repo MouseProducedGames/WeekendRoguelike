@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WeekendRoguelike
+﻿namespace WeekendRoguelike
 {
     public struct CharacterClass
     {
+        #region Private Fields
+
         private string name;
         private CharacterStats stats;
 
-        public CharacterStats Stats { get => stats; set => stats = value; }
+        #endregion Private Fields
+
+        #region Public Properties
+
         public string Name { get => name; set => name = value; }
+        public CharacterStats Stats { get => stats; set => stats = value; }
+
+        #endregion Public Properties
     }
 }

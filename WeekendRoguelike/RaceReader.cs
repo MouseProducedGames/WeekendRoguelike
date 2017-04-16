@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WeekendRoguelike
 {
     public class RaceReader : IRaceReader
     {
-        private StreamReader reader;
+        #region Private Fields
+
         private bool endOfFile = false;
+        private StreamReader reader;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public RaceReader(Stream stream)
         {
@@ -19,7 +21,15 @@ namespace WeekendRoguelike
             reader = new StreamReader(stream);
         }
 
+        #endregion Public Constructors
+
+        #region Public Properties
+
         public bool EndOfSet { get => endOfFile; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public bool TryReadNextRace(out Race output)
         {
@@ -55,5 +65,7 @@ namespace WeekendRoguelike
             }
             return false;
         }
+
+        #endregion Public Methods
     }
 }
