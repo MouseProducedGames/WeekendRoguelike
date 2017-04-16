@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace WeekendRoguelike
 {
@@ -14,9 +15,10 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
-        public static Dictionary<string, Race>.Enumerator GetEnumerator()
+        public static IEnumerable<KeyValuePair<string, Race>> GetAllNameRacePairs()
         {
-            return racesLookup.GetEnumerator();
+            foreach (var kvp in racesLookup)
+                yield return kvp;
         }
 
         public static Race GetRace(string name)

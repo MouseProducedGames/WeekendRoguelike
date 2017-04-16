@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AllMonsters.cs" />
     <Compile Include="AllCharacterClasses.cs" />
+    <Compile Include="CharacterFactory.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="MonsterReader.cs" />
     <Compile Include="CharacterDetail.cs" />

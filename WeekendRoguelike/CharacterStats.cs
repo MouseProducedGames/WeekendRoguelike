@@ -24,6 +24,20 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
+        public static CharacterStats operator +(CharacterStats left, CharacterStats right)
+        {
+            CharacterStats output = new CharacterStats();
+            for (int i = 0; i < Count; ++i)
+            {
+                output.SetStatValue(
+                    (CharacterDetail.StatType)i,
+                    left.GetStatValue((CharacterDetail.StatType)i) +
+                    right.GetStatValue((CharacterDetail.StatType)i)
+                    );
+            }
+            return output;
+        }
+
         public void Copy(CharacterStats from)
         {
             for (int i = 0; i < Count; ++i)

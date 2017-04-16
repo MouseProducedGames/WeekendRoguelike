@@ -14,14 +14,15 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
+        public static IEnumerable<KeyValuePair<string, CharacterClass>> GetAllNameClassPairs()
+        {
+            foreach (var kvp in classesLookup)
+                yield return kvp;
+        }
+
         public static CharacterClass GetCharacterClass(string name)
         {
             return classesLookup[name.ToUpper()];
-        }
-
-        public static Dictionary<string, CharacterClass>.Enumerator GetEnumerator()
-        {
-            return classesLookup.GetEnumerator();
         }
 
         public static void LoadClasses(string filename)

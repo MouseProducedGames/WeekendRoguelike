@@ -14,9 +14,10 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
-        public static Dictionary<string, Monster>.Enumerator GetEnumerator()
+        public static IEnumerable<KeyValuePair<string, Monster>> GetAllNameMonsterPairs()
         {
-            return monstersLookup.GetEnumerator();
+            foreach (var kvp in monstersLookup)
+                yield return kvp;
         }
 
         public static Monster GetMonster(string name)

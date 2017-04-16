@@ -41,14 +41,17 @@ namespace WeekendRoguelike
             }
             while (reader.EndOfStream == false)
             {
-                string line = reader.ReadLine().Trim();
+                string line = reader.ReadLine();
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
                 if (line[0] != '[')
                     continue;
 
                 output.Name = line.Substring(1, line.Length - 2);
                 CharacterStats stats = new CharacterStats();
-                while (string.IsNullOrEmpty(line = reader.ReadLine().Trim()) == false)
+                while (string.IsNullOrWhiteSpace(line = reader.ReadLine()) == false)
                 {
+                    line = line.Trim();
                     // Line is a comment.
                     if (line.Length >= 2 &&
                         line[0] == '/' &&
