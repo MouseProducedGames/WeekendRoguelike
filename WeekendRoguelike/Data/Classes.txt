@@ -1,2 +1,2 @@
 ﻿[Warrior]
-Strength = 50
+Strength: 50

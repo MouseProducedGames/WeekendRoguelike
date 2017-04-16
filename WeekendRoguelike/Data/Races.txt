@@ -1,2 +1,2 @@
 ﻿[Human]
-Strength = 100
+Strength: 100

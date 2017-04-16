@@ -42,8 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllMonsters.cs" />
+    <Compile Include="AllCharacterClasses.cs" />
+    <Compile Include="Monster.cs" />
+    <Compile Include="MonsterReader.cs" />
+    <Compile Include="CharacterDetail.cs" />
+    <Compile Include="CharacterEntity.cs" />
+    <Compile Include="CharacterStats.cs" />
+    <Compile Include="AllRaces.cs" />
+    <Compile Include="IMonsterReader.cs" />
+    <Compile Include="ICharacterClassReader.cs" />
+    <Compile Include="IRaceReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CharacterClass.cs" />
+    <Compile Include="Race.cs" />
+    <Compile Include="CharacterClassReader.cs" />
+    <Compile Include="RaceReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
