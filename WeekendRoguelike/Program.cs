@@ -96,13 +96,13 @@ namespace WeekendRoguelike
             if (playerCharacter.Alive)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.SetCursorPosition(36, 20);
+                Console.SetCursorPosition(36, 15);
                 Console.WriteLine("You won!");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(36, 20);
+                Console.SetCursorPosition(36, 15);
                 Console.WriteLine("You lost.");
             }
             Console.ReadKey(true);
