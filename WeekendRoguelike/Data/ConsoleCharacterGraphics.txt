@@ -2,12 +2,18 @@
 
 [Barbarian]
 Symbol: b
+Foreground: Red
+Background: Black
 
 [Rogue]
 Symbol: r
+Foreground: Yellow
+Background: Black
 
 [Warrior]
 Symbol: w
+Foreground: Gray
+Background: Black
 
 // Monsters
 
