@@ -27,7 +27,7 @@ namespace WeekendRoguelike
 
         public override IGraphicsWrapper CreateGraphicsWrapper()
         {
-            return new GraphicsWrapperImpl(CreateGraphicsData<Graphics>());
+            return new GraphicsWrapperImpl(new Graphics());
         }
 
         public override Listbox CreateListbox()
@@ -35,12 +35,13 @@ namespace WeekendRoguelike
             return new ConsoleListbox();
         }
 
-        public void Draw(Graphics item)
+        public void Draw(GraphicsWrapperImpl item)
         {
+            var data = item.Data;
             Console.SetCursorPosition(item.Position.X, item.Position.Y);
-            Console.BackgroundColor = item.BackgroundColour;
-            Console.ForegroundColor = item.ForegroundColour;
-            Console.Write(item.Symbol);
+            Console.BackgroundColor = data.BackgroundColour;
+            Console.ForegroundColor = data.ForegroundColour;
+            Console.Write(data.Symbol);
         }
 
         #endregion Public Methods
@@ -53,7 +54,6 @@ namespace WeekendRoguelike
 
             private ConsoleColor backgroundColour;
             private ConsoleColor foregroundColour;
-            private Point position;
             private char symbol;
 
             #endregion Private Fields
@@ -61,13 +61,11 @@ namespace WeekendRoguelike
             #region Public Constructors
 
             public Graphics(
-                Point position,
                 char symbol,
                 ConsoleColor foregroundColour,
                 ConsoleColor backgroundColour
                 )
             {
-                this.position = position;
                 this.symbol = symbol;
                 this.backgroundColour = backgroundColour;
                 this.foregroundColour = foregroundColour;
@@ -79,7 +77,6 @@ namespace WeekendRoguelike
 
             public ConsoleColor BackgroundColour { get => backgroundColour; set => backgroundColour = value; }
             public ConsoleColor ForegroundColour { get => foregroundColour; set => foregroundColour = value; }
-            public Point Position { get => position; set => position = value; }
             public char Symbol { get => symbol; set => symbol = value; }
 
             #endregion Public Properties
@@ -89,11 +86,11 @@ namespace WeekendRoguelike
 
         #region Public Classes
 
-        public class CharacterGraphicsWrapperImpl : CharacterGraphicsWrapper
+        public class CharacterGraphicsWrapperImpl : GraphicsWrapperImpl, ICharacterGraphicsWrapper
         {
             #region Public Constructors
 
-            public CharacterGraphicsWrapperImpl(GraphicsData data) : base(data)
+            public CharacterGraphicsWrapperImpl(Graphics data) : base(data)
             {
             }
 
@@ -101,34 +98,44 @@ namespace WeekendRoguelike
 
             #region Public Methods
 
-            public override void Draw()
+            public void Update(Character forCharacter)
             {
-                Display.GetInstanceAs<ConsoleDisplay>().Draw(Data.Item);
-            }
-
-            public override void Update(Character forCharacter)
-            {
-                data.item.Position = forCharacter.Position;
+                Position = forCharacter.Position;
             }
 
             #endregion Public Methods
         }
 
-        public class GraphicsWrapperImpl : GraphicsWrapper
+        public class GraphicsWrapperImpl : IGraphicsWrapper
         {
+            #region Private Fields
+
+            private Graphics data;
+            private Point position;
+
+            #endregion Private Fields
+
             #region Public Constructors
 
-            public GraphicsWrapperImpl(GraphicsData data) : base(data)
+            public GraphicsWrapperImpl(Graphics data)
             {
+                this.data = data;
             }
 
             #endregion Public Constructors
 
+            #region Public Properties
+
+            public Graphics Data { get => data; set => data = value; }
+            public Point Position { get => position; set => position = value; }
+
+            #endregion Public Properties
+
             #region Public Methods
 
-            public override void Draw()
+            public void Draw()
             {
-                Display.GetInstanceAs<ConsoleDisplay>().Draw(Data.Item);
+                Display.GetInstanceAs<ConsoleDisplay>().Draw(this);
             }
 
             #endregion Public Methods

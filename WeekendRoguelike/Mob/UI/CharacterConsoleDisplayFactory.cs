@@ -20,10 +20,9 @@ namespace WeekendRoguelike
 
         public override Display.ICharacterGraphicsWrapper Create(string name)
         {
-            var data =
-                Display.Instance.CreateGraphicsData<ConsoleDisplay.Graphics>();
-            data.item = AllCharacterConsoleGraphics.GetCharacterGraphics(name);
-            var output = new ConsoleDisplay.CharacterGraphicsWrapperImpl(data);
+            var output =
+                new ConsoleDisplay.CharacterGraphicsWrapperImpl(
+                    AllCharacterConsoleGraphics.GetCharacterGraphics(name));
             return output;
         }
 

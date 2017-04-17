@@ -28,10 +28,6 @@ namespace WeekendRoguelike
             #endregion Public Methods
         }
 
-        public interface IGraphics
-        {
-        }
-
         public interface IGraphicsWrapper
         {
             #region Public Methods
@@ -78,11 +74,6 @@ namespace WeekendRoguelike
             }
         }
 
-        public Display<T>.GraphicsData CreateGraphicsData<T>()
-        {
-            return new Display<T>.GraphicsData();
-        }
-
         public abstract IGraphicsWrapper CreateGraphicsWrapper();
 
         public ICharacterGraphicsWrapper CreateGraphicsWrapper(Character forCharacter)
@@ -102,96 +93,5 @@ namespace WeekendRoguelike
 
     public abstract class Display<T> : Display
     {
-        #region Public Interfaces
-
-        public interface IGraphicsImpl : Display.IGraphics
-        {
-            #region Public Properties
-
-            T Item { get; }
-
-            #endregion Public Properties
-        }
-
-        #endregion Public Interfaces
-
-        #region Public Structs
-
-        public struct GraphicsData : IGraphicsImpl
-        {
-            #region Public Fields
-
-            public T item;
-
-            #endregion Public Fields
-
-            #region Public Constructors
-
-            public GraphicsData(T item)
-            {
-                this.item = item;
-            }
-
-            #endregion Public Constructors
-
-            #region Public Properties
-
-            public T Item { get => item; set => item = value; }
-
-            #endregion Public Properties
-        }
-
-        #endregion Public Structs
-
-        #region Public Classes
-
-        public abstract class CharacterGraphicsWrapper : GraphicsWrapper, Display.ICharacterGraphicsWrapper
-        {
-            #region Public Constructors
-
-            public CharacterGraphicsWrapper(GraphicsData data) : base(data)
-            {
-            }
-
-            #endregion Public Constructors
-
-            #region Public Methods
-
-            public abstract void Update(Character forCharacter);
-
-            #endregion Public Methods
-        }
-
-        public abstract class GraphicsWrapper : Display.IGraphicsWrapper
-        {
-            #region Public Fields
-
-            public GraphicsData data;
-
-            #endregion Public Fields
-
-            #region Public Constructors
-
-            public GraphicsWrapper(GraphicsData data)
-            {
-                this.data = data;
-            }
-
-            #endregion Public Constructors
-
-            #region Public Properties
-
-            public GraphicsData Data { get => data; set => data = value; }
-
-            #endregion Public Properties
-
-            #region Public Methods
-
-            public abstract void Draw();
-
-            #endregion Public Methods
-        }
-
-        #endregion Public Classes
     }
 }
