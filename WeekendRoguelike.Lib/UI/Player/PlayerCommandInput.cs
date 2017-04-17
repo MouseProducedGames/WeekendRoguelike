@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WeekendRoguelike.UI.Player
 {
-    public class PlayerCommandInput : ICommandInput
+    public class PlayerCommandInput : ICommandInput<WRCommand>
     {
         #region Private Fields
 

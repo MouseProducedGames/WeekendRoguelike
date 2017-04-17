@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeekendRoguelike.UI.Monster
 {
-    public class MonsterCommandInput : ICommandInput
+    public class MonsterCommandInput : ICommandInput<WRCommand>
     {
         #region Private Fields
 

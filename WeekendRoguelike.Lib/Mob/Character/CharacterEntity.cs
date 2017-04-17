@@ -15,7 +15,7 @@ namespace WeekendRoguelike.Mob.Character
 
         private CharacterClass characterClass;
         private Race characterRace;
-        private IMobController controller;
+        private IMobController<WRCommand> controller;
         private CharacterData entityData;
         private Display.ICharacterGraphicsWrapper graphics;
         private Map onMap;
@@ -29,7 +29,7 @@ namespace WeekendRoguelike.Mob.Character
 
         public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
         public Race CharacterRace { get => characterRace; set => characterRace = value; }
-        public IMobController Controller { get => controller; set => controller = value; }
+        public IMobController<WRCommand> Controller { get => controller; set => controller = value; }
 
         public CharacterData EntityData { get => entityData; set => entityData = value; }
 

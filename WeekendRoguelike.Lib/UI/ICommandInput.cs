@@ -1,7 +1,7 @@
 ﻿namespace WeekendRoguelike.UI
 {
-    public interface ICommandInput
+    public interface ICommandInput<TCommand>
     {
-        WRCommand GetCommand();
+        TCommand GetCommand();
     }
 }
