@@ -15,7 +15,12 @@ namespace WeekendRoguelike
             Console.SetCursorPosition(1, 29);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.Write(playerCharacter.EntityData.StatString());
+            Console.Write(
+                "{0} {1}: {2}",
+                playerCharacter.CharacterRace.Name,
+                playerCharacter.CharacterClass.Name,
+                playerCharacter.EntityData.StatString()
+                );
             Console.SetCursorPosition(0, 0);
         }
 
