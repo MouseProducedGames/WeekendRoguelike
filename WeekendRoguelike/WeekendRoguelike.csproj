@@ -71,7 +71,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mob\Character\CharacterClass.cs" />
-    <Compile Include="Mob\IO\Race.cs" />
+    <Compile Include="Mob\Character\Race.cs" />
     <Compile Include="Mob\IO\CharacterClassReader.cs" />
     <Compile Include="Mob\IO\RaceReader.cs" />
     <Compile Include="Rand.cs" />
