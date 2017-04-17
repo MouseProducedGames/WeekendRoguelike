@@ -1,2 +1,3 @@
 ﻿[Zombie]
 Strength: 200
+Agility: 50

@@ -8,7 +8,8 @@ namespace WeekendRoguelike
 
         public enum StatType
         {
-            Strength
+            Strength,
+            Agility
         }
 
         #endregion Public Enums

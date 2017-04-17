@@ -8,6 +8,13 @@ namespace WeekendRoguelike
 
         public static void SingleAttack(IMob attacker, Character defender)
         {
+            int attackerAttack = FormulaHelper.GetAttack(attacker);
+            int defenderDefence = FormulaHelper.GetDefence(defender);
+
+            // Miss!
+            if (Rand.NextInt(attackerAttack + defenderDefence) < defenderDefence)
+                return;
+
             int attackerDamage = FormulaHelper.GetDamage(attacker);
             int defenderArmour = FormulaHelper.GetArmour(defender);
 

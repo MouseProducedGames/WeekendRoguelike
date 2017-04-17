@@ -1,2 +1,11 @@
-﻿[Warrior]
+﻿[Barbarian]
+Strength: 70
+Agility: 30
+
+[Rogue]
+Strength: 30
+Agility: 70
+
+[Warrior]
 Strength: 50
+Agility: 50

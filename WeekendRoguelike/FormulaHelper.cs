@@ -12,10 +12,22 @@ namespace WeekendRoguelike
                 CharacterDetail.StatType.Strength);
         }
 
+        public static int GetAttack(IMob defender)
+        {
+            return defender.EntityData.Stats.GetStatValue(
+                CharacterDetail.StatType.Agility);
+        }
+
         public static int GetDamage(IMob attacker)
         {
             return attacker.EntityData.Stats.GetStatValue(
                 CharacterDetail.StatType.Strength);
+        }
+
+        public static int GetDefence(IMob defender)
+        {
+            return defender.EntityData.Stats.GetStatValue(
+                CharacterDetail.StatType.Agility);
         }
 
         #endregion Public Methods

@@ -6,18 +6,20 @@ namespace WeekendRoguelike
     {
         #region Public Fields
 
-        public const int Count = 1;
+        public const int Count = 2;
 
         #endregion Public Fields
 
         #region Private Fields
 
+        private int agility;
         private int strength;
 
         #endregion Private Fields
 
         #region Public Properties
 
+        public int Agility { get => agility; set => agility = value; }
         public int Strength { get => strength; set => strength = value; }
 
         #endregion Public Properties
@@ -58,6 +60,7 @@ namespace WeekendRoguelike
             switch (stat)
             {
                 case CharacterDetail.StatType.Strength: return strength;
+                case CharacterDetail.StatType.Agility: return agility;
                 default: throw new ArgumentOutOfRangeException(stat.ToString());
             }
         }
@@ -67,6 +70,7 @@ namespace WeekendRoguelike
             switch (stat)
             {
                 case CharacterDetail.StatType.Strength: strength = value; return;
+                case CharacterDetail.StatType.Agility: agility = value; return;
                 default: throw new ArgumentOutOfRangeException(stat.ToString());
             }
         }

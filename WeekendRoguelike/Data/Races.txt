@@ -1,11 +1,15 @@
 ﻿[Dwarf]
-Strength: 100
+Strength: 120
+Agility: 80
 
 [Elf]
-Strength: 100
+Strength: 80
+Agility: 120
 
 [Halfling]
-Strength: 100
+Strength: 60
+Agility: 140
 
 [Human]
 Strength: 100
+Agility: 100
