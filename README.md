@@ -5,7 +5,7 @@ A free- and open-source Roguelike in the classic style done as a casual, weekend
 1 Day
 
 # Tagline for the day
-Very barebones. [i]Very[/i] barebones.
+Very barebones. _Very_ barebones.
 
 # Current Status
 * As a classic Roguelike, all map objects are represented using text symbols.
