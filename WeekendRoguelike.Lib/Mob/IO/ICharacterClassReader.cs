@@ -1,4 +1,6 @@
-﻿namespace WeekendRoguelike
+﻿using WeekendRoguelike.Mob.Character;
+
+namespace WeekendRoguelike.Mob.IO
 {
     public interface ICharacterClassReader
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.Character
 {
     public struct CharacterStats
     {

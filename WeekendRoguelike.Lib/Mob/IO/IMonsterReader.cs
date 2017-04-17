@@ -1,4 +1,6 @@
-﻿namespace WeekendRoguelike
+﻿using WeekendRoguelike.Mob.Monster;
+
+namespace WeekendRoguelike.Mob.IO
 {
     public interface IMonsterReader
     {
@@ -10,7 +12,7 @@
 
         #region Public Methods
 
-        bool TryReadNextMonster(out Monster output);
+        bool TryReadNextMonster(out MonsterData output);
 
         #endregion Public Methods
     }

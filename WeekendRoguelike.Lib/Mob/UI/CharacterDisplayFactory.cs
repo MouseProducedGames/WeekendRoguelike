@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.UI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.UI
 {
     public abstract class CharacterDisplayFactory
     {
         #region Public Methods
 
-        public abstract Display.ICharacterGraphicsWrapper Create(Character fromCharacter);
+        public abstract Display.ICharacterGraphicsWrapper Create(CharacterData fromCharacter);
 
         public abstract Display.ICharacterGraphicsWrapper Create(string name);
 

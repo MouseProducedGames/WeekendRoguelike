@@ -1,4 +1,6 @@
-﻿namespace WeekendRoguelike
+﻿using WeekendRoguelike.Mob.Character;
+
+namespace WeekendRoguelike.Mob
 {
     public interface IMob
     {
@@ -13,7 +15,7 @@
         #region Public Methods
 
         bool TryMove(Point newPosition);
-        bool IsEnemy(Character otherCharacter);
+        bool IsEnemy(CharacterData otherCharacter);
 
         #endregion Public Methods
     }

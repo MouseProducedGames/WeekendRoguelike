@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.Mob.UI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.UI
 {
     public abstract class Display
     {
@@ -23,7 +25,7 @@ namespace WeekendRoguelike
         {
             #region Public Methods
 
-            void Update(Character forCharacter);
+            void Update(CharacterData forCharacter);
 
             #endregion Public Methods
         }
@@ -76,7 +78,7 @@ namespace WeekendRoguelike
 
         public abstract IGraphicsWrapper CreateGraphicsWrapper();
 
-        public ICharacterGraphicsWrapper CreateGraphicsWrapper(Character forCharacter)
+        public ICharacterGraphicsWrapper CreateGraphicsWrapper(CharacterData forCharacter)
         {
             return CharacterDisplayFactory.Create(forCharacter);
         }

@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.UI;
+using WeekendRoguelike.UI.Monster;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.Monster
 {
     public class MonsterFactory
     {
         #region Public Methods
 
-        public Character Create(FacctoryInfo info)
+        public CharacterData Create(FacctoryInfo info)
         {
-            var output = new Character();
+            var output = new CharacterData();
 
             var entityData = new CharacterEntity();
 
@@ -43,13 +46,13 @@ namespace WeekendRoguelike
         {
             #region Private Fields
 
-            private Monster monsterData;
+            private MonsterData monsterData;
 
             #endregion Private Fields
 
             #region Public Properties
 
-            public Monster MonsterData { get => monsterData; set => monsterData = value; }
+            public MonsterData MonsterData { get => monsterData; set => monsterData = value; }
 
             #endregion Public Properties
         }

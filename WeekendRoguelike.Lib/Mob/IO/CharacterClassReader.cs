@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using WeekendRoguelike.Mob.Character;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.IO
 {
     public class CharacterClassReader : ICharacterClassReader
     {

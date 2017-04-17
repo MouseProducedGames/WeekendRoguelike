@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using WeekendRoguelike.UI.ConsoleUI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.UI.IO
 {
     public class CharacterConsoleGraphicsReader : ICharacterConsoleGraphicsReader
     {

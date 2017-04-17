@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.UI.Player
 {
     public class PlayerCommandInput : ICommandInput
     {

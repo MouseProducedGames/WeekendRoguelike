@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.Mob.Monster;
+using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike
 {
@@ -8,7 +11,7 @@ namespace WeekendRoguelike
     {
         #region Private Methods
 
-        private static void DrawScreen(Map map, Character playerCharacter)
+        private static void DrawScreen(Map map, CharacterData playerCharacter)
         {
             Console.Clear();
             map.Draw();
@@ -32,11 +35,11 @@ namespace WeekendRoguelike
             AllCharacterClasses.LoadClasses(Path.Combine(startPath, "Data", "Classes.txt"));
             AllMonsters.LoadMonsters(Path.Combine(startPath, "Data", "Monsters.txt"));
 
-            Display.SetInstance(new ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
+            Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
 
             Map map = new Map(80, 25);
 
-            Character playerCharacter;
+            CharacterData playerCharacter;
             {
                 var info = new CharacterFactory.FactoryInfo();
                 {
@@ -76,7 +79,7 @@ namespace WeekendRoguelike
 
                 var factory = new MonsterFactory();
 
-                Character monsterCharacter = factory.Create(info);
+                CharacterData monsterCharacter = factory.Create(info);
                 monsterCharacter.OnMap = map;
                 monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter);
             }

@@ -1,4 +1,6 @@
-﻿namespace WeekendRoguelike
+﻿using WeekendRoguelike.UI.ConsoleUI;
+
+namespace WeekendRoguelike.Mob.UI.IO
 {
     public interface ICharacterConsoleGraphicsReader
     {

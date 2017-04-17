@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using WeekendRoguelike.Mob.UI.IO;
+using WeekendRoguelike.UI.ConsoleUI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.UI
 {
     public static class AllCharacterConsoleGraphics
     {

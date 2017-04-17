@@ -1,4 +1,6 @@
-﻿namespace WeekendRoguelike
+﻿using WeekendRoguelike.UI;
+
+namespace WeekendRoguelike.Mob
 {
     public interface IMobController
     {

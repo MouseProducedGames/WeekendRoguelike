@@ -1,4 +1,4 @@
-﻿namespace WeekendRoguelike
+﻿namespace WeekendRoguelike.UI
 {
     public interface ICommandInput
     {

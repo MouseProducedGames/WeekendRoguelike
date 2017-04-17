@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.Character
 {
     public static class CharacterDetail
     {

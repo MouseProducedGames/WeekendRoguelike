@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.UI;
+using WeekendRoguelike.UI.Monster;
+using WeekendRoguelike.UI.Player;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.Character
 {
-    public class Character : IMob
+    public class CharacterData : IMob
     {
         #region Private Fields
 
@@ -57,7 +60,7 @@ namespace WeekendRoguelike
             graphics.Draw();
         }
 
-        public bool IsEnemy(Character otherCharacter)
+        public bool IsEnemy(CharacterData otherCharacter)
         {
             switch (Controller.CommandProvider)
             {

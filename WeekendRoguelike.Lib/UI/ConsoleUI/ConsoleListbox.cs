@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.UI.ConsoleUI
 {
     public class ConsoleListbox : Listbox
     {

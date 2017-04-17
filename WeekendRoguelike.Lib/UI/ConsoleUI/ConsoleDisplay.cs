@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.Mob.UI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.UI.ConsoleUI
 {
     public class ConsoleDisplay : Display<ConsoleDisplay.Graphics>
     {
@@ -98,7 +100,7 @@ namespace WeekendRoguelike
 
             #region Public Methods
 
-            public void Update(Character forCharacter)
+            public void Update(CharacterData forCharacter)
             {
                 Position = forCharacter.Position;
             }

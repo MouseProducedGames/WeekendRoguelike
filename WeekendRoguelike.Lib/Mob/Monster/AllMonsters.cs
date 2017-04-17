@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using WeekendRoguelike.Mob.IO;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.Monster
 {
     public static class AllMonsters
     {
         #region Private Fields
 
-        private static Dictionary<string, Monster> monstersLookup =
-            new Dictionary<string, Monster>();
+        private static Dictionary<string, MonsterData> monstersLookup =
+            new Dictionary<string, MonsterData>();
 
         #endregion Private Fields
 
         #region Public Methods
 
-        public static IEnumerable<KeyValuePair<string, Monster>> GetAllNameMonsterPairs()
+        public static IEnumerable<KeyValuePair<string, MonsterData>> GetAllNameMonsterPairs()
         {
             foreach (var kvp in monstersLookup)
                 yield return kvp;
         }
 
-        public static Monster GetMonster(string name)
+        public static MonsterData GetMonster(string name)
         {
             return monstersLookup[name.ToUpper()];
         }

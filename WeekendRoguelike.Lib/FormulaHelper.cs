@@ -1,4 +1,6 @@
 ﻿using System;
+using WeekendRoguelike.Mob;
+using WeekendRoguelike.Mob.Character;
 
 namespace WeekendRoguelike
 {

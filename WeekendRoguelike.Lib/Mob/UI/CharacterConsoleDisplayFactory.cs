@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.UI;
+using WeekendRoguelike.UI.ConsoleUI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.UI
 {
     public class CharacterConsoleDisplayFactory : CharacterDisplayFactory
     {
         #region Public Methods
 
-        public override Display.ICharacterGraphicsWrapper Create(Character fromCharacter)
+        public override Display.ICharacterGraphicsWrapper Create(CharacterData fromCharacter)
         {
             return Create(fromCharacter.CharacterClass.Name);
             /* (ConsoleDisplay.CharacterGraphicsWrapper)

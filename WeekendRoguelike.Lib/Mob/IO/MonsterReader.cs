@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.Mob.Monster;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.IO
 {
     public class MonsterReader : IMonsterReader
     {
@@ -31,9 +33,9 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
-        public bool TryReadNextMonster(out Monster output)
+        public bool TryReadNextMonster(out MonsterData output)
         {
-            output = new Monster();
+            output = new MonsterData();
             if (reader.EndOfStream == true)
             {
                 endOfFile = true;

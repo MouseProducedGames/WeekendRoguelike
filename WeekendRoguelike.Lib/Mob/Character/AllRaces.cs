@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WeekendRoguelike.Mob.IO;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.Mob.Character
 {
     public static class AllRaces
     {

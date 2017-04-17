@@ -1,6 +1,8 @@
-﻿namespace WeekendRoguelike
+﻿using WeekendRoguelike.Mob.Character;
+
+namespace WeekendRoguelike.Mob.Monster
 {
-    public struct Monster
+    public struct MonsterData
     {
         #region Private Fields
 
