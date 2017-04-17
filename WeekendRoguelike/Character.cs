@@ -21,7 +21,20 @@ namespace WeekendRoguelike
 
         public IMobController Controller { get => controller; set => controller = value; }
         public CharacterEntity EntityData { get => entityData; set => entityData = value; }
-        public Map OnMap { get => onMap; set => onMap = value; }
+
+        public Map OnMap
+        {
+            get => onMap;
+            set
+            {
+                if (onMap != null)
+                    onMap.RemoveCharacter(this);
+                onMap = value;
+                if (onMap != null)
+                    onMap.AddCharacter(this);
+            }
+        }
+
         public Point Position { get => position; set => position = value; }
 
         #endregion Public Properties
@@ -38,7 +51,13 @@ namespace WeekendRoguelike
             if (onMap.TryMove(this, newPosition) == false)
                 return false;
 
+            position = newPosition;
             return true;
+        }
+
+        public void Update()
+        {
+            controller.Update(this);
         }
 
         #endregion Public Methods

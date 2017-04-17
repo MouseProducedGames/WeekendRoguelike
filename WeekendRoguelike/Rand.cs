@@ -27,6 +27,16 @@ namespace WeekendRoguelike
             return rand.Next(min, max);
         }
 
+        public static Point NextPoint()
+        {
+            return new Point(NextInt(), NextInt());
+        }
+
+        public static Point NextPoint(int width, int length)
+        {
+            return new Point(NextInt(width), NextInt(length));
+        }
+
         #endregion Public Methods
     }
 }
