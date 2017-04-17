@@ -69,7 +69,17 @@ namespace WeekendRoguelike
 
         private static bool TryMove(IMob mob, Point newPosition)
         {
-            return mob.TryMove(newPosition);
+            if (mob.TryMove(newPosition) == false)
+            {
+                if (mob.OnMap.TryGetCharacterAt(newPosition, out var otherCharacter) == true &&
+                    mob.IsEnemy(otherCharacter) == true)
+                {
+                    CombatHelper.SingleAttack(mob, otherCharacter);
+                    return true;
+                }
+                return false;
+            }
+            return true;
         }
 
         #endregion Private Methods

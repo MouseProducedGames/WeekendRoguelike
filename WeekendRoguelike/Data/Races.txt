@@ -1,2 +1,11 @@
-﻿[Human]
+﻿[Dwarf]
+Strength: 100
+
+[Elf]
+Strength: 100
+
+[Halfling]
+Strength: 100
+
+[Human]
 Strength: 100

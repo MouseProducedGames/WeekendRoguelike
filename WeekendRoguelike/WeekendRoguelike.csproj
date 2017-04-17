@@ -45,6 +45,8 @@
     <Compile Include="AllMonsters.cs" />
     <Compile Include="AllCharacterClasses.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="CombatHelper.cs" />
+    <Compile Include="FormulaHelper.cs" />
     <Compile Include="ICommandInput.cs" />
     <Compile Include="IMobController.cs" />
     <Compile Include="CharacterFactory.cs" />

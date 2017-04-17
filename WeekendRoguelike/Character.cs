@@ -19,7 +19,10 @@ namespace WeekendRoguelike
 
         #region Public Properties
 
+        public bool Alive => EntityData.Alive;
+
         public IMobController Controller { get => controller; set => controller = value; }
+
         public CharacterEntity EntityData { get => entityData; set => entityData = value; }
 
         public Map OnMap
@@ -40,6 +43,27 @@ namespace WeekendRoguelike
         #endregion Public Properties
 
         #region Public Methods
+
+        public bool IsEnemy(Character otherCharacter)
+        {
+            switch (Controller.CommandProvider)
+            {
+                case PlayerCommandInput pci:
+                    return otherCharacter.Controller.CommandProvider is
+                        MonsterCommandInput;
+
+                default:
+                    return (otherCharacter.Controller.CommandProvider is
+                        MonsterCommandInput) == false;
+            }
+        }
+
+        public void ReceiveDamage(int damageTotal)
+        {
+            entityData.ReceiveDamage(damageTotal);
+            if (Alive == false)
+                onMap.RemoveCharacter(this);
+        }
 
         public bool TryMove(Point newPosition)
         {

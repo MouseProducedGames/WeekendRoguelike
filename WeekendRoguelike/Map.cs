@@ -18,8 +18,9 @@ namespace WeekendRoguelike
 
         #region Private Fields
 
-        private HashSet<Character> allCharacters =
-            new HashSet<Character>();
+        private HashSet<Character> addCharacters = new HashSet<Character>();
+        private HashSet<Character> allCharacters = new HashSet<Character>();
+        private HashSet<Character> removeCharacters = new HashSet<Character>();
 
         #endregion Private Fields
 
@@ -37,7 +38,7 @@ namespace WeekendRoguelike
 
         public bool AddCharacter(Character newCharacter)
         {
-            return allCharacters.Add(newCharacter);
+            return addCharacters.Add(newCharacter);
         }
 
         public IEnumerable<Character> AllCharacters()
@@ -80,7 +81,7 @@ namespace WeekendRoguelike
 
         public bool RemoveCharacter(Character removeCharacter)
         {
-            return allCharacters.Remove(removeCharacter);
+            return removeCharacters.Add(removeCharacter);
         }
 
         public bool TryGetCharacterAt(Point at, out Character characterAt)
@@ -120,6 +121,13 @@ namespace WeekendRoguelike
 
         public void Update()
         {
+            foreach (var removeCharacter in removeCharacters)
+                allCharacters.Remove(removeCharacter);
+            removeCharacters.Clear();
+            foreach (var addCharacter in addCharacters)
+                allCharacters.Add(addCharacter);
+            addCharacters.Clear();
+
             foreach (var character in allCharacters)
             {
                 character.Update();

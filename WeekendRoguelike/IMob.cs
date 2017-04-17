@@ -13,6 +13,7 @@
         #region Public Methods
 
         bool TryMove(Point newPosition);
+        bool IsEnemy(Character otherCharacter);
 
         #endregion Public Methods
     }
