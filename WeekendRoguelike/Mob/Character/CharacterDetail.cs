@@ -8,9 +8,9 @@ namespace WeekendRoguelike
 
         public enum StatType
         {
+            Health,
             Strength,
             Agility,
-            Health,
             Coordination
         }
 

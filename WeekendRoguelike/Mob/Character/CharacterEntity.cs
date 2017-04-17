@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace WeekendRoguelike
 {
@@ -31,6 +32,31 @@ namespace WeekendRoguelike
                 CharacterDetail.StatType.Health,
                 stats.GetStatValue(CharacterDetail.StatType.Health) -
                 damageTotal);
+        }
+
+        public string StatString()
+        {
+            var stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < CharacterStats.Count; ++i)
+            {
+                int curStat = stats.GetStatValue((CharacterDetail.StatType)i);
+                int maxStat = maxStats.GetStatValue((CharacterDetail.StatType)i);
+                stringBuilder.Append(
+                    ((CharacterDetail.StatType)i).ToString().Substring(0, 2));
+                stringBuilder.Append(": ");
+                stringBuilder.Append(curStat);
+                if (curStat != maxStat)
+                {
+                    stringBuilder.Append('/');
+                    stringBuilder.Append(maxStat);
+                }
+                stringBuilder.Append(' ');
+            }
+
+            stringBuilder.Length -= 1;
+
+            return stringBuilder.ToString();
         }
 
         #endregion Public Methods

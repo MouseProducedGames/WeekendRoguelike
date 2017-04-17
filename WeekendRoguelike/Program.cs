@@ -10,8 +10,8 @@ namespace WeekendRoguelike
 
         private static void Main(string[] args)
         {
-            Console.SetWindowSize(80, 25);
-            Console.SetBufferSize(80, 26);
+            Console.SetWindowSize(80, 30);
+            Console.SetBufferSize(80, 31);
             Console.CursorSize = 1;
             Console.CursorVisible = false;
 
@@ -22,6 +22,7 @@ namespace WeekendRoguelike
 
             Map map = new Map(80, 25);
 
+            Character playerCharacter;
             {
                 var info = new CharacterFactory.FactoryInfo();
                 info.RaceData = AllRaces.GetAllNameRacePairs().First().Value;
@@ -29,9 +30,9 @@ namespace WeekendRoguelike
 
                 var factory = new CharacterFactory();
 
-                Character playerEntity = factory.Create(info);
-                playerEntity.OnMap = map;
-                playerEntity.Position = map.GetRandomValidPoint(playerEntity);
+                playerCharacter = factory.Create(info);
+                playerCharacter.OnMap = map;
+                playerCharacter.Position = map.GetRandomValidPoint(playerCharacter);
             }
 
             {
@@ -40,9 +41,9 @@ namespace WeekendRoguelike
 
                 var factory = new MonsterFactory();
 
-                Character monsterEntity = factory.Create(info);
-                monsterEntity.OnMap = map;
-                monsterEntity.Position = map.GetRandomValidPoint(monsterEntity);
+                Character monsterCharacter = factory.Create(info);
+                monsterCharacter.OnMap = map;
+                monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter);
             }
 
             while (Input.GetInput.Key != ConsoleKey.Escape)
@@ -58,6 +59,8 @@ namespace WeekendRoguelike
                         default: Console.Write('z'); break;
                     }
                 }
+                Console.SetCursorPosition(1, 29);
+                Console.Write(playerCharacter.EntityData.StatString());
                 Console.SetCursorPosition(0, 0);
                 Input.Update();
                 map.Update();
