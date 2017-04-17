@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WeekendRoguelike
+{
+    public class Character : IMob
+    {
+        #region Private Fields
+
+        private IMobController controller;
+        private CharacterEntity entityData;
+        private Map onMap;
+        private Point position;
+
+        #endregion Private Fields
+
+        #region Public Properties
+
+        public IMobController Controller { get => controller; set => controller = value; }
+        public CharacterEntity EntityData { get => entityData; set => entityData = value; }
+        public Map OnMap { get => onMap; set => onMap = value; }
+        public Point Position { get => position; set => position = value; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public bool TryMove(Point newPosition)
+        {
+            Displacement disp = newPosition - position;
+            if (Math.Abs(disp.X) > 1 ||
+                Math.Abs(disp.Y) > 1)
+                return false;
+
+            if (onMap.TryMove(this, newPosition) == false)
+                return false;
+
+            return true;
+        }
+
+        #endregion Public Methods
+    }
+}

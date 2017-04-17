@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace WeekendRoguelike
 {
-    public class CharacterFactory
+    public class MonsterFactory
     {
         #region Public Methods
 
-        public Character Create(FactoryInfo info)
+        public Character Create(FacctoryInfo info)
         {
-            Character output = new Character();
+            var output = new Character();
 
-            CharacterEntity entityData = new CharacterEntity();
+            var entityData = new CharacterEntity();
 
             CharacterStats maxStats = new CharacterStats();
-            maxStats = info.RaceData.Stats + info.ClassData.Stats;
+
+            maxStats = info.MonsterData.Stats;
+
             entityData.MaxStats = maxStats;
             entityData.Stats = maxStats;
 
@@ -25,7 +27,7 @@ namespace WeekendRoguelike
 
             output.Controller = new MobController()
             {
-                CommandProvider = new PlayerCommandInput()
+                CommandProvider = new MonsterCommandInput()
             };
             return output;
         }
@@ -34,19 +36,17 @@ namespace WeekendRoguelike
 
         #region Public Structs
 
-        public struct FactoryInfo
+        public struct FacctoryInfo
         {
             #region Private Fields
 
-            private CharacterClass classData;
-            private Race raceData;
+            private Monster monsterData;
 
             #endregion Private Fields
 
             #region Public Properties
 
-            public CharacterClass ClassData { get => classData; set => classData = value; }
-            public Race RaceData { get => raceData; set => raceData = value; }
+            public Monster MonsterData { get => monsterData; set => monsterData = value; }
 
             #endregion Public Properties
         }
