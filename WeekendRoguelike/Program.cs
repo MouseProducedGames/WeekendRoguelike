@@ -8,6 +8,24 @@ namespace WeekendRoguelike
     {
         #region Private Methods
 
+        private static void DrawScreen(Map map, Character playerCharacter)
+        {
+            Console.Clear();
+            foreach (var character in map.AllCharacters())
+            {
+                Point drawPoint = character.Position;
+                Console.SetCursorPosition(drawPoint.X, drawPoint.Y);
+                switch (character.Controller.CommandProvider)
+                {
+                    case PlayerCommandInput pci: Console.Write('@'); break;
+                    default: Console.Write('z'); break;
+                }
+            }
+            Console.SetCursorPosition(1, 29);
+            Console.Write(playerCharacter.EntityData.StatString());
+            Console.SetCursorPosition(0, 0);
+        }
+
         private static void Main(string[] args)
         {
             Console.SetWindowSize(80, 30);
@@ -48,23 +66,29 @@ namespace WeekendRoguelike
 
             while (Input.GetInput.Key != ConsoleKey.Escape)
             {
-                Console.Clear();
-                foreach (var character in map.AllCharacters())
-                {
-                    Point drawPoint = character.Position;
-                    Console.SetCursorPosition(drawPoint.X, drawPoint.Y);
-                    switch (character.Controller.CommandProvider)
-                    {
-                        case PlayerCommandInput pci: Console.Write('@'); break;
-                        default: Console.Write('z'); break;
-                    }
-                }
-                Console.SetCursorPosition(1, 29);
-                Console.Write(playerCharacter.EntityData.StatString());
-                Console.SetCursorPosition(0, 0);
+                DrawScreen(map, playerCharacter);
                 Input.Update();
                 map.Update();
+
+                if (map.AllCharacters().Count() == 1)
+                {
+                    DrawScreen(map, playerCharacter);
+                    break;
+                }
             }
+            if (playerCharacter.Alive)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(36, 20);
+                Console.WriteLine("You won!");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(36, 20);
+                Console.WriteLine("You lost.");
+            }
+            Console.ReadKey(true);
         }
 
         #endregion Private Methods
