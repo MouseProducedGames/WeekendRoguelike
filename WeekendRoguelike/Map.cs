@@ -49,6 +49,14 @@ namespace WeekendRoguelike
             }
         }
 
+        public void Draw()
+        {
+            foreach (var character in allCharacters)
+            {
+                character.Draw();
+            }
+        }
+
         public Point GetRandomValidPoint(Character forCharacter)
         {
             Point output;

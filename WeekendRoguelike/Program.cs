@@ -11,32 +11,23 @@ namespace WeekendRoguelike
         private static void DrawScreen(Map map, Character playerCharacter)
         {
             Console.Clear();
-            foreach (var character in map.AllCharacters())
-            {
-                Point drawPoint = character.Position;
-                Console.SetCursorPosition(drawPoint.X, drawPoint.Y);
-                switch (character.Controller.CommandProvider)
-                {
-                    case PlayerCommandInput pci: Console.Write('@'); break;
-                    default: Console.Write('z'); break;
-                }
-            }
+            map.Draw();
             Console.SetCursorPosition(1, 29);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.Write(playerCharacter.EntityData.StatString());
             Console.SetCursorPosition(0, 0);
         }
 
         private static void Main(string[] args)
         {
-            Console.SetWindowSize(80, 30);
-            Console.SetBufferSize(80, 31);
-            Console.CursorSize = 1;
-            Console.CursorVisible = false;
-
             string startPath = Directory.GetCurrentDirectory();
+
             AllRaces.LoadRaces(Path.Combine(startPath, "Data", "Races.txt"));
             AllCharacterClasses.LoadClasses(Path.Combine(startPath, "Data", "Classes.txt"));
             AllMonsters.LoadMonsters(Path.Combine(startPath, "Data", "Monsters.txt"));
+
+            Display.SetInstance(new ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
 
             Map map = new Map(80, 25);
 

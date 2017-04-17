@@ -10,8 +10,11 @@ namespace WeekendRoguelike
     {
         #region Private Fields
 
+        private CharacterClass characterClass;
+        private Race characterRace;
         private IMobController controller;
         private CharacterEntity entityData;
+        private Display.ICharacterGraphicsWrapper graphics;
         private Map onMap;
         private Point position;
 
@@ -21,9 +24,13 @@ namespace WeekendRoguelike
 
         public bool Alive => EntityData.Alive;
 
+        public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
+        public Race CharacterRace { get => characterRace; set => characterRace = value; }
         public IMobController Controller { get => controller; set => controller = value; }
 
         public CharacterEntity EntityData { get => entityData; set => entityData = value; }
+
+        public Display.ICharacterGraphicsWrapper Graphics { get => graphics; set => graphics = value; }
 
         public Map OnMap
         {
@@ -43,6 +50,12 @@ namespace WeekendRoguelike
         #endregion Public Properties
 
         #region Public Methods
+
+        public void Draw()
+        {
+            graphics.Update(this);
+            graphics.Draw();
+        }
 
         public bool IsEnemy(Character otherCharacter)
         {

@@ -29,6 +29,9 @@ namespace WeekendRoguelike
             {
                 CommandProvider = new MonsterCommandInput()
             };
+
+            output.Graphics = Display.Instance.CreateGraphicsWrapper(info.MonsterData.Name);
+
             return output;
         }
 

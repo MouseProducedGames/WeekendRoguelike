@@ -1,0 +1,17 @@
+﻿// Classes
+
+[Barbarian]
+Symbol: b
+
+[Rogue]
+Symbol: r
+
+[Warrior]
+Symbol: w
+
+// Monsters
+
+[Zombie]
+Symbol: z
+Foreground: Green
+Background: Black

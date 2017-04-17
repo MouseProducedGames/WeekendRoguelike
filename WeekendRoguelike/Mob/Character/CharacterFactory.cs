@@ -14,6 +14,9 @@ namespace WeekendRoguelike
         {
             Character output = new Character();
 
+            output.CharacterRace = info.RaceData;
+            output.CharacterClass = info.ClassData;
+
             CharacterEntity entityData = new CharacterEntity();
 
             CharacterStats maxStats = new CharacterStats();
@@ -25,8 +28,11 @@ namespace WeekendRoguelike
 
             output.Controller = new MobController()
             {
-                CommandProvider = new PlayerCommandInput()
+                CommandProvider = new PlayerCommandInput(),
             };
+
+            output.Graphics = Display.Instance.CreateGraphicsWrapper(output);
+
             return output;
         }
 
