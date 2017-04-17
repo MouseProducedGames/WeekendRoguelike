@@ -1,103 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using WeekendRoguelike.UI;
-using WeekendRoguelike.UI.Monster;
-using WeekendRoguelike.UI.Player;
 
 namespace WeekendRoguelike.Mob.Character
 {
-    public class CharacterData : IMob
+    public class CharacterData
     {
         #region Private Fields
 
-        private CharacterClass characterClass;
-        private Race characterRace;
-        private IMobController controller;
-        private CharacterEntity entityData;
-        private Display.ICharacterGraphicsWrapper graphics;
-        private Map onMap;
-        private Point position;
+        private CharacterStats maxStats;
+        private CharacterStats stats;
 
         #endregion Private Fields
 
         #region Public Properties
 
-        public bool Alive => EntityData.Alive;
-
-        public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
-        public Race CharacterRace { get => characterRace; set => characterRace = value; }
-        public IMobController Controller { get => controller; set => controller = value; }
-
-        public CharacterEntity EntityData { get => entityData; set => entityData = value; }
-
-        public Display.ICharacterGraphicsWrapper Graphics { get => graphics; set => graphics = value; }
-
-        public Map OnMap
+        public bool Alive
         {
-            get => onMap;
-            set
-            {
-                if (onMap != null)
-                    onMap.RemoveCharacter(this);
-                onMap = value;
-                if (onMap != null)
-                    onMap.AddCharacter(this);
-            }
+            get => Stats.GetStatValue(CharacterDetail.StatType.Health) > 0;
         }
 
-        public Point Position { get => position; set => position = value; }
+        public CharacterStats MaxStats { get => maxStats; set => maxStats = value; }
+        public CharacterStats Stats { get => stats.GetCopy(); set => stats.Copy(value); }
 
         #endregion Public Properties
 
         #region Public Methods
 
-        public void Draw()
-        {
-            graphics.Update(this);
-            graphics.Draw();
-        }
-
-        public bool IsEnemy(CharacterData otherCharacter)
-        {
-            switch (Controller.CommandProvider)
-            {
-                case PlayerCommandInput pci:
-                    return otherCharacter.Controller.CommandProvider is
-                        MonsterCommandInput;
-
-                default:
-                    return (otherCharacter.Controller.CommandProvider is
-                        MonsterCommandInput) == false;
-            }
-        }
-
         public void ReceiveDamage(int damageTotal)
         {
-            entityData.ReceiveDamage(damageTotal);
-            if (Alive == false)
-                onMap.RemoveCharacter(this);
+            stats.SetStatValue(
+                CharacterDetail.StatType.Health,
+                stats.GetStatValue(CharacterDetail.StatType.Health) -
+                damageTotal);
         }
 
-        public bool TryMove(Point newPosition)
+        public string StatString()
         {
-            Displacement disp = newPosition - position;
-            if (Math.Abs(disp.X) > 1 ||
-                Math.Abs(disp.Y) > 1)
-                return false;
+            var stringBuilder = new StringBuilder();
 
-            if (onMap.TryMove(this, newPosition) == false)
-                return false;
+            for (int i = 0; i < CharacterStats.Count; ++i)
+            {
+                int curStat = stats.GetStatValue((CharacterDetail.StatType)i);
+                int maxStat = maxStats.GetStatValue((CharacterDetail.StatType)i);
+                stringBuilder.Append(
+                    ((CharacterDetail.StatType)i).ToString().Substring(0, 2));
+                stringBuilder.Append(": ");
+                stringBuilder.Append(curStat);
+                if (curStat != maxStat)
+                {
+                    stringBuilder.Append('/');
+                    stringBuilder.Append(maxStat);
+                }
+                stringBuilder.Append(' ');
+            }
 
-            position = newPosition;
-            return true;
-        }
+            stringBuilder.Length -= 1;
 
-        public void Update()
-        {
-            controller.Update(this);
+            return stringBuilder.ToString();
         }
 
         #endregion Public Methods

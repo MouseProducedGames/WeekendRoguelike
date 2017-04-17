@@ -19,9 +19,9 @@ namespace WeekendRoguelike
 
         #region Private Fields
 
-        private HashSet<CharacterData> addCharacters = new HashSet<CharacterData>();
-        private HashSet<CharacterData> allCharacters = new HashSet<CharacterData>();
-        private HashSet<CharacterData> removeCharacters = new HashSet<CharacterData>();
+        private HashSet<CharacterEntity> addCharacters = new HashSet<CharacterEntity>();
+        private HashSet<CharacterEntity> allCharacters = new HashSet<CharacterEntity>();
+        private HashSet<CharacterEntity> removeCharacters = new HashSet<CharacterEntity>();
 
         #endregion Private Fields
 
@@ -37,12 +37,12 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
-        public bool AddCharacter(CharacterData newCharacter)
+        public bool AddCharacter(CharacterEntity newCharacter)
         {
             return addCharacters.Add(newCharacter);
         }
 
-        public IEnumerable<CharacterData> AllCharacters()
+        public IEnumerable<CharacterEntity> AllCharacters()
         {
             foreach (var character in allCharacters)
             {
@@ -58,7 +58,7 @@ namespace WeekendRoguelike
             }
         }
 
-        public Point GetRandomValidPoint(CharacterData forCharacter)
+        public Point GetRandomValidPoint(CharacterEntity forCharacter)
         {
             Point output;
             while (Occupied(output = Rand.NextPoint(Width, Length), out var occupant) == true ||
@@ -66,7 +66,7 @@ namespace WeekendRoguelike
             return output;
         }
 
-        public bool Occupied(Point position, out CharacterData characterAt)
+        public bool Occupied(Point position, out CharacterEntity characterAt)
         {
             foreach (var otherCharacter in allCharacters)
             {
@@ -88,12 +88,12 @@ namespace WeekendRoguelike
                 ;
         }
 
-        public bool RemoveCharacter(CharacterData removeCharacter)
+        public bool RemoveCharacter(CharacterEntity removeCharacter)
         {
             return removeCharacters.Add(removeCharacter);
         }
 
-        public bool TryGetCharacterAt(Point at, out CharacterData characterAt)
+        public bool TryGetCharacterAt(Point at, out CharacterEntity characterAt)
         {
             if (PointInMap(at) == false)
             {
@@ -113,7 +113,7 @@ namespace WeekendRoguelike
             return false;
         }
 
-        public bool TryMove(CharacterData moveCharacter, Point to)
+        public bool TryMove(CharacterEntity moveCharacter, Point to)
         {
             if (PointInMap(to) == false)
                 return false;

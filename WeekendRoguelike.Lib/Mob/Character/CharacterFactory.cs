@@ -12,14 +12,14 @@ namespace WeekendRoguelike.Mob.Character
     {
         #region Public Methods
 
-        public CharacterData Create(FactoryInfo info)
+        public CharacterEntity Create(FactoryInfo info)
         {
-            CharacterData output = new CharacterData();
+            CharacterEntity output = new CharacterEntity();
 
             output.CharacterRace = info.RaceData;
             output.CharacterClass = info.ClassData;
 
-            CharacterEntity entityData = new CharacterEntity();
+            CharacterData entityData = new CharacterData();
 
             CharacterStats maxStats = new CharacterStats();
             maxStats = info.RaceData.Stats + info.ClassData.Stats;

@@ -8,7 +8,7 @@ namespace WeekendRoguelike
     {
         #region Public Methods
 
-        public static void SingleAttack(IMob attacker, CharacterData defender)
+        public static void SingleAttack(IMob attacker, CharacterEntity defender)
         {
             int attackerAttack = FormulaHelper.GetAttack(attacker);
             int defenderDefence = FormulaHelper.GetDefence(defender);

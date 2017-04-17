@@ -100,7 +100,7 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #region Public Methods
 
-            public void Update(CharacterData forCharacter)
+            public void Update(CharacterEntity forCharacter)
             {
                 Position = forCharacter.Position;
             }

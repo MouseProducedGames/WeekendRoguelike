@@ -6,7 +6,7 @@ namespace WeekendRoguelike.Mob
     {
         #region Public Properties
 
-        CharacterEntity EntityData { get; }
+        CharacterData EntityData { get; }
         Map OnMap { get; }
         Point Position { get; }
 
@@ -15,7 +15,7 @@ namespace WeekendRoguelike.Mob
         #region Public Methods
 
         bool TryMove(Point newPosition);
-        bool IsEnemy(CharacterData otherCharacter);
+        bool IsEnemy(CharacterEntity otherCharacter);
 
         #endregion Public Methods
     }

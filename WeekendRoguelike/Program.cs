@@ -11,7 +11,7 @@ namespace WeekendRoguelike
     {
         #region Private Methods
 
-        private static void DrawScreen(Map map, CharacterData playerCharacter)
+        private static void DrawScreen(Map map, CharacterEntity playerCharacter)
         {
             Console.Clear();
             map.Draw();
@@ -39,7 +39,7 @@ namespace WeekendRoguelike
 
             Map map = new Map(80, 25);
 
-            CharacterData playerCharacter;
+            CharacterEntity playerCharacter;
             {
                 var info = new CharacterFactory.FactoryInfo();
                 {
@@ -79,7 +79,7 @@ namespace WeekendRoguelike
 
                 var factory = new MonsterFactory();
 
-                CharacterData monsterCharacter = factory.Create(info);
+                CharacterEntity monsterCharacter = factory.Create(info);
                 monsterCharacter.OnMap = map;
                 monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter);
             }

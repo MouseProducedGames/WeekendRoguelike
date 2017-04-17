@@ -25,7 +25,7 @@ namespace WeekendRoguelike.UI
         {
             #region Public Methods
 
-            void Update(CharacterData forCharacter);
+            void Update(CharacterEntity forCharacter);
 
             #endregion Public Methods
         }
@@ -78,7 +78,7 @@ namespace WeekendRoguelike.UI
 
         public abstract IGraphicsWrapper CreateGraphicsWrapper();
 
-        public ICharacterGraphicsWrapper CreateGraphicsWrapper(CharacterData forCharacter)
+        public ICharacterGraphicsWrapper CreateGraphicsWrapper(CharacterEntity forCharacter)
         {
             return CharacterDisplayFactory.Create(forCharacter);
         }

@@ -12,7 +12,7 @@ namespace WeekendRoguelike.Mob.UI
     {
         #region Public Methods
 
-        public abstract Display.ICharacterGraphicsWrapper Create(CharacterData fromCharacter);
+        public abstract Display.ICharacterGraphicsWrapper Create(CharacterEntity fromCharacter);
 
         public abstract Display.ICharacterGraphicsWrapper Create(string name);
 

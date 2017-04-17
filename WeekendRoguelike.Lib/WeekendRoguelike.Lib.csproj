@@ -47,10 +47,10 @@
     <Compile Include="Map.cs" />
     <Compile Include="Mob\Character\AllCharacterClasses.cs" />
     <Compile Include="Mob\Character\AllRaces.cs" />
-    <Compile Include="Mob\Character\CharacterData.cs" />
+    <Compile Include="Mob\Character\CharacterEntity.cs" />
     <Compile Include="Mob\Character\CharacterClass.cs" />
     <Compile Include="Mob\Character\CharacterDetail.cs" />
-    <Compile Include="Mob\Character\CharacterEntity.cs" />
+    <Compile Include="Mob\Character\CharacterData.cs" />
     <Compile Include="Mob\Character\CharacterFactory.cs" />
     <Compile Include="Mob\Character\CharacterStats.cs" />
     <Compile Include="Mob\Character\Race.cs" />

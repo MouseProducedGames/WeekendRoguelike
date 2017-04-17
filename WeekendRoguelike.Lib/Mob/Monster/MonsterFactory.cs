@@ -13,11 +13,11 @@ namespace WeekendRoguelike.Mob.Monster
     {
         #region Public Methods
 
-        public CharacterData Create(FacctoryInfo info)
+        public CharacterEntity Create(FacctoryInfo info)
         {
-            var output = new CharacterData();
+            var output = new CharacterEntity();
 
-            var entityData = new CharacterEntity();
+            var entityData = new CharacterData();
 
             CharacterStats maxStats = new CharacterStats();
 

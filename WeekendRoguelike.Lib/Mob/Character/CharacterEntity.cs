@@ -1,62 +1,103 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using WeekendRoguelike.UI;
+using WeekendRoguelike.UI.Monster;
+using WeekendRoguelike.UI.Player;
 
 namespace WeekendRoguelike.Mob.Character
 {
-    public class CharacterEntity
+    public class CharacterEntity : IMob
     {
         #region Private Fields
 
-        private CharacterStats maxStats;
-        private CharacterStats stats;
+        private CharacterClass characterClass;
+        private Race characterRace;
+        private IMobController controller;
+        private CharacterData entityData;
+        private Display.ICharacterGraphicsWrapper graphics;
+        private Map onMap;
+        private Point position;
 
         #endregion Private Fields
 
         #region Public Properties
 
-        public bool Alive
+        public bool Alive => EntityData.Alive;
+
+        public CharacterClass CharacterClass { get => characterClass; set => characterClass = value; }
+        public Race CharacterRace { get => characterRace; set => characterRace = value; }
+        public IMobController Controller { get => controller; set => controller = value; }
+
+        public CharacterData EntityData { get => entityData; set => entityData = value; }
+
+        public Display.ICharacterGraphicsWrapper Graphics { get => graphics; set => graphics = value; }
+
+        public Map OnMap
         {
-            get => Stats.GetStatValue(CharacterDetail.StatType.Health) > 0;
+            get => onMap;
+            set
+            {
+                if (onMap != null)
+                    onMap.RemoveCharacter(this);
+                onMap = value;
+                if (onMap != null)
+                    onMap.AddCharacter(this);
+            }
         }
 
-        public CharacterStats MaxStats { get => maxStats; set => maxStats = value; }
-        public CharacterStats Stats { get => stats.GetCopy(); set => stats.Copy(value); }
+        public Point Position { get => position; set => position = value; }
 
         #endregion Public Properties
 
         #region Public Methods
 
-        public void ReceiveDamage(int damageTotal)
+        public void Draw()
         {
-            stats.SetStatValue(
-                CharacterDetail.StatType.Health,
-                stats.GetStatValue(CharacterDetail.StatType.Health) -
-                damageTotal);
+            graphics.Update(this);
+            graphics.Draw();
         }
 
-        public string StatString()
+        public bool IsEnemy(CharacterEntity otherCharacter)
         {
-            var stringBuilder = new StringBuilder();
-
-            for (int i = 0; i < CharacterStats.Count; ++i)
+            switch (Controller.CommandProvider)
             {
-                int curStat = stats.GetStatValue((CharacterDetail.StatType)i);
-                int maxStat = maxStats.GetStatValue((CharacterDetail.StatType)i);
-                stringBuilder.Append(
-                    ((CharacterDetail.StatType)i).ToString().Substring(0, 2));
-                stringBuilder.Append(": ");
-                stringBuilder.Append(curStat);
-                if (curStat != maxStat)
-                {
-                    stringBuilder.Append('/');
-                    stringBuilder.Append(maxStat);
-                }
-                stringBuilder.Append(' ');
+                case PlayerCommandInput pci:
+                    return otherCharacter.Controller.CommandProvider is
+                        MonsterCommandInput;
+
+                default:
+                    return (otherCharacter.Controller.CommandProvider is
+                        MonsterCommandInput) == false;
             }
+        }
 
-            stringBuilder.Length -= 1;
+        public void ReceiveDamage(int damageTotal)
+        {
+            entityData.ReceiveDamage(damageTotal);
+            if (Alive == false)
+                onMap.RemoveCharacter(this);
+        }
 
-            return stringBuilder.ToString();
+        public bool TryMove(Point newPosition)
+        {
+            Displacement disp = newPosition - position;
+            if (Math.Abs(disp.X) > 1 ||
+                Math.Abs(disp.Y) > 1)
+                return false;
+
+            if (onMap.TryMove(this, newPosition) == false)
+                return false;
+
+            position = newPosition;
+            return true;
+        }
+
+        public void Update()
+        {
+            controller.Update(this);
         }
 
         #endregion Public Methods
