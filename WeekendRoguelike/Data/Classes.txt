@@ -1,11 +1,17 @@
 ﻿[Barbarian]
+Health: 70
 Strength: 70
 Agility: 30
+Coordination: 30
 
 [Rogue]
+Health: 30
 Strength: 30
 Agility: 70
+Coordination: 70
 
 [Warrior]
+Health: 50
 Strength: 50
 Agility: 50
+Coordination: 50

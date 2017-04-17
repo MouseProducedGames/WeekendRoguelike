@@ -15,7 +15,7 @@ namespace WeekendRoguelike
         public static int GetAttack(IMob defender)
         {
             return defender.EntityData.Stats.GetStatValue(
-                CharacterDetail.StatType.Agility);
+                CharacterDetail.StatType.Coordination);
         }
 
         public static int GetDamage(IMob attacker)

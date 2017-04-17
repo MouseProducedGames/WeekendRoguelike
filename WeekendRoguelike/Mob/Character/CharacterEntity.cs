@@ -15,7 +15,7 @@ namespace WeekendRoguelike
 
         public bool Alive
         {
-            get => Stats.GetStatValue(CharacterDetail.StatType.Strength) > 0;
+            get => Stats.GetStatValue(CharacterDetail.StatType.Health) > 0;
         }
 
         public CharacterStats MaxStats { get => maxStats; set => maxStats = value; }
@@ -28,8 +28,8 @@ namespace WeekendRoguelike
         public void ReceiveDamage(int damageTotal)
         {
             stats.SetStatValue(
-                CharacterDetail.StatType.Strength,
-                stats.GetStatValue(CharacterDetail.StatType.Strength) -
+                CharacterDetail.StatType.Health,
+                stats.GetStatValue(CharacterDetail.StatType.Health) -
                 damageTotal);
         }
 

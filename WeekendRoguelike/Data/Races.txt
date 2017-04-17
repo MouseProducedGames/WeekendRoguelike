@@ -1,15 +1,29 @@
 ﻿[Dwarf]
-Strength: 120
+Health: 120
+Strength: 100
 Agility: 80
+Coordination: 100
 
 [Elf]
+Health: 80
 Strength: 80
 Agility: 120
+Coordination: 120
 
 [Halfling]
+Health: 60
 Strength: 60
 Agility: 140
+Coordination: 140
 
 [Human]
+Health: 100
 Strength: 100
 Agility: 100
+Coordination: 100
+
+[Orc]
+Health: 100
+Strength: 120
+Agility: 100
+Coordination: 80
