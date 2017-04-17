@@ -34,8 +34,29 @@ namespace WeekendRoguelike
             Character playerCharacter;
             {
                 var info = new CharacterFactory.FactoryInfo();
-                info.RaceData = AllRaces.GetAllNameRacePairs().First().Value;
-                info.ClassData = AllCharacterClasses.GetAllNameClassPairs().First().Value;
+                {
+                    Listbox listbox = Display.Instance.CreateListbox();
+                    listbox.Items = AllRaces.GetAllNameRacePairs().Select(a => (object)a.Value).ToArray();
+                    while (listbox.Confirmed == false)
+                    {
+                        listbox.Draw();
+                        Input.Update();
+                        listbox.Update();
+                    }
+                    info.RaceData = (Race)listbox.SelectedItem;
+                }
+                {
+                    Listbox listbox = Display.Instance.CreateListbox();
+                    listbox.Items = AllCharacterClasses.GetAllNameClassPairs().Select(a => (object)a.Value).ToArray();
+                    while (listbox.Confirmed == false)
+                    {
+                        listbox.Draw();
+                        Input.Update();
+                        listbox.Update();
+                    }
+                    info.ClassData = (CharacterClass)listbox.SelectedItem;
+                }
+                Console.Clear();
 
                 var factory = new CharacterFactory();
 

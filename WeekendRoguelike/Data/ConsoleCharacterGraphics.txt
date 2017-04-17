@@ -1,5 +1,10 @@
 ﻿// Classes
 
+[Assassin]
+Symbol: a
+Foreground: Yellow
+Background: Black
+
 [Barbarian]
 Symbol: b
 Foreground: Red
@@ -10,8 +15,8 @@ Symbol: r
 Foreground: Yellow
 Background: Black
 
-[Warrior]
-Symbol: w
+[Fighter]
+Symbol: f
 Foreground: Gray
 Background: Black
 

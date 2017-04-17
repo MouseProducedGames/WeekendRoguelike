@@ -1,4 +1,10 @@
-﻿[Barbarian]
+﻿[Assassin]
+Health: 30
+Strength: 50
+Agility: 50
+Coordination: 70
+
+[Barbarian]
 Health: 70
 Strength: 70
 Agility: 30
@@ -10,7 +16,7 @@ Strength: 30
 Agility: 70
 Coordination: 70
 
-[Warrior]
+[Fighter]
 Health: 50
 Strength: 50
 Agility: 50

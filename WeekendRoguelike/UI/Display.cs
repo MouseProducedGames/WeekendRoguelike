@@ -95,6 +95,8 @@ namespace WeekendRoguelike
             return CharacterDisplayFactory.Create(name);
         }
 
+        public abstract Listbox CreateListbox();
+
         #endregion Public Methods
     }
 

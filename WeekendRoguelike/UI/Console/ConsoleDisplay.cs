@@ -30,6 +30,11 @@ namespace WeekendRoguelike
             return new GraphicsWrapperImpl(CreateGraphicsData<Graphics>());
         }
 
+        public override Listbox CreateListbox()
+        {
+            return new ConsoleListbox();
+        }
+
         public void Draw(Graphics item)
         {
             Console.SetCursorPosition(item.Position.X, item.Position.Y);
