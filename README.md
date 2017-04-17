@@ -2,7 +2,7 @@
 A free- and open-source Roguelike in the classic style done as a casual, weekend/free time project.
 
 # Days of Progress
-2 Day
+2 Days
 
 # Tagline for the day
 Not quite as barebones as Day 1. Still very barebones.
