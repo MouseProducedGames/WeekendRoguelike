@@ -71,7 +71,7 @@ namespace WeekendRoguelike.MapSystem.UI
             LoadGraphics(new MapConsoleGraphicsReader(File.OpenRead(filename)));
         }
 
-        public static bool TryGetCharacterGraphics(string name, out ConsoleDisplay.Graphics g)
+        public static bool TryGetMapGraphics(string name, out ConsoleDisplay.Graphics g)
         {
             return graphicsLookup.TryGetValue(name.ToUpper(), out g);
         }
