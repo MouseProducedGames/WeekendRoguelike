@@ -1,4 +1,5 @@
 ﻿using System;
+using WeekendRoguelike.AI.Sight;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
 using WeekendRoguelike.Mob.Character;
@@ -90,6 +91,15 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
         #endregion Public Methods
 
+        #region Private Methods
+
+        private void Draw(Point drawAt, object darker)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Private Methods
+
         #region Public Structs
 
         public struct Graphics : IEquatable<Graphics>
@@ -120,6 +130,16 @@ namespace WeekendRoguelike.UI.ConsoleUI
             #region Public Properties
 
             public ConsoleColor BackgroundColour { get => backgroundColour; set => backgroundColour = value; }
+
+            public Graphics Darker
+            {
+                get
+                {
+                    return new Graphics(symbol, foregroundColour.Darker(),
+                        backgroundColour.Darker());
+                }
+            }
+
             public ConsoleColor ForegroundColour { get => foregroundColour; set => foregroundColour = value; }
             public char Symbol { get => symbol; set => symbol = value; }
 
@@ -221,8 +241,20 @@ namespace WeekendRoguelike.UI.ConsoleUI
                 if (drawAt.X < 0 || drawAt.X > 24 ||
                     drawAt.Y < 0 || drawAt.Y > 25)
                     return;
-                if (viewpointCharacter.Visibility[Position.X, Position.Y])
-                    Display.GetInstanceAs<ConsoleDisplay>().Draw(drawAt, this.data);
+                switch (viewpointCharacter.Visibility[Position.X, Position.Y])
+                {
+                    case VisibilityState.Visible:
+                        Display.GetInstanceAs<ConsoleDisplay>()
+                            .Draw(drawAt, this.data);
+                        break;
+
+                    case VisibilityState.Seen:
+                        {
+                            Display.GetInstanceAs<ConsoleDisplay>()
+                            .Draw(drawAt, this.data.Darker);
+                            break;
+                        }
+                }
             }
 
             #endregion Public Methods
@@ -257,17 +289,32 @@ namespace WeekendRoguelike.UI.ConsoleUI
                 for (int y = -12; y <= 12; ++y)
                 {
                     int yp = viewpointPosition.Y + y;
-                    if (yp < 0 || yp >= length)
-                        continue;
                     for (int x = -12; x <= 12; ++x)
                     {
                         int xp = viewpointPosition.X + x;
-                        if (xp < 0 || xp >= width)
+                        if (yp < 0 || yp >= length ||
+                            xp < 0 || xp >= width)
+                        {
+                            instance.Draw(12 + x, 12 + y, new Graphics());
                             continue;
-                        if (viewpointCharacter.Visibility[xp, yp])
-                            instance.Draw(12 + x, 12 + y, graphicsMap[yp, xp]);
-                        else
-                            instance.Draw(12 + x, 12 + y, new Graphics(' ', ConsoleColor.White, ConsoleColor.Black));
+                        }
+                        switch (viewpointCharacter.Visibility[xp, yp])
+                        {
+                            case VisibilityState.Visible:
+                                instance.Draw(12 + x, 12 + y,
+                                    graphicsMap[yp, xp]);
+                                break;
+
+                            case VisibilityState.Seen:
+                                instance.Draw(12 + x, 12 + y,
+                                    graphicsMap[yp, xp].Darker);
+                                break;
+
+                            default:
+                                instance.Draw(12 + x, 12 + y,
+                                    new Graphics());
+                                break;
+                        }
                     }
                 }
             }

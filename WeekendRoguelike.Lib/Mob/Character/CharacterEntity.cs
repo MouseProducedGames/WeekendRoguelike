@@ -140,7 +140,7 @@ namespace WeekendRoguelike.Mob.Character
         public IEnumerable<IMob> VisibleMobs()
         {
             return OnMap.AllMobs().Where(
-                mob => visibility[mob.Position.X, mob.Position.Y]);
+                mob => visibility[mob.Position.X, mob.Position.Y] == VisibilityState.Visible);
         }
 
         #endregion Public Methods

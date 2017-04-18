@@ -14,7 +14,7 @@ namespace WeekendRoguelike.AI.Sight
 
         private CharacterEntity character;
         private int length;
-        private bool[,] visibilityMap;
+        private VisibilityState[,] visibilityMap;
         private int width;
 
         #endregion Private Fields
@@ -30,7 +30,7 @@ namespace WeekendRoguelike.AI.Sight
 
         #region Public Indexers
 
-        public bool this[int x, int y]
+        public VisibilityState this[int x, int y]
         {
             get
             {
@@ -53,22 +53,7 @@ namespace WeekendRoguelike.AI.Sight
                 return;
             }
 
-            int sightRange = 7;
-            int sightRangeSquared = sightRange * sightRange;
-            for (int y = -sightRange - 1; y <= sightRange + 1; ++y)
-            {
-                int yp = character.Position.Y + y;
-                if (yp < 0 || yp >= character.OnMap.Length)
-                    continue;
-                for (int x = -sightRange - 1; x <= sightRange + 1; ++x)
-                {
-                    int distSqr = x * x + y * y;
-                    int xp = character.Position.X + x;
-                    if (xp < 0 || xp >= character.OnMap.Width)
-                        continue;
-                    visibilityMap[yp, xp] = distSqr <= sightRangeSquared;
-                }
-            }
+            Scan(character);
         }
 
         #endregion Public Methods
@@ -79,8 +64,13 @@ namespace WeekendRoguelike.AI.Sight
         {
             width = character.OnMap.Width;
             length = character.OnMap.Length;
-            visibilityMap = new bool[length, width];
+            visibilityMap = new VisibilityState[length, width];
 
+            Scan(character);
+        }
+
+        private void Scan(CharacterEntity character)
+        {
             int sightRange = 7;
             int sightRangeSquared = sightRange * sightRange;
             for (int y = -sightRange - 1; y <= sightRange + 1; ++y)
@@ -94,7 +84,14 @@ namespace WeekendRoguelike.AI.Sight
                     int xp = character.Position.X + x;
                     if (xp < 0 || xp >= character.OnMap.Width)
                         continue;
-                    visibilityMap[yp, xp] = distSqr <= sightRangeSquared;
+                    if (distSqr <= sightRangeSquared)
+                    {
+                        visibilityMap[yp, xp] = VisibilityState.Visible;
+                    }
+                    else if (visibilityMap[yp, xp] == VisibilityState.Visible)
+                    {
+                        visibilityMap[yp, xp] = VisibilityState.Seen;
+                    }
                 }
             }
         }
