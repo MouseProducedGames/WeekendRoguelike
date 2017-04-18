@@ -140,12 +140,6 @@ namespace WeekendRoguelike.AI.Sight
                 {
                     double topLeftTileSlope = (rx + 0.5) / (relPosY - 0.5);
                     double bottomRightTileSlope = (rx - 0.5) / (relPosY + 0.5);
-                    // double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
-                    // double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5); 
-                    // double topLeftTileSlope = (relPosY + 0.5) / (rx - 0.5);
-                    // double bottomRightTileSlope = (relPosY - 0.5) / (rx + 0.5);
-                    // double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
-                    // double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5); 
                     // We've yet to reach the scan area.
                     if (bottomRightTileSlope > leftSlope)
                     {
@@ -157,10 +151,18 @@ namespace WeekendRoguelike.AI.Sight
                         break;
                     }
 
-                    Point p = GetAbsoluteCoordinates(x, iPosY);
+                    Point p;
+                    if (swap == true)
+                    {
+                        p = GetSwappedAbsoluteCoordinates(x, iPosY);
+                    }
+                    else
+                    {
+                        p = GetAbsoluteCoordinates(x, iPosY);
+                    }
                     if (character.OnMap.PointInMap(p))
                         visibilityMap[p.Y, p.X] = VisibilityState.Visible;
-
+                    
                     bool isCurrentBlocker = CheckBlocking(x, posY);
                     if (lastWasBlocker)
                     {
@@ -235,13 +237,13 @@ namespace WeekendRoguelike.AI.Sight
                         range: 0,
                         maxRange: 15.5);
 
-                    /* Octant(
+                    Octant(
                         posY: character.Position.Y + 0.5,
                         signX: x,
                         signY: y,
                         range: 0,
                         maxRange: 15.5,
-                        swap: true); */
+                        swap: true);
                 }
             }
 
