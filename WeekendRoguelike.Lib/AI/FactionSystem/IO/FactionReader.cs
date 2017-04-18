@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using WeekendRoguelike.AI.FactionSystem;
-using WeekendRoguelike.Mob.Character;
 
-namespace WeekendRoguelike.Mob.IO
+namespace WeekendRoguelike.AI.FactionSystem.IO
 {
-    public class RaceReader : IRaceReader
+    public class FactionReader : IFactionReader
     {
         #region Private Fields
 
@@ -17,7 +14,7 @@ namespace WeekendRoguelike.Mob.IO
 
         #region Public Constructors
 
-        public RaceReader(Stream stream)
+        public FactionReader(Stream stream)
         {
             if (stream.CanRead == false)
                 throw new ArgumentException("Cannot read from stream.");
@@ -34,12 +31,12 @@ namespace WeekendRoguelike.Mob.IO
 
         #region Public Methods
 
-        public bool TryReadNextRace(out Race output)
+        public bool TryReadNextFaction(out Faction output)
         {
-            output = new Race();
             if (reader.EndOfStream == true)
             {
                 endOfFile = true;
+                output = null;
                 return false;
             }
             while (reader.EndOfStream == false)
@@ -50,10 +47,8 @@ namespace WeekendRoguelike.Mob.IO
                 if (line[0] != '[')
                     continue;
 
-                output.Name = line.Substring(1, line.Length - 2);
-                CharacterStats stats = new CharacterStats();
-                List<Faction> factions =
-                    new List<Faction>();
+                output = line.Substring(1, line.Length - 2);
+                Faction currentOtherFaction = null;
                 while (string.IsNullOrWhiteSpace(line = reader.ReadLine()) == false)
                 {
                     line = line.Trim();
@@ -66,16 +61,16 @@ namespace WeekendRoguelike.Mob.IO
                     // Not a stat line.
                     if (split.Length != 2)
                         continue;
+
                     switch (split[0].Trim().ToUpper())
                     {
-                        case "FACTION": factions.Add(split[1].Trim()); break;
-                        default: stats.SetStatValue(CharacterDetail.StatTypeFromString(split[0]), int.Parse(split[1])); break;
+                        case "RELATIONSHIP": currentOtherFaction = split[1].Trim(); break;
+                        case "VALUE": Faction.SetRelationship(output, currentOtherFaction, int.Parse(split[1])); break;
                     }
                 }
-                output.Factions = factions.ToArray();
-                output.Stats = stats;
                 return true;
             }
+            output = null;
             return false;
         }
 

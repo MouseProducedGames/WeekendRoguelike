@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.Mob.Monster;
 
@@ -51,6 +53,8 @@ namespace WeekendRoguelike.Mob.IO
 
                 output.Name = line.Substring(1, line.Length - 2);
                 CharacterStats stats = new CharacterStats();
+                List<Faction> factions =
+                    new List<Faction>();
                 while (string.IsNullOrWhiteSpace(line = reader.ReadLine()) == false)
                 {
                     line = line.Trim();
@@ -63,8 +67,13 @@ namespace WeekendRoguelike.Mob.IO
                     // Not a stat line.
                     if (split.Length != 2)
                         continue;
-                    stats.SetStatValue(CharacterDetail.StatTypeFromString(split[0]), int.Parse(split[1]));
+                    switch (split[0].Trim().ToUpper())
+                    {
+                        case "FACTION": factions.Add(split[1].Trim()); break;
+                        default: stats.SetStatValue(CharacterDetail.StatTypeFromString(split[0]), int.Parse(split[1])); break;
+                    }
                 }
+                output.Factions = factions.ToArray();
                 output.Stats = stats;
                 return true;
             }

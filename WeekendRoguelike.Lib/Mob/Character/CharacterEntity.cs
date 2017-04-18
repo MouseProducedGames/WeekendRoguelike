@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.UI;
 using WeekendRoguelike.UI.Monster;
 using WeekendRoguelike.UI.Player;
@@ -17,6 +18,7 @@ namespace WeekendRoguelike.Mob.Character
         private Race characterRace;
         private IMobController controller;
         private CharacterData entityData;
+        private HashSet<Faction> factions;
         private Display.ICharacterGraphicsWrapper graphics;
         private Map onMap;
         private Point position;
@@ -33,6 +35,7 @@ namespace WeekendRoguelike.Mob.Character
 
         public CharacterData EntityData { get => entityData; set => entityData = value; }
 
+        public HashSet<Faction> Factions { get => factions; set => factions = value; }
         public Display.ICharacterGraphicsWrapper Graphics { get => graphics; set => graphics = value; }
 
         public Map OnMap
@@ -62,16 +65,22 @@ namespace WeekendRoguelike.Mob.Character
 
         public bool IsEnemy(CharacterEntity otherCharacter)
         {
-            switch (Controller.CommandProvider)
+            int sum = 0;
+            int total = 0;
+            foreach (var factionA in factions)
             {
-                case PlayerCommandInput pci:
-                    return otherCharacter.Controller.CommandProvider is
-                        MonsterCommandInput;
-
-                default:
-                    return (otherCharacter.Controller.CommandProvider is
-                        MonsterCommandInput) == false;
+                foreach (var factionB in otherCharacter.factions)
+                {
+                    int value;
+                    if (factionA.TryGetRelationshipValue(factionB, out value))
+                    {
+                        sum += value;
+                        ++total;
+                    }
+                }
             }
+            sum /= Math.Max(1, total);
+            return sum <= -50;
         }
 
         public void ReceiveDamage(int damageTotal)

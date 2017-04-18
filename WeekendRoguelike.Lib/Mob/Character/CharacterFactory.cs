@@ -35,6 +35,8 @@ namespace WeekendRoguelike.Mob.Character
 
             output.Graphics = Display.Instance.CreateGraphicsWrapper(output);
 
+            output.Factions = new HashSet<AI.FactionSystem.Faction>(info.RaceData.Factions);
+
             return output;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
 using WeekendRoguelike.UI.Monster;
@@ -34,6 +35,8 @@ namespace WeekendRoguelike.Mob.Monster
             };
 
             output.Graphics = Display.Instance.CreateGraphicsWrapper(info.MonsterData.Name);
+
+            output.Factions = new HashSet<Faction>(info.MonsterData.Factions);
 
             return output;
         }

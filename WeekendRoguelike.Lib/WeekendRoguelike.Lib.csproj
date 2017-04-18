@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\FactionSystem\AllFactions.cs" />
+    <Compile Include="AI\FactionSystem\IO\FactionReader.cs" />
+    <Compile Include="AI\FactionSystem\Faction.cs" />
+    <Compile Include="AI\FactionSystem\IO\IFactionReader.cs" />
     <Compile Include="CombatHelper.cs" />
     <Compile Include="Displacement.cs" />
     <Compile Include="FormulaHelper.cs" />

@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using WeekendRoguelike.AI.FactionSystem;
 
 namespace WeekendRoguelike.Mob.Character
 {
@@ -6,6 +9,7 @@ namespace WeekendRoguelike.Mob.Character
     {
         #region Private Fields
 
+        private HashSet<Faction> factions;
         private string name;
         private CharacterStats stats;
 
@@ -13,6 +17,7 @@ namespace WeekendRoguelike.Mob.Character
 
         #region Public Properties
 
+        public Faction[] Factions { get => factions.ToArray(); set => factions = new HashSet<Faction>(value); }
         public string Name { get => name; set => name = value; }
         public CharacterStats Stats { get => stats; set => stats = value; }
 
