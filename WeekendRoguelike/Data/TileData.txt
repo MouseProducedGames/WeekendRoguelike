@@ -6,6 +6,5 @@ BlocksSight: Diagonal
 [Floor]
 
 [Door]
-
-// BlocksSight: Cardinal
-// BlocksSight: Diagonal
+BlocksSight: Cardinal
+BlocksSight: Diagonal
