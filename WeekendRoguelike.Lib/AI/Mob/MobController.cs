@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.Mob;
 using WeekendRoguelike.UI;
 
-namespace WeekendRoguelike.Mob
+namespace WeekendRoguelike.AI.Mob
 {
     public class MobController : IMobController<WRCommand>
     {

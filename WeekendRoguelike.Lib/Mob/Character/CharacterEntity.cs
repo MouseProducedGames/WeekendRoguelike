@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeekendRoguelike.AI.FactionSystem;
+using WeekendRoguelike.AI.Mob;
 using WeekendRoguelike.UI;
 using WeekendRoguelike.UI.Monster;
 using WeekendRoguelike.UI.Player;

@@ -61,14 +61,14 @@
     <Compile Include="Mob\Character\Race.cs" />
     <Compile Include="UI\ICommandInput.cs" />
     <Compile Include="Mob\IMob.cs" />
-    <Compile Include="Mob\IMobController.cs" />
+    <Compile Include="AI\Mob\IMobController.cs" />
     <Compile Include="Mob\IO\CharacterClassReader.cs" />
     <Compile Include="Mob\IO\ICharacterClassReader.cs" />
     <Compile Include="Mob\IO\IMonsterReader.cs" />
     <Compile Include="Mob\IO\IRaceReader.cs" />
     <Compile Include="Mob\IO\MonsterReader.cs" />
     <Compile Include="Mob\IO\RaceReader.cs" />
-    <Compile Include="Mob\MobController.cs" />
+    <Compile Include="AI\Mob\MobController.cs" />
     <Compile Include="Mob\Monster\AllMonsters.cs" />
     <Compile Include="Mob\Monster\MonsterData.cs" />
     <Compile Include="UI\Monster\MonsterCommandInput.cs" />

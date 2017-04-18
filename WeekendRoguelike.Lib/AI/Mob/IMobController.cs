@@ -1,10 +1,15 @@
-﻿using WeekendRoguelike.UI;
+﻿using WeekendRoguelike.Mob;
+using WeekendRoguelike.UI;
 
-namespace WeekendRoguelike.Mob
+namespace WeekendRoguelike.AI.Mob
 {
     public interface IMobController
     {
+        #region Public Methods
+
         void Update(IMob mob);
+
+        #endregion Public Methods
     }
 
     public interface IMobController<TCommand> : IMobController
