@@ -124,9 +124,9 @@ namespace WeekendRoguelike.AI.Sight
                 int posY = range + character.Position.Y;
                 int relPosY = range;
                 int iPosY = relPosY + character.Position.Y;
-                int relend2 = 0;
-                int relstartX = range;
-                int endX = relend2 + character.Position.X;
+                int relendX = (int)(relPosY * leftSlope);
+                int relstartX = (int)Math.Ceiling(relPosY * rightSlope);
+                int endX = relendX + character.Position.X;
                 int startX = relstartX + character.Position.X;
                 bool lastWasBlocker = false;
                 double savedLeftSlope = leftSlope;
@@ -134,6 +134,8 @@ namespace WeekendRoguelike.AI.Sight
                 {
                     double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5);
                     double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
+
+                    // Clears up edge cases.
                     // We've yet to reach the scan area.
                     if (topLeftTileSlope > rightSlope)
                     {
