@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
 
@@ -99,6 +100,17 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
+        /// <summary>
+        /// Checks if the tile blocks any movement.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool Blocked(Point p)
+        {
+            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksMovement
+                != BlockDirections.None;
+        }
+
         public bool Changed(int x, int y)
         {
             return changeMap[y, x];
@@ -130,8 +142,14 @@ namespace WeekendRoguelike.MapSystem
         {
             Point output;
             while (Occupied(output = Rand.NextPoint(Width, Length), out var occupant) == true ||
+                Blocked(output) == true ||
                 PointInMap(output) == false) ;
             return output;
+        }
+
+        public TileData GetTileDataFor(Point to)
+        {
+            return AllTileData.GetTileData(this[to.X, to.Y].ID);
         }
 
         public bool Occupied(Point position, out CharacterEntity characterAt)
@@ -183,6 +201,52 @@ namespace WeekendRoguelike.MapSystem
 
         public bool TryMove(CharacterEntity moveCharacter, Point to)
         {
+            Displacement disp = to - moveCharacter.Position;
+
+            // Not sure that's a move, but ok. Should TryMove be called if you
+            // stay in the same position? Hmm...
+            if (disp.X == 0 && disp.Y == 0)
+                return true;
+
+            // If it were > 2, then that would be a teleport. In which case, the
+            // TileData restrictions on movement wouldn't matter.
+            if (disp.MagnitudeSquared <= 2)
+            {
+                // Very simple check.
+                if (Blocked(to))
+                    return false;
+
+                TileData tileData = GetTileDataFor(to);
+                if (tileData.BlocksMovement != BlockDirections.None)
+                {
+                    BlockDirections movingDir;
+                    // It has to be > 0, because we filtered that when we checked
+                    // that we were moving at all. It has to be either a
+                    // diagnonal or cardinal, as one is MS 2 and the other is MS
+                    // 1.
+                    if (disp.MagnitudeSquared == 2)
+                    {
+                        movingDir = BlockDirections.Diagonal;
+
+                        Point linear = moveCharacter.Position +
+                            new Displacement(0, disp.Y);
+                        Point sideways = moveCharacter.Position +
+                            new Displacement(disp.X, 0);
+                        // "to" is be definition one tile away.
+                        if (GetTileDataFor(linear)
+                            .BlocksMovement.MatchAll(movingDir) &&
+                            GetTileDataFor(sideways)
+                            .BlocksMovement.MatchAll(movingDir))
+                            return false;
+                    }
+                    else
+                        movingDir = BlockDirections.Cardinal;
+
+                    if (tileData.BlocksMovement == movingDir)
+                        return false;
+                }
+            }
+
             if (PointInMap(to) == false)
                 return false;
             foreach (var otherCharacter in allCharacters)
