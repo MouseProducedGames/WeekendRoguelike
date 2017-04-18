@@ -128,11 +128,11 @@ namespace WeekendRoguelike.AI.Sight
 
             for (; range <= maxRange; ++range, ++posY)
             {
-                double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y;
-                int startX = (int)Math.Round(relPosY * innerSlope) + character.Position.X;
+                double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y + 0.5;
+                int startX = (int)(relPosY * innerSlope) + character.Position.X;
                 int endX = (int)(relPosY * outerSlope) + character.Position.X;
                 bool lastWasBlocker = CheckBlocking(endX + 0.5, posY);
-                for (int x = endX; x <= startX; ++x)
+                for (int x = startX; x >= endX; --x)
                 {
                     bool isCurrentBlocker = CheckBlocking(x + 0.5, posY);
                     if (lastWasBlocker)
@@ -152,7 +152,7 @@ namespace WeekendRoguelike.AI.Sight
                                 pos.Y >= 0 && pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
 
-                            if (x < startX)
+                            if (x > endX)
                             {
                                 continue;
                             }
@@ -175,9 +175,8 @@ namespace WeekendRoguelike.AI.Sight
                             if (pos.X >= 0 && pos.X < width &&
                                 pos.Y >= 0 && pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
-
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)posY);
-                            Octant(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)(slopeDisp.X + 0.5) / (slopeDisp.Y + 0.5), swap: swap);
+                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY + 1.0));
+                            innerSlope = (slopeDisp.X) / (slopeDisp.Y);
                         }
                     }
                     else
@@ -196,10 +195,10 @@ namespace WeekendRoguelike.AI.Sight
                             if (pos.X >= 0 && pos.X < width &&
                                 pos.Y >= 0 && pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)posY + 1);
-                            innerSlope = (slopeDisp.X + 0.5) / (slopeDisp.Y + 0.5);
 
-                            if (x < startX)
+                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY));
+                            Octant(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)(slopeDisp.X) / (slopeDisp.Y), swap: swap);
+                            if (x > endX)
                             {
                                 continue;
                             }
