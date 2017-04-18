@@ -6,7 +6,7 @@ namespace WeekendRoguelike.Mob.Character
     {
         #region Public Fields
 
-        public const int Count = 4;
+        public const int Count = 5;
 
         #endregion Public Fields
 
@@ -16,6 +16,7 @@ namespace WeekendRoguelike.Mob.Character
         private int coordination;
         private int health;
         private int strength;
+        private int sightRange;
 
         #endregion Private Fields
 
@@ -25,6 +26,7 @@ namespace WeekendRoguelike.Mob.Character
         public int Coordination { get => coordination; set => coordination = value; }
         public int Health { get => health; set => health = value; }
         public int Strength { get => strength; set => strength = value; }
+        public int SightRange { get => sightRange; set => sightRange = value; }
 
         #endregion Public Properties
 
@@ -67,6 +69,7 @@ namespace WeekendRoguelike.Mob.Character
                 case CharacterDetail.StatType.Agility: return agility;
                 case CharacterDetail.StatType.Coordination: return coordination;
                 case CharacterDetail.StatType.Health: return health;
+                case CharacterDetail.StatType.SightRange: return sightRange;
                 default: throw new ArgumentOutOfRangeException(stat.ToString());
             }
         }
@@ -79,6 +82,7 @@ namespace WeekendRoguelike.Mob.Character
                 case CharacterDetail.StatType.Agility: agility = value; return;
                 case CharacterDetail.StatType.Coordination: coordination = value; return;
                 case CharacterDetail.StatType.Health: health = value; return;
+                case CharacterDetail.StatType.SightRange: sightRange = value; return;
                 default: throw new ArgumentOutOfRangeException(stat.ToString());
             }
         }

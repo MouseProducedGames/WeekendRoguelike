@@ -187,7 +187,7 @@ namespace WeekendRoguelike.AI.Sight
 
         private void Scan(CharacterEntity character)
         {
-            int sightRange = 7;
+            int sightRange = character.EntityData.Stats.SightRange;
             int sightRangeSquared = sightRange * sightRange;
             for (int y = -sightRange - 1; y <= sightRange + 1; ++y)
             {
@@ -222,13 +222,13 @@ namespace WeekendRoguelike.AI.Sight
                         range: 0,
                         signX: x,
                         signY: y,
-                        maxRange: 15.5);
+                        maxRange: sightRange + 0.5);
 
                     Octant(
                         range: 0,
                         signX: x,
                         signY: y,
-                        maxRange: 15.5,
+                        maxRange: sightRange + 0.5,
                         swap: true);
                 }
             }

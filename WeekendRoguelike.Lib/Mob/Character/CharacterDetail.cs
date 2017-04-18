@@ -11,7 +11,8 @@ namespace WeekendRoguelike.Mob.Character
             Health,
             Strength,
             Agility,
-            Coordination
+            Coordination,
+            SightRange
         }
 
         #endregion Public Enums

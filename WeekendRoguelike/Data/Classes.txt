@@ -1,23 +1,27 @@
 ﻿[Assassin]
-Health: 30
-Strength: 50
-Agility: 50
+Health		: 30
+Strength	: 50
+Agility		: 40
 Coordination: 70
+SightRange	: 2
 
 [Barbarian]
-Health: 70
-Strength: 70
-Agility: 30
+Health		: 70
+Strength	: 70
+Agility		: 30
 Coordination: 30
+SightRange	: 1
 
 [Rogue]
-Health: 30
-Strength: 30
-Agility: 70
-Coordination: 70
+Health		: 30
+Strength	: 30
+Agility		: 60
+Coordination: 60
+SightRange	: 3
 
 [Fighter]
 Health: 50
 Strength: 50
 Agility: 50
 Coordination: 50
+SightRange	: 1

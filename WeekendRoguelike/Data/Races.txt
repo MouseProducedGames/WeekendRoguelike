@@ -1,34 +1,39 @@
 ﻿[Dwarf]
-Health: 120
-Strength: 100
-Agility: 80
-Coordination: 100
-Faction: Living
+Health		: 120
+Strength	: 100
+Agility		: 70
+Coordination: 90
+SightRange	: 6
+Faction		: Living
 
 [Elf]
-Health: 80
-Strength: 80
-Agility: 120
+Health		: 70
+Strength	: 80
+Agility		: 120
 Coordination: 120
+SightRange	: 5
 Faction: Living
 
 [Halfling]
-Health: 60
-Strength: 60
-Agility: 140
+Health		: 60
+Strength	: 60
+Agility		: 130
 Coordination: 140
-Faction: Living
+SightRange	: 4
+Faction		: Living
 
 [Human]
-Health: 100
-Strength: 100
-Agility: 100
+Health		: 100
+Strength	: 100
+Agility		: 100
 Coordination: 100
-Faction: Living
+SightRange	: 3
+Faction		: Living
 
 [Orc]
-Health: 100
-Strength: 120
-Agility: 100
+Health		: 100
+Strength	: 120
+Agility		: 80
 Coordination: 80
-Faction: Living
+SightRange	: 6
+Faction		: Living
