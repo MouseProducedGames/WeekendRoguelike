@@ -37,9 +37,27 @@ namespace WeekendRoguelike.MapSystem
             mapGraphics = Display.Instance.CreateGraphicsWrapper(this);
         }
 
+        public Map(Tile[,] tiles)
+        {
+            Width = tiles.GetLength(1);
+            Length = tiles.GetLength(0);
+            changeMap = new bool[Length, Width];
+            TileMap = tiles;
+        }
+
         #endregion Public Constructors
 
         #region Public Properties
+
+        public Tile[,] TileMap
+        {
+            get => tileMap;
+            set
+            {
+                tileMap = value;
+                mapGraphics = Display.Instance.CreateGraphicsWrapper(this);
+            }
+        }
 
         public bool TileMapChanged { get => tileMapChanged; }
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WeekendRoguelike.DungeonGenerator.DataTypes;
 
-namespace WeekendRoguelike.DungeonTranslator.IO
+namespace WeekendRoguelike.DungeonTranslation.IO
 {
     public interface ITranslationReader
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WeekendRoguelike.DungeonTranslator.IO;
+using WeekendRoguelike.DungeonTranslation.IO;
 
-namespace WeekendRoguelike.DungeonTranslator
+namespace WeekendRoguelike.DungeonTranslation
 {
     public class DungeonTranslator
     {
@@ -64,6 +64,21 @@ namespace WeekendRoguelike.DungeonTranslator
                 instanceLookup.Add(filename, table);
             }
             return table;
+        }
+
+        public MapSystem.Tile[,] Convert(DungeonGenerator.DataTypes.TileMap from)
+        {
+            var output = new MapSystem.Tile[from.Length, from.Width];
+
+            for (int y = 0; y < from.Length; ++y)
+            {
+                for (int x = 0; x < from.Width; ++x)
+                {
+                    output[y, x] = this[from[x, y]];
+                }
+            }
+
+            return output;
         }
 
         #endregion Public Methods

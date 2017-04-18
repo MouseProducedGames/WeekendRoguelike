@@ -79,6 +79,14 @@
       <Project>{9a55b8d8-cdd3-41cd-87ca-d8a511820e58}</Project>
       <Name>WeekendRoguelike.DataTypes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WeekendRoguelike.DungeonGenerator\WeekendRoguelike.DungeonGenerator.csproj">
+      <Project>{898116B6-5314-43D8-BE04-44DB4AE45394}</Project>
+      <Name>WeekendRoguelike.DungeonGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeekendRoguelike.DungeonTranslator\WeekendRoguelike.DungeonTranslation.csproj">
+      <Project>{152A2E3A-DAA1-4CD3-AF90-F05A14A5C989}</Project>
+      <Name>WeekendRoguelike.DungeonTranslation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeekendRoguelike.Lib\WeekendRoguelike.Lib.csproj">
       <Project>{110fb817-ed72-4245-b76c-74ecc3f8ce1c}</Project>
       <Name>WeekendRoguelike.Lib</Name>

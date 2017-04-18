@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using WeekendRoguelike.AI.FactionSystem;
+using WeekendRoguelike.DungeonGenerator.Factory;
+using WeekendRoguelike.DungeonTranslation;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
 using WeekendRoguelike.Mob.Character;
@@ -42,7 +44,16 @@ namespace WeekendRoguelike
 
             Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
 
-            Map map = new Map(80, 25);
+            string dungeonFilename = "RoomAndCorridor.txt";
+            DungeonFactory dungeonFactory = new RoomAndCorridorFactory(
+                Path.Combine(startPath, "Data", "DungeonGenerator",
+                dungeonFilename));
+
+            string dungeonTranslateFilename = "TranslateTable.txt";
+            DungeonTranslator dungeonTranslator =
+                Path.Combine(startPath, "Data", "DungeonTranslator",
+                dungeonTranslateFilename);
+            Map map = new Map(dungeonTranslator.Convert(dungeonFactory.Create(80, 25)));
 
             CharacterEntity playerCharacter;
             {

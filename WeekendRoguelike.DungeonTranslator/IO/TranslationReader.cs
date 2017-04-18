@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using WeekendRoguelike.DungeonGenerator.DataTypes;
 
-namespace WeekendRoguelike.DungeonTranslator.IO
+namespace WeekendRoguelike.DungeonTranslation.IO
 {
     public class TranslationReader : ITranslationReader
     {

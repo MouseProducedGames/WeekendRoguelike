@@ -2,7 +2,7 @@
 using System.IO;
 using WeekendRoguelike.DungeonGenerator.DataTypes;
 
-namespace WeekendRoguelike.DungeonTranslator.IO
+namespace WeekendRoguelike.DungeonTranslation.IO
 {
     public class TranslationTable
     {
