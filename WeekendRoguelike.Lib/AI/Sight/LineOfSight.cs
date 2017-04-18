@@ -111,11 +111,11 @@ namespace WeekendRoguelike.AI.Sight
 
             for (; range <= maxRange; ++range, ++posY)
             {
-                double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y + 0.5;
-                int startX = (int)(relPosY * innerSlope) + character.Position.X;
+                double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y;
+                int startX = (int)Math.Round(relPosY * innerSlope) + character.Position.X;
                 int endX = (int)(relPosY * outerSlope) + character.Position.X;
-                bool lastWasBlocker = CheckBlocking(startX, posY);
-                for (int x = startX; x >= endX; --x)
+                bool lastWasBlocker = CheckBlocking(endX, posY);
+                for (int x = endX; x <= startX; ++x)
                 {
                     bool isCurrentBlocker = CheckBlocking(x + 0.5, posY);
                     if (lastWasBlocker)
@@ -127,7 +127,7 @@ namespace WeekendRoguelike.AI.Sight
                                 pos.Y >= 0 || pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
 
-                            if (x > endX)
+                            if (x < startX)
                             {
                                 continue;
                             }
@@ -142,31 +142,30 @@ namespace WeekendRoguelike.AI.Sight
                             if (pos.X >= 0 || pos.X < width &&
                                 pos.Y >= 0 || pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY + 1.0));
-                            innerSlope = (double)slopeDisp.X / slopeDisp.Y;
+
+                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)posY);
+                            OctantVertical(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)(slopeDisp.X + 0.5) / (slopeDisp.Y + 0.5));
                         }
                     }
                     else
                     {
                         if (isCurrentBlocker)
                         {
-
                             Point pos = GetAbsoluteCoordinates(x, (int)posY);
-                            if (pos.X >= 0 || pos.X < width &&
-                                pos.Y >= 0 || pos.Y < length)
+                            /* if (pos.X >= 0 || pos.X < width &&
+                                pos.Y >= 0 || pos.Y < length) */
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
+                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x - 1, (int)posY + 1);
+                            innerSlope = (slopeDisp.X + 0.5) / (slopeDisp.Y + 0.5);
 
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)posY);
-                            OctantVertical(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)slopeDisp.X / slopeDisp.Y);
-
-                            if (x > endX)
+                            /* if (x < startX)
                             {
                                 continue;
                             }
                             else
                             {
                                 return;
-                            }
+                            } */
                         }
                         else
                         {
