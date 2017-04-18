@@ -107,7 +107,7 @@ namespace WeekendRoguelike
                 Input.Update();
                 map.Update();
 
-                if (map.AllMobs().Count() == 1)
+                if (map.AllMobs().Count() <= 1)
                 {
                     DrawScreen(map, playerCharacter);
                     break;
