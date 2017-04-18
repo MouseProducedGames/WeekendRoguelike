@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.AI.Mob;
+using WeekendRoguelike.AI.Sight;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.UI;
 
@@ -19,6 +21,7 @@ namespace WeekendRoguelike.Mob.Character
         private Display.ICharacterGraphicsWrapper graphics;
         private Map onMap;
         private Point position;
+        private LineOfSight visibility;
 
         #endregion Private Fields
 
@@ -41,14 +44,22 @@ namespace WeekendRoguelike.Mob.Character
             set
             {
                 if (onMap != null)
+                {
+                    visibility = null;
                     onMap.RemoveCharacter(this);
+                }
                 onMap = value;
                 if (onMap != null)
+                {
+                    visibility = new LineOfSight(this);
                     onMap.AddCharacter(this);
+                }
             }
         }
 
         public Point Position { get => position; set => position = value; }
+
+        public LineOfSight Visibility => visibility;
 
         #endregion Public Properties
 
@@ -123,11 +134,13 @@ namespace WeekendRoguelike.Mob.Character
         public void Update()
         {
             controller.Update(this);
+            visibility.Update(this);
         }
 
-        public IMobCollection VisibleMobs()
+        public IEnumerable<IMob> VisibleMobs()
         {
-            return OnMap;
+            return OnMap.AllMobs().Where(
+                mob => visibility[mob.Position.X, mob.Position.Y]);
         }
 
         #endregion Public Methods

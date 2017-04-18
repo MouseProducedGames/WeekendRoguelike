@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeekendRoguelike.Mob
 {
-    public interface IMobCollection
+    public interface IMobCollection : IReadOnlyCollection<IMob>
     {
         #region Public Methods
 

@@ -24,7 +24,7 @@ namespace WeekendRoguelike.Mob
 
         bool TryMove(Point newPosition);
 
-        IMobCollection VisibleMobs();
+        IEnumerable<IMob> VisibleMobs();
 
         #endregion Public Methods
     }

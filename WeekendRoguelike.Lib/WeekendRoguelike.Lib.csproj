@@ -46,6 +46,7 @@
     <Compile Include="AI\FactionSystem\Faction.cs" />
     <Compile Include="AI\FactionSystem\IO\IFactionReader.cs" />
     <Compile Include="AI\PlanningSystem\PathFindOnMap.cs" />
+    <Compile Include="AI\Sight\LineOfSight.cs" />
     <Compile Include="CombatHelper.cs" />
     <Compile Include="FormulaHelper.cs" />
     <Compile Include="Input.cs" />

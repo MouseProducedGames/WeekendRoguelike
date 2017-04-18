@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using WeekendRoguelike.AI.PlanningSystem;
 using WeekendRoguelike.Mob;
@@ -53,6 +54,8 @@ namespace WeekendRoguelike.MapSystem
 
         #region Public Properties
 
+        int IReadOnlyCollection<IMob>.Count => throw new NotImplementedException();
+
         public Tile[,] TileMap
         {
             get => tileMap;
@@ -103,17 +106,6 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
-        /// <summary>
-        /// Checks if the tile blocks any movement.
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public bool Blocked(Point p)
-        {
-            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksMovement
-                != BlockDirections.None;
-        }
-
         public bool Changed(int x, int y)
         {
             return changeMap[y, x];
@@ -141,6 +133,16 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
+        IEnumerator<IMob> IEnumerable<IMob>.GetEnumerator()
+        {
+            return allCharacters.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return allCharacters.GetEnumerator();
+        }
+
         public Stack<Point> GetPath(Point start, Point end)
         {
             return pathFinder.GetPath(start, end);
@@ -150,7 +152,7 @@ namespace WeekendRoguelike.MapSystem
         {
             Point output;
             while (Occupied(output = Rand.NextPoint(Width, Length), out var occupant) == true ||
-                Blocked(output) == true ||
+                MovementBlocked(output) == true ||
                 PointInMap(output) == false) ;
             return output;
         }
@@ -163,6 +165,17 @@ namespace WeekendRoguelike.MapSystem
         public TileData GetTileDataFor(Point to)
         {
             return AllTileData.GetTileData(this[to.X, to.Y].ID);
+        }
+
+        /// <summary>
+        /// Checks if the tile blocks any movement.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool MovementBlocked(Point p)
+        {
+            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksMovement
+                != BlockDirections.None;
         }
 
         public bool Occupied(Point position, out CharacterEntity characterAt)
@@ -192,6 +205,17 @@ namespace WeekendRoguelike.MapSystem
             return removeCharacters.Add(removeCharacter);
         }
 
+        /// <summary>
+        /// Checks if the tile blocks any sight.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool SightBlocked(Point p)
+        {
+            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksSight
+                != BlockDirections.None;
+        }
+
         public bool TestMove(Point start, Point to)
         {
             Displacement disp = to - start;
@@ -206,7 +230,7 @@ namespace WeekendRoguelike.MapSystem
             if (disp.MagnitudeSquared <= 2)
             {
                 // Very simple check.
-                if (Blocked(to))
+                if (MovementBlocked(to))
                     return false;
 
                 TileData tileData = GetTileDataFor(to);

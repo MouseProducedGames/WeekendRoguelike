@@ -13,23 +13,22 @@ namespace WeekendRoguelike.AI.Mob
         #region Public Methods
 
         public static IEnumerable<IMob> GetEnemies(
-            this IMobCollection characterCollection,
+            this IEnumerable<IMob> mobCollection,
             IMob ofCharacter
             )
         {
             return
-                characterCollection
-                .AllMobs()
+                mobCollection
                 .Where(other => ofCharacter.IsEnemy(other));
         }
 
         public static IEnumerable<IMob> GetEnemiesByDistance(
-            this IMobCollection characterCollection,
+            this IEnumerable<IMob> mobCollection,
             IMob ofCharacter
             )
         {
             return
-                characterCollection
+                mobCollection
                 .GetEnemies(ofCharacter: ofCharacter)
                 .OrderBy(
                     other => (ofCharacter.Position - other.Position)
@@ -37,12 +36,12 @@ namespace WeekendRoguelike.AI.Mob
         }
 
         public static IMob GetNearestEnemyOrNull(
-            this IMobCollection characterCollection,
+            this IEnumerable<IMob> mobCollection,
             IMob ofCharacter
             )
         {
             return
-                characterCollection
+                mobCollection
                 .GetEnemiesByDistance(ofCharacter: ofCharacter)
                 .FirstOrDefault();
         }
