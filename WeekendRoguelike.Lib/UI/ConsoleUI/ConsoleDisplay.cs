@@ -94,6 +94,8 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #endregion Public Constructors
 
+
+
             #region Public Methods
 
             public void Update(CharacterEntity forCharacter)
@@ -106,37 +108,21 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
         public class GraphicsWrapperImpl : IGraphicsWrapper
         {
-            #region Private Fields
-
             private Graphics data;
             private Point position;
-
-            #endregion Private Fields
-
-            #region Public Constructors
 
             public GraphicsWrapperImpl(Graphics data)
             {
                 this.data = data;
             }
 
-            #endregion Public Constructors
-
-            #region Public Properties
-
             public Graphics Data { get => data; set => data = value; }
             public Point Position { get => position; set => position = value; }
-
-            #endregion Public Properties
-
-            #region Public Methods
 
             public void Draw()
             {
                 Display.GetInstanceAs<ConsoleDisplay>().Draw(this);
             }
-
-            #endregion Public Methods
         }
 
         #endregion Public Classes

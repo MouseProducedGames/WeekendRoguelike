@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeekendRoguelike.DungeonGenerator.DataTypes;
 
 namespace WeekendRoguelike.DungeonGenerator.Factory
@@ -96,7 +94,7 @@ namespace WeekendRoguelike.DungeonGenerator.Factory
             while (--tries >= 0)
             {
                 Room parentRoom = RandomRoomFromRooms();
-                
+
                 currentRoom =
                     RoomFromRandomTemplate(NextTypeSet(parentRoom));
 
