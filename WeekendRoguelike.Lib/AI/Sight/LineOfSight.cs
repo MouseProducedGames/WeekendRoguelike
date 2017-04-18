@@ -80,7 +80,7 @@ namespace WeekendRoguelike.AI.Sight
             Scan(character);
         }
 
-        private void Octant(double posY, int signX, int signY, int range, int maxRange, double innerSlope = 1.0, double outerSlope = 0.0, bool swap = false)
+        private void Octant(double posY, int signX, int signY, int range, double maxRange, double leftSlope = 1.0, double rightSlope = 0.0, bool swap = false)
         {
             signX = Math.Sign(signX);
             signY = Math.Sign(signY);
@@ -128,104 +128,70 @@ namespace WeekendRoguelike.AI.Sight
 
             for (; range <= maxRange; ++range, ++posY)
             {
-                double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y + 0.5;
-                int startX = (int)(relPosY * innerSlope) + character.Position.X;
-                int endX = (int)(relPosY * outerSlope) + character.Position.X;
-                bool lastWasBlocker = CheckBlocking(startX + 0.5, posY);
-                for (int x = startX; x >= endX; --x)
+                int relPosY = GetRelativeUnsignedCoordinates(0, (int)(posY)).Y;
+                int iPosY = relPosY + character.Position.Y;
+                int relend2 = 0;
+                int relstartX = range;
+                int endX = relend2 + character.Position.X;
+                int startX = relstartX + character.Position.X;
+                bool lastWasBlocker = false;
+                double savedRightSlope = rightSlope;
+                for (int x = startX, rx = relstartX; x >= endX; --x, --rx)
                 {
-                    bool isCurrentBlocker = CheckBlocking(x + 0.5, posY);
+                    double topLeftTileSlope = (rx + 0.5) / (relPosY - 0.5);
+                    double bottomRightTileSlope = (rx - 0.5) / (relPosY + 0.5);
+                    // double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
+                    // double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5); 
+                    // double topLeftTileSlope = (relPosY + 0.5) / (rx - 0.5);
+                    // double bottomRightTileSlope = (relPosY - 0.5) / (rx + 0.5);
+                    // double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
+                    // double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5); 
+                    // We've yet to reach the scan area.
+                    if (bottomRightTileSlope > leftSlope)
+                    {
+                        continue;
+                    }
+                    // We've passed out of the scan area.
+                    else if (topLeftTileSlope < rightSlope)
+                    {
+                        break;
+                    }
+
+                    Point p = GetAbsoluteCoordinates(x, iPosY);
+                    if (character.OnMap.PointInMap(p))
+                        visibilityMap[p.Y, p.X] = VisibilityState.Visible;
+
+                    bool isCurrentBlocker = CheckBlocking(x, posY);
                     if (lastWasBlocker)
                     {
                         if (isCurrentBlocker)
                         {
-                            Point pos;
-                            if (swap == true)
-                            {
-                                pos = GetSwappedAbsoluteCoordinates(x, (int)posY);
-                            }
-                            else
-                            {
-                                pos = GetAbsoluteCoordinates(x, (int)posY);
-                            }
-                            if (pos.X >= 0 && pos.X < width &&
-                                pos.Y >= 0 && pos.Y < length)
-                                visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
-
-                            if (x > endX)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                return;
-                            }
+                            savedRightSlope = bottomRightTileSlope;
                         }
                         else
                         {
-                            Point pos;
-                            if (swap == true)
-                            {
-                                pos = GetSwappedAbsoluteCoordinates(x, (int)posY);
-                            }
-                            else
-                            {
-                                pos = GetAbsoluteCoordinates(x, (int)posY);
-                            }
-                            if (pos.X >= 0 && pos.X < width &&
-                                pos.Y >= 0 && pos.Y < length)
-                                visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY));
-                            innerSlope = (slopeDisp.X - 0.5) / (slopeDisp.Y - 0.5);
+                            leftSlope = savedRightSlope;
+                            lastWasBlocker = false;
                         }
                     }
                     else
                     {
                         if (isCurrentBlocker)
                         {
-                            Point pos;
-                            if (swap == true)
-                            {
-                                pos = GetSwappedAbsoluteCoordinates(x, (int)posY);
-                            }
-                            else
-                            {
-                                pos = GetAbsoluteCoordinates(x, (int)posY);
-                            }
-                            if (pos.X >= 0 && pos.X < width &&
-                                pos.Y >= 0 && pos.Y < length)
-                                visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
+                            if (topLeftTileSlope <= leftSlope)
+                                Octant(posY + 1, signX, signY, range + 1,
+                                    maxRange, leftSlope, topLeftTileSlope, swap: swap);
 
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY));
-                            Octant(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)(slopeDisp.X - 0.5) / (slopeDisp.Y + 0.5), swap: swap);
-
-                            /* if (x > endX)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                return;
-                            } */
-                        }
-                        else
-                        {
-                            Point pos;
-                            if (swap == true)
-                            {
-                                pos = GetSwappedAbsoluteCoordinates(x, (int)posY);
-                            }
-                            else
-                            {
-                                pos = GetAbsoluteCoordinates(x, (int)posY);
-                            }
-                            if (pos.X >= 0 && pos.X < width &&
-                                pos.Y >= 0 && pos.Y < length)
-                                visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
+                            savedRightSlope = bottomRightTileSlope;
+                            lastWasBlocker = true;
                         }
                     }
-                    lastWasBlocker = isCurrentBlocker;
+
+                    // lastWasBlocker = isCurrentBlocker;
                 }
+
+                if (lastWasBlocker)
+                    return;
             }
         }
 
@@ -256,6 +222,8 @@ namespace WeekendRoguelike.AI.Sight
                 }
             }
 
+            visibilityMap[character.Position.Y, character.Position.X] =
+                VisibilityState.Visible;
             for (int y = -1; y <= 1; y += 2)
             {
                 for (int x = -1; x <= 1; x += 2)
@@ -265,14 +233,14 @@ namespace WeekendRoguelike.AI.Sight
                         signX: x,
                         signY: y,
                         range: 0,
-                        maxRange: 15);
+                        maxRange: 15.5);
 
                     /* Octant(
                         posY: character.Position.Y + 0.5,
                         signX: x,
                         signY: y,
                         range: 0,
-                        maxRange: 7,
+                        maxRange: 15.5,
                         swap: true); */
                 }
             }
