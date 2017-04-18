@@ -48,7 +48,13 @@
     <Compile Include="CombatHelper.cs" />
     <Compile Include="FormulaHelper.cs" />
     <Compile Include="Input.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="MapSystem\Tile.cs" />
+    <Compile Include="MapSystem\Map.cs" />
+    <Compile Include="MapSystem\UI\MapConsoleDisplayFactory.cs" />
+    <Compile Include="MapSystem\UI\MapDisplayFactory.cs" />
+    <Compile Include="MapSystem\UI\MapConsoleGraphics.cs" />
+    <Compile Include="MapSystem\UI\IO\MapConsoleGraphicsReader.cs" />
+    <Compile Include="MapSystem\UI\IO\IMapConsoleGraphicsReader.cs" />
     <Compile Include="Mob\Character\AllCharacterClasses.cs" />
     <Compile Include="Mob\Character\AllRaces.cs" />
     <Compile Include="Mob\Character\CharacterEntity.cs" />

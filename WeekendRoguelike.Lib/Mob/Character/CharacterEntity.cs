@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.AI.Mob;
+using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike.Mob.Character

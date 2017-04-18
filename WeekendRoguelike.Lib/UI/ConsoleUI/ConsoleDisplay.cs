@@ -1,4 +1,6 @@
 ﻿using System;
+using WeekendRoguelike.MapSystem;
+using WeekendRoguelike.MapSystem.UI;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.Mob.UI;
 
@@ -16,6 +18,7 @@ namespace WeekendRoguelike.UI.ConsoleUI
             Console.CursorVisible = false;
 
             CharacterDisplayFactory = new CharacterConsoleDisplayFactory();
+            MapDisplayFactory = new MapConsoleDisplayFactory();
             AllCharacterConsoleGraphics.LoadGraphics(characterGraphicsFilename);
         }
 
@@ -94,8 +97,6 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #endregion Public Constructors
 
-
-
             #region Public Methods
 
             public void Update(CharacterEntity forCharacter)
@@ -108,21 +109,116 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
         public class GraphicsWrapperImpl : IGraphicsWrapper
         {
+            #region Private Fields
+
             private Graphics data;
             private Point position;
+
+            #endregion Private Fields
+
+            #region Public Constructors
 
             public GraphicsWrapperImpl(Graphics data)
             {
                 this.data = data;
             }
 
+            #endregion Public Constructors
+
+            #region Public Properties
+
             public Graphics Data { get => data; set => data = value; }
             public Point Position { get => position; set => position = value; }
+
+            #endregion Public Properties
+
+            #region Public Methods
 
             public void Draw()
             {
                 Display.GetInstanceAs<ConsoleDisplay>().Draw(this);
             }
+
+            #endregion Public Methods
+        }
+
+        public class MapGraphicsWrapper : IMapGraphicsWrapper
+        {
+            #region Private Fields
+
+            private Graphics[,] graphicsMap;
+            private int length;
+            private int width;
+
+            #endregion Private Fields
+
+            #region Public Constructors
+
+            public MapGraphicsWrapper(Map map)
+            {
+                Update(map);
+            }
+
+            #endregion Public Constructors
+
+            #region Public Methods
+
+            public void Draw()
+            {
+                Console.SetCursorPosition(0, 0);
+                for (int y = 0; y < length; ++y)
+                {
+                    Console.SetCursorPosition(0, y);
+                    for (int x = 0; x < width; ++x)
+                    {
+                        Console.BackgroundColor = graphicsMap[y, x].BackgroundColour;
+                        Console.ForegroundColor = graphicsMap[y, x].ForegroundColour;
+                        Console.Write(graphicsMap[y, x].Symbol);
+                    }
+                }
+            }
+
+            public void Update(Map forMap)
+            {
+                if (graphicsMap == null ||
+                    width != forMap.Width ||
+                    length != forMap.Length)
+                    DoAll(forMap);
+                if (forMap.TileMapChanged == false)
+                    return;
+
+                for (int y = 0; y < forMap.Length; ++y)
+                {
+                    for (int x = 0; x < forMap.Width; ++x)
+                    {
+                        if (forMap.Changed(x, y))
+                        {
+                            graphicsMap[y, x] = MapConsoleGraphics.GetMapGraphics(forMap[y, x].ID);
+                        }
+                    }
+                }
+            }
+
+            #endregion Public Methods
+
+            #region Private Methods
+
+            private void DoAll(Map forMap)
+            {
+                graphicsMap = new Graphics[forMap.Length, forMap.Width];
+                width = forMap.Width;
+                length = forMap.Length;
+
+                for (int y = 0; y < forMap.Length; ++y)
+                {
+                    for (int x = 0; x < forMap.Width; ++x)
+                    {
+                        graphicsMap[y, x] = MapConsoleGraphics.GetMapGraphics(forMap[x, y].ID);
+                    }
+                }
+            }
+
+            #endregion Private Methods
         }
 
         #endregion Public Classes

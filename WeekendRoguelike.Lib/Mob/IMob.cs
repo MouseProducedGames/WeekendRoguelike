@@ -1,4 +1,5 @@
-﻿using WeekendRoguelike.Mob.Character;
+﻿using WeekendRoguelike.MapSystem;
+using WeekendRoguelike.Mob.Character;
 
 namespace WeekendRoguelike.Mob
 {

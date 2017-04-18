@@ -55,8 +55,12 @@
     <Content Include="Data\ConsoleCharacterGraphics.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\ConsoleTileGraphics.txt" />
-    <Content Include="Data\TileData.txt" />
+    <Content Include="Data\ConsoleTileGraphics.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TileData.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Factions.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

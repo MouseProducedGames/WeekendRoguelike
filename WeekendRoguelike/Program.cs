@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using WeekendRoguelike.AI.FactionSystem;
+using WeekendRoguelike.MapSystem;
+using WeekendRoguelike.MapSystem.UI;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.Mob.Monster;
 using WeekendRoguelike.UI;
@@ -36,6 +38,7 @@ namespace WeekendRoguelike
             AllCharacterClasses.LoadClasses(Path.Combine(startPath, "Data", "Classes.txt"));
             AllMonsters.LoadMonsters(Path.Combine(startPath, "Data", "Monsters.txt"));
             AllFactions.LoadFactions(Path.Combine(startPath, "Data", "Factions.txt"));
+            MapConsoleGraphics.LoadGraphics(Path.Combine(startPath, "Data", "ConsoleTileGraphics.txt"));
 
             Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
 

@@ -1,12 +1,12 @@
 ﻿[Wall]
 Symbol: #
-Foreground: Grey
-Background: Black
+Foreground: Black
+Background: Gray
 
 [Floor]
-Symbol: .
-Foreground: DarkGrey
-Background: Black
+Symbol: #
+Foreground: Gray
+Background: DarkGray
 
 [Door]
 Symbol: +

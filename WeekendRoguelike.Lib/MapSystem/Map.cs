@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.UI;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.MapSystem
 {
     public class Map
     {
@@ -17,7 +18,11 @@ namespace WeekendRoguelike
 
         private HashSet<CharacterEntity> addCharacters = new HashSet<CharacterEntity>();
         private HashSet<CharacterEntity> allCharacters = new HashSet<CharacterEntity>();
+        private bool[,] changeMap;
+        private Display.IMapGraphicsWrapper mapGraphics;
         private HashSet<CharacterEntity> removeCharacters = new HashSet<CharacterEntity>();
+        private Tile[,] tileMap;
+        private bool tileMapChanged = false;
 
         #endregion Private Fields
 
@@ -27,9 +32,39 @@ namespace WeekendRoguelike
         {
             Width = width;
             Length = length;
+            tileMap = new Tile[length, width];
+            changeMap = new bool[length, width];
+            mapGraphics = Display.Instance.CreateGraphicsWrapper(this);
         }
 
         #endregion Public Constructors
+
+        #region Public Properties
+
+        public bool TileMapChanged { get => tileMapChanged; }
+
+        #endregion Public Properties
+
+        #region Public Indexers
+
+        public Tile this[int x, int y]
+        {
+            get
+            {
+                return tileMap[y, x];
+            }
+            set
+            {
+                if (tileMap[y, x] != value)
+                {
+                    tileMapChanged = true;
+                    tileMap[y, x] = value;
+                    changeMap[y, x] = true;
+                }
+            }
+        }
+
+        #endregion Public Indexers
 
         #region Public Methods
 
@@ -46,8 +81,27 @@ namespace WeekendRoguelike
             }
         }
 
+        public bool Changed(int x, int y)
+        {
+            return changeMap[y, x];
+        }
+
         public void Draw()
         {
+            mapGraphics.Update(this);
+            mapGraphics.Draw();
+            if (TileMapChanged == true)
+            {
+                tileMapChanged = false;
+                for (int y = 0; y < Length; ++y)
+                {
+                    for (int x = 0; x < Width; ++x)
+                    {
+                        changeMap[y, x] = false;
+                    }
+                }
+            }
+
             foreach (var character in allCharacters)
             {
                 character.Draw();
