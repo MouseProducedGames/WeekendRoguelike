@@ -121,8 +121,10 @@ namespace WeekendRoguelike.AI.Sight
 
             for (; range <= maxRange; ++range)
             {
-                int posY = range + character.Position.Y;
+                if (range * range > maxRange * maxRange)
+                    break;
                 int relPosY = range;
+                int posY = relPosY + character.Position.Y;
                 int iPosY = relPosY + character.Position.Y;
                 int relendX = (int)(relPosY * leftSlope);
                 int relstartX = (int)Math.Ceiling(relPosY * rightSlope);
@@ -132,6 +134,8 @@ namespace WeekendRoguelike.AI.Sight
                 double savedLeftSlope = leftSlope;
                 for (int x = startX, rx = relstartX; x >= endX; --x, --rx)
                 {
+                    if (relPosY * relPosY + rx * rx > maxRange * maxRange)
+                        continue;
                     double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5);
                     double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
 
