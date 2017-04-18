@@ -131,7 +131,7 @@ namespace WeekendRoguelike.AI.Sight
                 double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y + 0.5;
                 int startX = (int)(relPosY * innerSlope) + character.Position.X;
                 int endX = (int)(relPosY * outerSlope) + character.Position.X;
-                bool lastWasBlocker = CheckBlocking(endX + 0.5, posY);
+                bool lastWasBlocker = CheckBlocking(startX + 0.5, posY);
                 for (int x = startX; x >= endX; --x)
                 {
                     bool isCurrentBlocker = CheckBlocking(x + 0.5, posY);
@@ -175,8 +175,8 @@ namespace WeekendRoguelike.AI.Sight
                             if (pos.X >= 0 && pos.X < width &&
                                 pos.Y >= 0 && pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
-                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY + 1.0));
-                            innerSlope = (slopeDisp.X) / (slopeDisp.Y);
+                            Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY));
+                            innerSlope = (slopeDisp.X - 0.5) / (slopeDisp.Y - 0.5);
                         }
                     }
                     else
@@ -197,15 +197,16 @@ namespace WeekendRoguelike.AI.Sight
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
 
                             Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)(posY));
-                            Octant(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)(slopeDisp.X) / (slopeDisp.Y), swap: swap);
-                            if (x > endX)
+                            Octant(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)(slopeDisp.X - 0.5) / (slopeDisp.Y + 0.5), swap: swap);
+
+                            /* if (x > endX)
                             {
                                 continue;
                             }
                             else
                             {
                                 return;
-                            }
+                            } */
                         }
                         else
                         {
@@ -264,15 +265,15 @@ namespace WeekendRoguelike.AI.Sight
                         signX: x,
                         signY: y,
                         range: 0,
-                        maxRange: 7);
+                        maxRange: 15);
 
-                    Octant(
+                    /* Octant(
                         posY: character.Position.Y + 0.5,
                         signX: x,
                         signY: y,
                         range: 0,
                         maxRange: 7,
-                        swap: true);
+                        swap: true); */
                 }
             }
 

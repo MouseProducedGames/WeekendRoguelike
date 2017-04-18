@@ -53,7 +53,7 @@ namespace WeekendRoguelike
             DungeonTranslator dungeonTranslator =
                 Path.Combine(startPath, "Data", "DungeonTranslator",
                 dungeonTranslateFilename);
-            Map map = new Map(dungeonTranslator.Convert(dungeonFactory.Create(80, 25)));
+            Map map = new Map(dungeonTranslator.Convert(dungeonFactory.Create(80, 80)));
 
             CharacterEntity playerCharacter;
             {
