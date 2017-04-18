@@ -11,13 +11,13 @@ namespace WeekendRoguelike.AI.PlanningSystem
     {
         #region Private Fields
 
-        private readonly Map map;
+        private readonly MapOther map;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public FindOnMap(Map map)
+        public FindOnMap(MapOther map)
         {
             this.map = map;
         }

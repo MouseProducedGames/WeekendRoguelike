@@ -6,7 +6,7 @@ using WeekendRoguelike.Mob.Character;
 
 namespace WeekendRoguelike.MapSystem
 {
-    public class Map : IMobCollection
+    public class MapOther : IMobCollection
     {
         #region Public Fields
 
@@ -27,7 +27,7 @@ namespace WeekendRoguelike.MapSystem
 
         #region Public Constructors
 
-        public Map(int width, int length)
+        public MapOther(int width, int length)
         {
             Width = width;
             Length = length;

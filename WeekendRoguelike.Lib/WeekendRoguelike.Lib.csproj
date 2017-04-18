@@ -50,7 +50,7 @@
     <Compile Include="Displacement.cs" />
     <Compile Include="FormulaHelper.cs" />
     <Compile Include="Input.cs" />
-    <Compile Include="MapSystem\Map.cs" />
+    <Compile Include="MapSystem\MapOther.cs" />
     <Compile Include="AI\Mob\MobCollectionExtensions.cs" />
     <Compile Include="Mob\Character\AllCharacterClasses.cs" />
     <Compile Include="Mob\Character\AllRaces.cs" />
