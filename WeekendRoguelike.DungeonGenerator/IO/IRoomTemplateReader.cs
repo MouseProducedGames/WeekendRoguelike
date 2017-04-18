@@ -1,4 +1,6 @@
-﻿namespace WeekendRoguelike.DungeonGenerator
+﻿using WeekendRoguelike.DungeonGenerator.DataTypes;
+
+namespace WeekendRoguelike.DungeonGenerator.IO
 {
     public interface IRoomTemplateReader
     {

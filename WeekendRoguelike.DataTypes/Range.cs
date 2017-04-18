@@ -1,4 +1,4 @@
-﻿namespace WeekendRoguelike.DungeonGenerator
+﻿namespace WeekendRoguelike
 {
     public struct Range
     {

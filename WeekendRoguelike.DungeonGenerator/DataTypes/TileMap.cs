@@ -1,4 +1,4 @@
-﻿namespace WeekendRoguelike.DungeonGenerator
+﻿namespace WeekendRoguelike.DungeonGenerator.DataTypes
 {
     public class TileMap
     {

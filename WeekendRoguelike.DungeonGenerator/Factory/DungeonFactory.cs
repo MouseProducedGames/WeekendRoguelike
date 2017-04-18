@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeekendRoguelike.DungeonGenerator.DataTypes;
+using WeekendRoguelike.DungeonGenerator.IO;
 
-namespace WeekendRoguelike.DungeonGenerator
+namespace WeekendRoguelike.DungeonGenerator.Factory
 {
     public abstract class DungeonFactory
     {

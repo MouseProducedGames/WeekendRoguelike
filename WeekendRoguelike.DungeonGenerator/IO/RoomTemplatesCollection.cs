@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using WeekendRoguelike.DungeonGenerator.DataTypes;
 
-namespace WeekendRoguelike.DungeonGenerator
+namespace WeekendRoguelike.DungeonGenerator.IO
 {
     public class RoomTemplatesCollection
     {

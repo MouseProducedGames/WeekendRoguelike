@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeekendRoguelike.DungeonGenerator
+namespace WeekendRoguelike.DungeonGenerator.DataTypes
 {
     public class Door
     {

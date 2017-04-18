@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeekendRoguelike.DungeonGenerator;
+using WeekendRoguelike.DungeonGenerator.DataTypes;
+using WeekendRoguelike.DungeonGenerator.Factory;
 
 namespace WeekendRoguelike.DungeonViewer
 {

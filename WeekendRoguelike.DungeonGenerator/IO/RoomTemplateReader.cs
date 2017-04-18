@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WeekendRoguelike.DungeonGenerator.DataTypes;
 
-namespace WeekendRoguelike.DungeonGenerator
+namespace WeekendRoguelike.DungeonGenerator.IO
 {
     public class RoomTemplateReader : IRoomTemplateReader
     {
