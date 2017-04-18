@@ -1,0 +1,9 @@
+﻿[Wall]
+Symbol: #
+Foreground: Grey
+Background: Black
+
+[Floor]
+Symbol: .
+Foreground: DarkGrey
+Background: Black

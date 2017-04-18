@@ -1,0 +1,6 @@
+﻿[Wall]
+BlocksMovement: Cardinal
+BlocksSight: Cardinal
+BlocksSight: Diagonal
+
+[Floor]

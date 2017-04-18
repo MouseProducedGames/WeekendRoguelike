@@ -46,7 +46,6 @@
     <Compile Include="AI\FactionSystem\Faction.cs" />
     <Compile Include="AI\FactionSystem\IO\IFactionReader.cs" />
     <Compile Include="CombatHelper.cs" />
-    <Compile Include="Displacement.cs" />
     <Compile Include="FormulaHelper.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Map.cs" />
@@ -79,14 +78,18 @@
     <Compile Include="Mob\UI\CharacterDisplayFactory.cs" />
     <Compile Include="Mob\UI\IO\CharacterConsoleGraphicsReader.cs" />
     <Compile Include="Mob\UI\IO\ICharacterConsoleGraphicsReader.cs" />
-    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rand.cs" />
     <Compile Include="UI\ConsoleUI\ConsoleDisplay.cs" />
     <Compile Include="UI\ConsoleUI\ConsoleListbox.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="UI\Listbox.cs" />
     <Compile Include="WRCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeekendRoguelike.DataTypes\WeekendRoguelike.DataTypes.csproj">
+      <Project>{9a55b8d8-cdd3-41cd-87ca-d8a511820e58}</Project>
+      <Name>WeekendRoguelike.DataTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
