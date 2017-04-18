@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Displacement.cs" />
+    <Compile Include="INode.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rand.cs" />
     <Compile Include="Range.cs" />
