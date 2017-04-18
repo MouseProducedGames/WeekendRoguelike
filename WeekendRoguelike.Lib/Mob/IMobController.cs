@@ -4,16 +4,15 @@ namespace WeekendRoguelike.Mob
 {
     public interface IMobController
     {
+        void Update(IMob mob);
+    }
+
+    public interface IMobController<TCommand> : IMobController
+    {
         #region Public Properties
 
-        ICommandInput CommandProvider { get; set; }
+        ICommandInput<TCommand> CommandProvider { get; set; }
 
         #endregion Public Properties
-
-        #region Public Methods
-
-        void Update(IMob mob);
-
-        #endregion Public Methods
     }
 }

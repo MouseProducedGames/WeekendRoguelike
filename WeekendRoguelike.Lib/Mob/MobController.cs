@@ -7,14 +7,14 @@ using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike.Mob
 {
-    public class MobController : IMobController
+    public class MobController : IMobController<WRCommand>
     {
         #region Private Fields
 
         private static Dictionary<WRCommand, Func<IMob, bool>> commandActions =
             new Dictionary<WRCommand, Func<IMob, bool>>();
 
-        private ICommandInput commandProvider;
+        private ICommandInput<WRCommand> commandProvider;
 
         #endregion Private Fields
 
@@ -52,7 +52,7 @@ namespace WeekendRoguelike.Mob
 
         #region Public Properties
 
-        public ICommandInput CommandProvider { get => commandProvider; set => commandProvider = value; }
+        public ICommandInput<WRCommand> CommandProvider { get => commandProvider; set => commandProvider = value; }
 
         #endregion Public Properties
 
