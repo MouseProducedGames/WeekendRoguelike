@@ -1,11 +1,13 @@
 # WeekendRoguelike
-A free- and open-source Roguelike in the classic style done as a casual, weekend/free time project.
+A free- and open-source Roguelike in the classic style done as a casual, weekend/free time project. Sometimes it receives more work if I have insomnia.
+
+WeekendRoguelike is data-driven, and the game can be modded by editing the text files in the Data folder. Currently, modding capability is limited, as the engine itself is limited.
 
 # Days of Progress
-2 Days
+3 Days
 
 # Tagline for the day
-Not quite as barebones as Day 1. Still very barebones.
+Data-driven from Day 1.
 
 # Current Status
 * As a classic Roguelike, all map objects are represented using text symbols.
@@ -28,6 +30,10 @@ Not quite as barebones as Day 1. Still very barebones.
     * (Co)ordination: How accurately you hit.
 * There is one zombie on the map.
   * The zombie is the 'z' symbol.
-  * The zombie moves randomly; if it moves into your square, it will attack.
+  * The zombie moves directly towards you; this may cause it to run into walls and go nowhere.
+    * if it moves into your square, it will attack.
 * The map is 80x25 (width x length).
+  * The map is generated using a data-driven room and corridor dungeon factory.
+  * Wall tiles block movement; you can squeese through diagonal cracks in the walls.
+  * Line of sight data exists, but sight checks are not yet implemented.
   * There are invisible walls at the edges of the map.
