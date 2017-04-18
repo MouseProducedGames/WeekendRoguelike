@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.Lib", "Wee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.DungeonGenerator", "WeekendRoguelike.DungeonGenerator\WeekendRoguelike.DungeonGenerator.csproj", "{898116B6-5314-43D8-BE04-44DB4AE45394}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.DataTypes", "WeekendRoguelike.DataTypes\WeekendRoguelike.DataTypes.csproj", "{9A55B8D8-CDD3-41CD-87CA-D8A511820E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.BaseLib", "WeekendRoguelike.DataTypes\WeekendRoguelike.BaseLib.csproj", "{9A55B8D8-CDD3-41CD-87CA-D8A511820E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.DungeonViewer", "WeekendRoguelike.DungeonViewer\WeekendRoguelike.DungeonViewer.csproj", "{5AE869C0-1F34-459A-A264-F0AFA859A185}"
 EndProject

@@ -7,7 +7,7 @@ using WeekendRoguelike.MapSystem;
 
 namespace WeekendRoguelike.AI.PlanningSystem
 {
-    public class FindOnMap
+    public class PathFindOnMap
     {
         #region Private Fields
 
@@ -17,7 +17,7 @@ namespace WeekendRoguelike.AI.PlanningSystem
 
         #region Public Constructors
 
-        public FindOnMap(Map map)
+        public PathFindOnMap(Map map)
         {
             this.map = map;
         }

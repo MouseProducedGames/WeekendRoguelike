@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WeekendRoguelike.AI.PlanningSystem;
 using WeekendRoguelike.Mob;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
@@ -22,6 +23,7 @@ namespace WeekendRoguelike.MapSystem
         private HashSet<CharacterEntity> allCharacters = new HashSet<CharacterEntity>();
         private bool[,] changeMap;
         private Display.IMapGraphicsWrapper mapGraphics;
+        private PathFindOnMap pathFinder;
         private HashSet<CharacterEntity> removeCharacters = new HashSet<CharacterEntity>();
         private Tile[,] tileMap;
         private bool tileMapChanged = false;
@@ -34,9 +36,8 @@ namespace WeekendRoguelike.MapSystem
         {
             Width = width;
             Length = length;
-            tileMap = new Tile[length, width];
             changeMap = new bool[length, width];
-            mapGraphics = Display.Instance.CreateGraphicsWrapper(this);
+            TileMap = new Tile[length, width];
         }
 
         public Map(Tile[,] tiles)
@@ -45,6 +46,7 @@ namespace WeekendRoguelike.MapSystem
             Length = tiles.GetLength(0);
             changeMap = new bool[Length, Width];
             TileMap = tiles;
+            pathFinder = new PathFindOnMap(this);
         }
 
         #endregion Public Constructors
@@ -139,6 +141,11 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
+        public Queue<Point> GetPath(Point start, Point end)
+        {
+            return pathFinder.GetPath(start, end);
+        }
+
         public Point GetRandomValidPoint(CharacterEntity forCharacter)
         {
             Point output;
@@ -150,9 +157,7 @@ namespace WeekendRoguelike.MapSystem
 
         public Point GetSingleStep(Point start, Point end)
         {
-            Displacement disp = end - start;
-            return
-                start + new Displacement(Math.Sign(disp.X), Math.Sign(disp.Y));
+            return pathFinder.GetSingleStep(start, end);
         }
 
         public TileData GetTileDataFor(Point to)

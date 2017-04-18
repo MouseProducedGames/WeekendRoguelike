@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WeekendRoguelike</RootNamespace>
-    <AssemblyName>WeekendRoguelike.DataTypes</AssemblyName>
+    <AssemblyName>WeekendRoguelike.BaseLib</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

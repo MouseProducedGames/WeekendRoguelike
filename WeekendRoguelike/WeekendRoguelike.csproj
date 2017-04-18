@@ -76,9 +76,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WeekendRoguelike.DataTypes\WeekendRoguelike.DataTypes.csproj">
+    <ProjectReference Include="..\WeekendRoguelike.DataTypes\WeekendRoguelike.BaseLib.csproj">
       <Project>{9a55b8d8-cdd3-41cd-87ca-d8a511820e58}</Project>
-      <Name>WeekendRoguelike.DataTypes</Name>
+      <Name>WeekendRoguelike.BaseLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\WeekendRoguelike.DungeonGenerator\WeekendRoguelike.DungeonGenerator.csproj">
       <Project>{898116B6-5314-43D8-BE04-44DB4AE45394}</Project>
