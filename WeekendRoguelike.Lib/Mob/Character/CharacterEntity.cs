@@ -32,7 +32,7 @@ namespace WeekendRoguelike.Mob.Character
 
         public CharacterData EntityData { get => entityData; set => entityData = value; }
 
-        public HashSet<Faction> Factions { get => factions; set => factions = value; }
+        public IReadOnlyCollection<Faction> Factions { get => (IReadOnlyCollection<Faction>)factions; set => factions = new HashSet<Faction>(value); }
         public Display.ICharacterGraphicsWrapper Graphics { get => graphics; set => graphics = value; }
 
         public Map OnMap
@@ -60,13 +60,13 @@ namespace WeekendRoguelike.Mob.Character
             graphics.Draw();
         }
 
-        public int GetOpinionOn(CharacterEntity otherCharacter)
+        public int GetOpinionOn(IMob otherCharacter)
         {
             int sum = 0;
             int total = 0;
             foreach (var factionA in factions)
             {
-                foreach (var factionB in otherCharacter.factions)
+                foreach (var factionB in otherCharacter.Factions)
                 {
                     int value;
                     if (factionA.TryGetRelationshipValue(factionB, out value))
@@ -79,13 +79,13 @@ namespace WeekendRoguelike.Mob.Character
             return Math.Max(1, total);
         }
 
-        public bool IsEnemy(CharacterEntity otherCharacter)
+        public bool IsEnemy(IMob otherCharacter)
         {
             int sum = 0;
             int total = 0;
             foreach (var factionA in factions)
             {
-                foreach (var factionB in otherCharacter.factions)
+                foreach (var factionB in otherCharacter.Factions)
                 {
                     int value;
                     if (factionA.TryGetRelationshipValue(factionB, out value))
@@ -123,6 +123,11 @@ namespace WeekendRoguelike.Mob.Character
         public void Update()
         {
             controller.Update(this);
+        }
+
+        public IMobCollection VisibleMobs()
+        {
+            return OnMap;
         }
 
         #endregion Public Methods

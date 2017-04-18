@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.AI.Mob;
 using WeekendRoguelike.UI;
 using WeekendRoguelike.UI.Player;
@@ -27,12 +28,12 @@ namespace WeekendRoguelike.Mob.Character
 
             output.Controller = new MobController()
             {
-                CommandProvider = new PlayerCommandInput(),
+                CommandProvider = new PlayerCommand(),
             };
 
             output.Graphics = Display.Instance.CreateGraphicsWrapper(output);
 
-            output.Factions = new HashSet<AI.FactionSystem.Faction>(info.RaceData.Factions);
+            output.Factions = info.RaceData.Factions;
 
             return output;
         }

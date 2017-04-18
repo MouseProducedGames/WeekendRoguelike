@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using WeekendRoguelike.AI.PlanningSystem;
+using WeekendRoguelike.Mob;
 using WeekendRoguelike.Mob.Character;
 
 namespace WeekendRoguelike.MapSystem
 {
-    public class Map
+    public class Map : IMobCollection
     {
         #region Public Fields
 
@@ -17,6 +20,7 @@ namespace WeekendRoguelike.MapSystem
 
         private HashSet<CharacterEntity> addCharacters = new HashSet<CharacterEntity>();
         private HashSet<CharacterEntity> allCharacters = new HashSet<CharacterEntity>();
+        private FindOnMap finder;
         private HashSet<CharacterEntity> removeCharacters = new HashSet<CharacterEntity>();
 
         #endregion Private Fields
@@ -27,6 +31,7 @@ namespace WeekendRoguelike.MapSystem
         {
             Width = width;
             Length = length;
+            finder = new FindOnMap(this);
         }
 
         #endregion Public Constructors
@@ -38,7 +43,7 @@ namespace WeekendRoguelike.MapSystem
             return addCharacters.Add(newCharacter);
         }
 
-        public IEnumerable<CharacterEntity> AllCharacters()
+        public IEnumerable<IMob> AllMobs()
         {
             return (IReadOnlyCollection<CharacterEntity>)allCharacters;
         }
@@ -51,12 +56,22 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
+        public Queue<Point> GetPath(Point start, Point end)
+        {
+            return finder.GetPath(start, end);
+        }
+
         public Point GetRandomValidPoint(CharacterEntity forCharacter)
         {
             Point output;
             while (Occupied(output = Rand.NextPoint(Width, Length), out var occupant) == true ||
                 PointInMap(output) == false) ;
             return output;
+        }
+
+        public Point GetSingleStep(Point start, Point end)
+        {
+            return finder.GetSingleStep(start, end);
         }
 
         public bool Occupied(Point position, out CharacterEntity characterAt)

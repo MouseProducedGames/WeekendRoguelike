@@ -12,7 +12,7 @@ namespace WeekendRoguelike.AI.Mob
         private static Dictionary<WRCommand, Func<IMob, bool>> commandActions =
             new Dictionary<WRCommand, Func<IMob, bool>>();
 
-        private ICommandInput<WRCommand> commandProvider;
+        private IMobCommand<WRCommand> commandProvider;
 
         #endregion Private Fields
 
@@ -50,7 +50,7 @@ namespace WeekendRoguelike.AI.Mob
 
         #region Public Properties
 
-        public ICommandInput<WRCommand> CommandProvider { get => commandProvider; set => commandProvider = value; }
+        public IMobCommand<WRCommand> CommandProvider { get => commandProvider; set => commandProvider = value; }
 
         #endregion Public Properties
 
@@ -58,7 +58,7 @@ namespace WeekendRoguelike.AI.Mob
 
         public void Update(IMob mob)
         {
-            if (commandActions.TryGetValue(CommandProvider.GetCommand(), out var func))
+            if (commandActions.TryGetValue(CommandProvider.GetCommand(mob), out var func))
                 func(mob);
         }
 

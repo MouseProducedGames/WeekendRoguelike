@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.AI.Mob;
+using WeekendRoguelike.AI.Monster;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
-using WeekendRoguelike.UI.Monster;
 
 namespace WeekendRoguelike.Mob.Monster
 {
@@ -28,12 +28,12 @@ namespace WeekendRoguelike.Mob.Monster
 
             output.Controller = new MobController()
             {
-                CommandProvider = new MonsterCommandInput()
+                CommandProvider = new MonsterCommand()
             };
 
             output.Graphics = Display.Instance.CreateGraphicsWrapper(info.MonsterData.Name);
 
-            output.Factions = new HashSet<Faction>(info.MonsterData.Factions);
+            output.Factions = info.MonsterData.Factions;
 
             return output;
         }

@@ -16,7 +16,7 @@ namespace WeekendRoguelike.AI.Mob
     {
         #region Public Properties
 
-        ICommandInput<TCommand> CommandProvider { get; set; }
+        IMobCommand<TCommand> CommandProvider { get; set; }
 
         #endregion Public Properties
     }

@@ -1,4 +1,6 @@
-﻿using WeekendRoguelike.MapSystem;
+﻿using System.Collections.Generic;
+using WeekendRoguelike.AI.FactionSystem;
+using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.Mob.Character;
 
 namespace WeekendRoguelike.Mob
@@ -8,6 +10,9 @@ namespace WeekendRoguelike.Mob
         #region Public Properties
 
         CharacterData EntityData { get; }
+
+        IReadOnlyCollection<Faction> Factions { get; }
+
         Map OnMap { get; }
         Point Position { get; }
 
@@ -15,9 +20,11 @@ namespace WeekendRoguelike.Mob
 
         #region Public Methods
 
-        bool IsEnemy(CharacterEntity otherCharacter);
+        bool IsEnemy(IMob otherCharacter);
 
         bool TryMove(Point newPosition);
+
+        IMobCollection VisibleMobs();
 
         #endregion Public Methods
     }

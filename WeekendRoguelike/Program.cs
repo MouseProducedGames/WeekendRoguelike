@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using WeekendRoguelike.AI.FactionSystem;
+using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.Mob.Monster;
 using WeekendRoguelike.UI;
@@ -92,7 +93,7 @@ namespace WeekendRoguelike
                 Input.Update();
                 map.Update();
 
-                if (map.AllCharacters().Count() == 1)
+                if (map.AllMobs().Count() == 1)
                 {
                     DrawScreen(map, playerCharacter);
                     break;

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using WeekendRoguelike.Mob;
 
 namespace WeekendRoguelike.UI.Player
 {
-    public class PlayerCommandInput : ICommandInput<WRCommand>
+    public class PlayerCommand : IMobCommand<WRCommand>
     {
         #region Private Fields
 
@@ -14,7 +15,7 @@ namespace WeekendRoguelike.UI.Player
 
         #region Public Constructors
 
-        static PlayerCommandInput()
+        static PlayerCommand()
         {
             inputTranslators.Add(new InputTranslator(
                 WRCommand.MoveNorth,
@@ -46,7 +47,7 @@ namespace WeekendRoguelike.UI.Player
 
         #region Public Methods
 
-        public WRCommand GetCommand()
+        public WRCommand GetCommand(IMob mob)
         {
             return Translate(Input.GetInput);
         }

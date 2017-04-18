@@ -90,4 +90,43 @@ namespace WeekendRoguelike
 
         #endregion Public Methods
     }
+
+    public static class DisplacementExtensions
+    {
+        #region Public Methods
+
+        public static WRCommand ToCommand(this Displacement d)
+        {
+            switch (d.Y)
+            {
+                case -1:
+                    switch (d.X)
+                    {
+                        case -1: return WRCommand.MoveNorthWest;
+                        case 1: return WRCommand.MoveNorthEast;
+                        case 0:
+                        default: return WRCommand.MoveNorth;
+                    }
+                case 0:
+                    switch (d.X)
+                    {
+                        case -1: return WRCommand.MoveWest;
+                        case 1: return WRCommand.MoveEast;
+                        case 0:
+                        default: return WRCommand.None;
+                    }
+                case 1:
+                    switch (d.X)
+                    {
+                        case -1: return WRCommand.MoveSouthWest;
+                        case 1: return WRCommand.MoveSouthEast;
+                        case 0:
+                        default: return WRCommand.MoveSouth;
+                    }
+                default: return WRCommand.None;
+            }
+        }
+
+        #endregion Public Methods
+    }
 }

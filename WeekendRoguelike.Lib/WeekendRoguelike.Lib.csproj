@@ -45,11 +45,13 @@
     <Compile Include="AI\FactionSystem\IO\FactionReader.cs" />
     <Compile Include="AI\FactionSystem\Faction.cs" />
     <Compile Include="AI\FactionSystem\IO\IFactionReader.cs" />
+    <Compile Include="AI\PlanningSystem\FindOnMap.cs" />
     <Compile Include="CombatHelper.cs" />
     <Compile Include="Displacement.cs" />
     <Compile Include="FormulaHelper.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="MapSystem\Map.cs" />
+    <Compile Include="AI\Mob\MobCollectionExtensions.cs" />
     <Compile Include="Mob\Character\AllCharacterClasses.cs" />
     <Compile Include="Mob\Character\AllRaces.cs" />
     <Compile Include="Mob\Character\CharacterEntity.cs" />
@@ -58,8 +60,9 @@
     <Compile Include="Mob\Character\CharacterData.cs" />
     <Compile Include="Mob\Character\CharacterFactory.cs" />
     <Compile Include="Mob\Character\CharacterStats.cs" />
+    <Compile Include="Mob\IMobCollection.cs" />
     <Compile Include="Mob\Character\Race.cs" />
-    <Compile Include="UI\ICommandInput.cs" />
+    <Compile Include="UI\IMobCommand.cs" />
     <Compile Include="Mob\IMob.cs" />
     <Compile Include="AI\Mob\IMobController.cs" />
     <Compile Include="Mob\IO\CharacterClassReader.cs" />
@@ -71,9 +74,9 @@
     <Compile Include="AI\Mob\MobController.cs" />
     <Compile Include="Mob\Monster\AllMonsters.cs" />
     <Compile Include="Mob\Monster\MonsterData.cs" />
-    <Compile Include="UI\Monster\MonsterCommandInput.cs" />
+    <Compile Include="AI\Monster\MonsterCommand.cs" />
     <Compile Include="Mob\Monster\MonsterFactory.cs" />
-    <Compile Include="UI\Player\PlayerCommandInput.cs" />
+    <Compile Include="UI\Player\PlayerCommand.cs" />
     <Compile Include="Mob\UI\AllCharacterConsoleGraphics.cs" />
     <Compile Include="Mob\UI\CharacterConsoleDisplayFactory.cs" />
     <Compile Include="Mob\UI\CharacterDisplayFactory.cs" />
