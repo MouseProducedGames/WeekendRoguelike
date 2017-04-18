@@ -13,7 +13,7 @@ namespace WeekendRoguelike.Mob
 
         IReadOnlyCollection<Faction> Factions { get; }
 
-        MapOther OnMap { get; }
+        Map OnMap { get; }
         Point Position { get; }
 
         #endregion Public Properties

@@ -17,7 +17,7 @@ namespace WeekendRoguelike.Mob.Character
         private CharacterData entityData;
         private HashSet<Faction> factions;
         private Display.ICharacterGraphicsWrapper graphics;
-        private MapOther onMap;
+        private Map onMap;
         private Point position;
 
         #endregion Private Fields
@@ -35,7 +35,7 @@ namespace WeekendRoguelike.Mob.Character
         public IReadOnlyCollection<Faction> Factions { get => (IReadOnlyCollection<Faction>)factions; set => factions = new HashSet<Faction>(value); }
         public Display.ICharacterGraphicsWrapper Graphics { get => graphics; set => graphics = value; }
 
-        public MapOther OnMap
+        public Map OnMap
         {
             get => onMap;
             set

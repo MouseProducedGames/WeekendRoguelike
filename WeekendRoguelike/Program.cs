@@ -13,7 +13,7 @@ namespace WeekendRoguelike
     {
         #region Private Methods
 
-        private static void DrawScreen(MapOther map, CharacterEntity playerCharacter)
+        private static void DrawScreen(Map map, CharacterEntity playerCharacter)
         {
             Console.Clear();
             map.Draw();
@@ -40,7 +40,7 @@ namespace WeekendRoguelike
 
             Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
 
-            MapOther map = new MapOther(80, 25);
+            Map map = new Map(80, 25);
 
             CharacterEntity playerCharacter;
             {
