@@ -50,6 +50,18 @@
     <Compile Include="FormulaHelper.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="AI\Mob\MobCollectionExtensions.cs" />
+    <Compile Include="MapSystem\AllTileData.cs" />
+    <Compile Include="MapSystem\BlockDirections.cs" />
+    <Compile Include="MapSystem\IO\ITileDataReader.cs" />
+    <Compile Include="MapSystem\IO\TileDataReader.cs" />
+    <Compile Include="MapSystem\Map.cs" />
+    <Compile Include="MapSystem\Tile.cs" />
+    <Compile Include="MapSystem\TileData.cs" />
+    <Compile Include="MapSystem\UI\IO\IMapConsoleGraphicsReader.cs" />
+    <Compile Include="MapSystem\UI\IO\MapConsoleGraphicsReader.cs" />
+    <Compile Include="MapSystem\UI\MapConsoleDisplayFactory.cs" />
+    <Compile Include="MapSystem\UI\MapConsoleGraphics.cs" />
+    <Compile Include="MapSystem\UI\MapDisplayFactory.cs" />
     <Compile Include="Mob\Character\AllCharacterClasses.cs" />
     <Compile Include="Mob\Character\AllRaces.cs" />
     <Compile Include="Mob\Character\CharacterEntity.cs" />
@@ -85,7 +97,6 @@
     <Compile Include="UI\ConsoleUI\ConsoleListbox.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="UI\Listbox.cs" />
-    <Compile Include="WRCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WeekendRoguelike.DataTypes\WeekendRoguelike.DataTypes.csproj">
@@ -93,8 +104,6 @@
       <Name>WeekendRoguelike.DataTypes</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MapSystem\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,6 @@ using WeekendRoguelike.DungeonGenerator.Factory;
 using WeekendRoguelike.DungeonTranslation;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
-using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.Mob.Monster;
 using WeekendRoguelike.UI;

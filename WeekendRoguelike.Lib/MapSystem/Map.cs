@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using WeekendRoguelike.Mob;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike.MapSystem
 {
-    public class Map
+    public class Map : IMobCollection
     {
         #region Public Fields
 
@@ -92,28 +93,12 @@ namespace WeekendRoguelike.MapSystem
             return addCharacters.Add(newCharacter);
         }
 
-        public IEnumerable<CharacterEntity> AllCharacters()
+        public IEnumerable<IMob> AllMobs()
         {
             foreach (var character in allCharacters)
             {
                 yield return character;
             }
-        }
-
-        /// <summary>
-        /// Checks if the tile blocks any movement.
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public bool Blocked(Point p)
-        {
-            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksMovement
-                != BlockDirections.None;
-        }
-
-        public bool Changed(int x, int y)
-        {
-            return changeMap[y, x];
         }
 
         /// <summary>
@@ -163,12 +148,13 @@ namespace WeekendRoguelike.MapSystem
             return output;
         }
 
-        public TileData GetTileDataFor(Point to)
+        public Point GetSingleStep(Point start, Point end)
         {
-            return AllTileData.GetTileData(this[to.X, to.Y].ID);
+            Displacement disp = end - start;
+            return
+                start + new Displacement(Math.Sign(disp.X), Math.Sign(disp.Y));
         }
 
-        public Point GetSingleStep(Point start, Point end)
         public TileData GetTileDataFor(Point to)
         {
             return AllTileData.GetTileData(this[to.X, to.Y].ID);
