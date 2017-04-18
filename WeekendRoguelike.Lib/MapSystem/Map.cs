@@ -216,8 +216,7 @@ namespace WeekendRoguelike.MapSystem
         /// <returns></returns>
         public bool SightBlocked(Point p)
         {
-            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksSight
-                != BlockDirections.None;
+            return SightBlocked(p.X, p.Y);
         }
 
         /// <summary>
