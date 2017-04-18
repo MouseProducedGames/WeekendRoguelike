@@ -3,5 +3,5 @@ Health		: 250
 Strength	: 150
 Agility		: 50
 Coordination: 50
-SightRange	: 7
+SightRange	: 6
 Faction		: Undead
