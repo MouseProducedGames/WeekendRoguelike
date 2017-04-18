@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.AI.Mob;
+using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike.Mob.Character
@@ -57,6 +58,25 @@ namespace WeekendRoguelike.Mob.Character
         {
             graphics.Update(this);
             graphics.Draw();
+        }
+
+        public int GetOpinionOn(CharacterEntity otherCharacter)
+        {
+            int sum = 0;
+            int total = 0;
+            foreach (var factionA in factions)
+            {
+                foreach (var factionB in otherCharacter.factions)
+                {
+                    int value;
+                    if (factionA.TryGetRelationshipValue(factionB, out value))
+                    {
+                        sum += value;
+                        ++total;
+                    }
+                }
+            }
+            return Math.Max(1, total);
         }
 
         public bool IsEnemy(CharacterEntity otherCharacter)

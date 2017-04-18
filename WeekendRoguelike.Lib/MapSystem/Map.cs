@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WeekendRoguelike.Mob.Character;
 
-namespace WeekendRoguelike
+namespace WeekendRoguelike.MapSystem
 {
     public class Map
     {
@@ -40,10 +40,7 @@ namespace WeekendRoguelike
 
         public IEnumerable<CharacterEntity> AllCharacters()
         {
-            foreach (var character in allCharacters)
-            {
-                yield return character;
-            }
+            return (IReadOnlyCollection<CharacterEntity>)allCharacters;
         }
 
         public void Draw()
