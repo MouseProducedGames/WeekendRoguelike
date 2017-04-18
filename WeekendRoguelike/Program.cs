@@ -112,7 +112,7 @@ namespace WeekendRoguelike
                 monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter); */
             }
 
-            for (int rat = 0; rat < 10; ++rat)
+            for (int rat = 0; rat < 20; ++rat)
             {
                 CreateMonster("Large Rat");
             }
@@ -134,11 +134,12 @@ namespace WeekendRoguelike
                 Input.Update();
                 map.Update();
 
-                /* if (map.AllMobs().Count() <= 1)
+                if (map.AllMobs().Count() <= 1 ||
+                    playerCharacter.Alive == false)
                 {
                     DrawScreen(map, playerCharacter);
                     break;
-                } */
+                }
             }
             if (playerCharacter.Alive)
             {

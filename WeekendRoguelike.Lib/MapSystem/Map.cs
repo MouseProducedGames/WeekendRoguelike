@@ -148,7 +148,7 @@ namespace WeekendRoguelike.MapSystem
             return pathFinder.GetPath(start, end);
         }
 
-        public Point GetRandomValidPoint(CharacterEntity forCharacter)
+        public Point GetRandomValidPoint(IMob forCharacter)
         {
             Point output;
             while (Occupied(output = Rand.NextPoint(Width, Length), out var occupant) == true ||
@@ -157,9 +157,9 @@ namespace WeekendRoguelike.MapSystem
             return output;
         }
 
-        public Point GetSingleStep(Point start, Point end)
+        public bool TryGetSingleStep(Point start, Point end, out Point step)
         {
-            return pathFinder.GetSingleStep(start, end);
+            return pathFinder.TryGetSingleStep(start, end, out step);
         }
 
         public TileData GetTileDataFor(Point to)

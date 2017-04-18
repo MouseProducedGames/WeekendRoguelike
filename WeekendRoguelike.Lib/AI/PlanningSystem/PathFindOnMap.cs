@@ -107,9 +107,19 @@ namespace WeekendRoguelike.AI.PlanningSystem
             return path;
         }
 
-        public Point GetSingleStep(Point start, Point end)
+        public bool TryGetSingleStep(Point start, Point end, out Point step)
         {
-            return GetPath(start, end).Pop();
+            Stack<Point> path = GetPath(start, end);
+            if (path.Count > 0)
+            {
+                step = path.Pop();
+                return true;
+            }
+            else
+            {
+                step = new Point();
+                return false;
+            }
             /* Displacement disp = end - start;
             disp.X = Math.Sign(disp.X);
             disp.Y = Math.Sign(disp.Y);
