@@ -39,20 +39,31 @@ namespace WeekendRoguelike.AI.PlanningSystem
 
             void Explore(Node fromNode)
             {
+                int OneTileDistance(Displacement disp)
+                {
+                    switch (disp.MagnitudeSquared)
+                    {
+                        case 0: return 0;
+                        case 1: return 10;
+                        case 2: return 14;
+                        default: throw new ArgumentOutOfRangeException("dis");
+                    }
+                }
+
                 for (int y = -1; y <= 1; ++y)
                 {
-                    int yp = fromNode.Position.Y;
+                    int yp = fromNode.Position.Y + y;
                     for (int x = -1; x <= 1; ++x)
                     {
                         if (y == 0 && x == 0)
                             continue;
-                        int xp = fromNode.Position.X;
+                        int xp = fromNode.Position.X + x;
                         Point nextPos = new Point(xp, yp);
                         Node nextNode = new Node(
                             fromNode.Position,
                             nextPos,
-                            (nextPos - fromNode.Position).MagnitudeSquared,
-                            (end - nextPos).MagnitudeSquared);
+                            fromNode.G + OneTileDistance(nextPos - fromNode.Position),
+                            (end - nextPos).ManhattenDistance * 10);
                         if (closed.Contains(nextNode) == false &&
                             map.TestMove(fromNode.Position, nextPos) == true &&
                             (open.TryGetValue(nextPos, out var openNode) == false ||
@@ -74,14 +85,18 @@ namespace WeekendRoguelike.AI.PlanningSystem
                 if (closed.Contains(current))
                     return path;
 
-                if (current.Position == end)
+                Displacement dispFromEnd = (current.Position - end);
+                if (Math.Abs(dispFromEnd.X) <= 1 &&
+                    Math.Abs(dispFromEnd.Y) <= 1)
                 {
-                    while (current.Position != current.Parent)
+                    path.Push(end);
+                    while (current.Parent != start)
                     {
                         path.Push(current.Position);
                         current = open[current.Parent];
                     }
-                    path.Push(start);
+                    path.Push(current.Position);
+                    return path;
                 }
 
                 if (open.TryGetValue(current.Position, out var useInstead) == true)
@@ -94,11 +109,12 @@ namespace WeekendRoguelike.AI.PlanningSystem
 
         public Point GetSingleStep(Point start, Point end)
         {
-            Displacement disp = end - start;
+            return GetPath(start, end).Pop();
+            /* Displacement disp = end - start;
             disp.X = Math.Sign(disp.X);
             disp.Y = Math.Sign(disp.Y);
 
-            return start + disp;
+            return start + disp; */
         }
 
         #endregion Public Methods
@@ -163,7 +179,7 @@ namespace WeekendRoguelike.AI.PlanningSystem
 
             public override int GetHashCode()
             {
-                return base.GetHashCode();
+                return Position.GetHashCode();
             }
 
             public override string ToString()

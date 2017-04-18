@@ -34,6 +34,14 @@ namespace WeekendRoguelike
         public double Magnitude => Math.Sqrt(MagnitudeSquared);
         public int MagnitudeSquared => X * X + Y * Y;
 
+        public int ManhattenDistance
+        {
+            get
+            {
+                return X + Y;
+            }
+        }
+
         #endregion Public Properties
 
         #region Public Methods

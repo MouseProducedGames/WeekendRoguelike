@@ -29,9 +29,10 @@ namespace WeekendRoguelike
             T output = items[0];
             items[0] = items[Count - 1];
             costs[0] = costs[Count - 1];
-            items.RemoveAt(Count - 1);
             costs.RemoveAt(Count - 1);
-            ShuffleDown(0);
+            items.RemoveAt(Count - 1);
+            if (Count > 0)
+                ShuffleDown(0);
             return output;
         }
 
@@ -96,7 +97,8 @@ namespace WeekendRoguelike
         private bool ParentCost(int index, out int item)
         {
             int parentIndex = ParentIndex(index);
-            if (parentIndex < 0 || parentIndex >= costs.Count)
+            if (parentIndex == index || parentIndex < 0 ||
+                parentIndex >= costs.Count)
             {
                 item = 0;
                 return false;
@@ -165,17 +167,17 @@ namespace WeekendRoguelike
                     rightCostFound = RightCost(index, out rightCost);
                 // Older costs stay nearer the end.
                 if (rightCostFound && rightCost <= thisCost &&
-                    leftCostFound && rightCost >= leftCost)
-                {
-                    int leftIndex = LeftIndex(index);
-                    Swap(index, leftIndex);
-                    index = leftIndex;
-                }
-                else if (leftCostFound && leftCost <= thisCost)
+                    leftCostFound && rightCost <= leftCost)
                 {
                     int rightIndex = RightIndex(index);
                     Swap(index, rightIndex);
                     index = rightIndex;
+                }
+                else if (leftCostFound && leftCost <= thisCost)
+                {
+                    int leftIndex = LeftIndex(index);
+                    Swap(index, leftIndex);
+                    index = leftIndex;
                 }
                 else
                 {
