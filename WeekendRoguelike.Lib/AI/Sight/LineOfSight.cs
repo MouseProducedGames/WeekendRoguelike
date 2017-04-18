@@ -80,22 +80,13 @@ namespace WeekendRoguelike.AI.Sight
             Scan(character);
         }
 
-        private void Octant(double posY, int signX, int signY, int range, double maxRange, double leftSlope = 1.0, double rightSlope = 0.0, bool swap = false)
+        private void Octant(int range, int signX, int signY, double maxRange, double leftSlope = 0.0, double rightSlope = 1.0, bool swap = false)
         {
             signX = Math.Sign(signX);
             signY = Math.Sign(signY);
-            bool CheckBlocking(double x, double y)
+            bool CheckBlocking(int x, int y)
             {
-                if (swap == true)
-                {
-                    Point p = GetSwappedAbsoluteCoordinates((int)x, (int)y);
-                    return character.OnMap.SightBlocked(p);
-                }
-                else
-                {
-                    Point p = GetAbsoluteCoordinates((int)x, (int)y);
-                    return character.OnMap.SightBlocked(p);
-                }
+                return character.OnMap.SightBlocked(x, y);
             }
 
             Displacement GetRelativeUnsignedCoordinates(int x, int y)
@@ -111,68 +102,63 @@ namespace WeekendRoguelike.AI.Sight
                 return new Displacement(disp.X * signX, disp.Y * signY);
             }
 
-            Point GetAbsoluteCoordinates(int x, int y)
+            Point GetMapCoordinates(int x, int y)
             {
-                return character.Position +
-                    GetRelativeSignedCoordinates(new Displacement(x, y));
+                if (swap == true)
+                {
+                    Displacement relSigned =
+                            GetRelativeSignedCoordinates(
+                                new Displacement(x, y));
+                    return character.Position +
+                        new Displacement(relSigned.Y, relSigned.X);
+                }
+                else
+                {
+                    return character.Position +
+                        GetRelativeSignedCoordinates(new Displacement(x, y));
+                }
             }
 
-            Point GetSwappedAbsoluteCoordinates(int x, int y)
+            for (; range <= maxRange; ++range)
             {
-                Displacement relSigned =
-                        GetRelativeSignedCoordinates(
-                            new Displacement(x, y));
-                return character.Position +
-                    new Displacement(relSigned.Y, relSigned.X);
-            }
-
-            for (; range <= maxRange; ++range, ++posY)
-            {
-                int relPosY = GetRelativeUnsignedCoordinates(0, (int)(posY)).Y;
+                int posY = range + character.Position.Y;
+                int relPosY = range;
                 int iPosY = relPosY + character.Position.Y;
                 int relend2 = 0;
                 int relstartX = range;
                 int endX = relend2 + character.Position.X;
                 int startX = relstartX + character.Position.X;
                 bool lastWasBlocker = false;
-                double savedRightSlope = rightSlope;
+                double savedLeftSlope = leftSlope;
                 for (int x = startX, rx = relstartX; x >= endX; --x, --rx)
                 {
-                    double topLeftTileSlope = (rx + 0.5) / (relPosY - 0.5);
-                    double bottomRightTileSlope = (rx - 0.5) / (relPosY + 0.5);
+                    double bottomRightTileSlope = (rx + 0.5) / (relPosY - 0.5);
+                    double topLeftTileSlope = (rx - 0.5) / (relPosY + 0.5);
                     // We've yet to reach the scan area.
-                    if (bottomRightTileSlope > leftSlope)
+                    if (topLeftTileSlope > rightSlope)
                     {
                         continue;
                     }
                     // We've passed out of the scan area.
-                    else if (topLeftTileSlope < rightSlope)
+                    else if (bottomRightTileSlope < leftSlope)
                     {
                         break;
                     }
 
-                    Point p;
-                    if (swap == true)
-                    {
-                        p = GetSwappedAbsoluteCoordinates(x, iPosY);
-                    }
-                    else
-                    {
-                        p = GetAbsoluteCoordinates(x, iPosY);
-                    }
+                    Point p = GetMapCoordinates(x, iPosY);
                     if (character.OnMap.PointInMap(p))
                         visibilityMap[p.Y, p.X] = VisibilityState.Visible;
                     
-                    bool isCurrentBlocker = CheckBlocking(x, posY);
+                    bool isCurrentBlocker = CheckBlocking(p.X, p.Y);
                     if (lastWasBlocker)
                     {
                         if (isCurrentBlocker)
                         {
-                            savedRightSlope = bottomRightTileSlope;
+                            savedLeftSlope = topLeftTileSlope;
                         }
                         else
                         {
-                            leftSlope = savedRightSlope;
+                            rightSlope = savedLeftSlope;
                             lastWasBlocker = false;
                         }
                     }
@@ -180,11 +166,11 @@ namespace WeekendRoguelike.AI.Sight
                     {
                         if (isCurrentBlocker)
                         {
-                            if (topLeftTileSlope <= leftSlope)
-                                Octant(posY + 1, signX, signY, range + 1,
-                                    maxRange, leftSlope, topLeftTileSlope, swap: swap);
+                            if (bottomRightTileSlope <= rightSlope)
+                                Octant(range + 1, signX, signY,
+                                    maxRange, bottomRightTileSlope, rightSlope, swap: swap);
 
-                            savedRightSlope = bottomRightTileSlope;
+                            savedLeftSlope = topLeftTileSlope;
                             lastWasBlocker = true;
                         }
                     }
@@ -231,17 +217,15 @@ namespace WeekendRoguelike.AI.Sight
                 for (int x = -1; x <= 1; x += 2)
                 {
                     Octant(
-                        posY: character.Position.Y + 0.5,
+                        range: 0,
                         signX: x,
                         signY: y,
-                        range: 0,
                         maxRange: 15.5);
 
                     Octant(
-                        posY: character.Position.Y + 0.5,
+                        range: 0,
                         signX: x,
                         signY: y,
-                        range: 0,
                         maxRange: 15.5,
                         swap: true);
                 }
