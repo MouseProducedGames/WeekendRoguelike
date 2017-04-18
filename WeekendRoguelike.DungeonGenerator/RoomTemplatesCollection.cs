@@ -17,9 +17,15 @@ namespace WeekendRoguelike.DungeonGenerator
 
         #region Public Methods
 
-        public IEnumerable<KeyValuePair<string, HashSet<RoomTemplate>>> GetAllNameFactionPairs()
+        public IEnumerable<KeyValuePair<string, HashSet<RoomTemplate>>> GetAllNameRoomTemplatesPairs()
         {
             foreach (var kvp in roomTemplateByName)
+                yield return kvp;
+        }
+
+        public IEnumerable<KeyValuePair<string, HashSet<RoomTemplate>>> GetAllTypeRoomTemplatesPairs()
+        {
+            foreach (var kvp in roomTemplateByType)
                 yield return kvp;
         }
 

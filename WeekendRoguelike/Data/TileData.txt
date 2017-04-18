@@ -4,3 +4,7 @@ BlocksSight: Cardinal
 BlocksSight: Diagonal
 
 [Floor]
+
+[Door]
+BlocksSight: Cardinal
+BlocksSight: Diagonal
