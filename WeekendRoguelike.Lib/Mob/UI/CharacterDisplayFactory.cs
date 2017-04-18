@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeekendRoguelike.Mob.Character;
+﻿using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike.Mob.UI

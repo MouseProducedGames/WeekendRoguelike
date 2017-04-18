@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using WeekendRoguelike.AI.FactionSystem;
+using WeekendRoguelike.AI.Mob;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
 using WeekendRoguelike.UI.Monster;

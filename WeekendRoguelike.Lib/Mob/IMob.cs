@@ -14,8 +14,9 @@ namespace WeekendRoguelike.Mob
 
         #region Public Methods
 
-        bool TryMove(Point newPosition);
         bool IsEnemy(CharacterEntity otherCharacter);
+
+        bool TryMove(Point newPosition);
 
         #endregion Public Methods
     }
