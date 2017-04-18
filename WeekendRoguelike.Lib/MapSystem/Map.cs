@@ -194,10 +194,14 @@ namespace WeekendRoguelike.MapSystem
 
         public bool PointInMap(Point to)
         {
+            return PointInMap(to.X, to.Y);
+        }
+
+        public bool PointInMap(int x, int y)
+        {
             return
-                to.X >= 0 && to.X < Width &&
-                to.Y >= 0 && to.Y < Length
-                ;
+                x >= 0 && x < Width &&
+                y >= 0 && y < Length;
         }
 
         public bool RemoveCharacter(CharacterEntity removeCharacter)
@@ -213,6 +217,19 @@ namespace WeekendRoguelike.MapSystem
         public bool SightBlocked(Point p)
         {
             return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksSight
+                != BlockDirections.None;
+        }
+
+        /// <summary>
+        /// Checks if the tile blocks any sight.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool SightBlocked(int x, int y)
+        {
+            return 
+                PointInMap(x, y) == false ||
+                AllTileData.GetTileData(this[x, y].ID).BlocksSight
                 != BlockDirections.None;
         }
 

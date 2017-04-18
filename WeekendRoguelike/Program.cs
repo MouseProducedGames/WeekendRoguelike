@@ -89,7 +89,7 @@ namespace WeekendRoguelike
                 playerCharacter.Position = map.GetRandomValidPoint(playerCharacter);
             }
 
-            {
+            /* {
                 var info = new MonsterFactory.FacctoryInfo();
                 info.MonsterData = AllMonsters.GetAllNameMonsterPairs().First().Value;
 
@@ -98,7 +98,7 @@ namespace WeekendRoguelike
                 CharacterEntity monsterCharacter = factory.Create(info);
                 monsterCharacter.OnMap = map;
                 monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter);
-            }
+            } */
 
             while (Input.GetInput.Key != ConsoleKey.Escape)
             {
@@ -107,11 +107,11 @@ namespace WeekendRoguelike
                 Input.Update();
                 map.Update();
 
-                if (map.AllMobs().Count() <= 1)
+                /* if (map.AllMobs().Count() <= 1)
                 {
                     DrawScreen(map, playerCharacter);
                     break;
-                }
+                } */
             }
             if (playerCharacter.Alive)
             {
