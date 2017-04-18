@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using WeekendRoguelike.AI.FactionSystem;
-using WeekendRoguelike.MapSystem;
+﻿using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.Mob.Character;
 
 namespace WeekendRoguelike.Mob

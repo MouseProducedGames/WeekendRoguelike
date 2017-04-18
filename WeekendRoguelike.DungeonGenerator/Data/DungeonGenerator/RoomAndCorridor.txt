@@ -1,0 +1,27 @@
+﻿[Room]
+Type	: Room
+Width	: 4, 6
+Length	: 6, 8
+Doors	: 3, 5
+NextSet	: Hallway
+
+[Room]
+Type	: Room
+Width	: 6, 8
+Length	: 4, 6
+Doors	: 3, 5
+NextSet	: Hallway
+
+[Hallway]
+Type	: Hallway
+Width	: 1, 1
+Length	: 1, 15
+Doors	: 2, 5
+NextSet	: Room
+
+[Hallway]
+Type	: Hallway
+Width	: 1, 15
+Length	: 1, 1
+Doors	: 2, 5
+NextSet	: Room

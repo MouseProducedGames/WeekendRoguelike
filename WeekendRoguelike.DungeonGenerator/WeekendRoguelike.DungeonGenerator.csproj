@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1F2A4B6F-9615-4385-8DF2-7459F350FAFF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>WeekendRoguelike</RootNamespace>
-    <AssemblyName>WeekendRoguelike</AssemblyName>
+    <ProjectGuid>{898116B6-5314-43D8-BE04-44DB4AE45394}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WeekendRoguelike.DungeonGenerator</RootNamespace>
+    <AssemblyName>WeekendRoguelike.DungeonGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,35 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DataTypes\Door.cs" />
+    <Compile Include="DataTypes\Room.cs" />
+    <Compile Include="IO\RoomTemplatesCollection.cs" />
+    <Compile Include="Factory\DungeonFactory.cs" />
+    <Compile Include="DataTypes\RoomTemplate.cs" />
+    <Compile Include="IO\RoomTemplateReader.cs" />
+    <Compile Include="IO\IRoomTemplateReader.cs" />
+    <Compile Include="Factory\RoomAndCorridorFactory.cs" />
+    <Compile Include="DataTypes\Side.cs" />
+    <Compile Include="DataTypes\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataTypes\TileMap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Classes.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\ConsoleCharacterGraphics.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\ConsoleTileGraphics.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\TileData.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Factions.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Monsters.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Races.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="license.txt">
+    <Content Include="Data\DungeonGenerator\RoomAndCorridor.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -79,18 +63,7 @@
       <Project>{9a55b8d8-cdd3-41cd-87ca-d8a511820e58}</Project>
       <Name>WeekendRoguelike.DataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WeekendRoguelike.DungeonGenerator\WeekendRoguelike.DungeonGenerator.csproj">
-      <Project>{898116B6-5314-43D8-BE04-44DB4AE45394}</Project>
-      <Name>WeekendRoguelike.DungeonGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WeekendRoguelike.DungeonTranslator\WeekendRoguelike.DungeonTranslation.csproj">
-      <Project>{152A2E3A-DAA1-4CD3-AF90-F05A14A5C989}</Project>
-      <Name>WeekendRoguelike.DungeonTranslation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WeekendRoguelike.Lib\WeekendRoguelike.Lib.csproj">
-      <Project>{110fb817-ed72-4245-b76c-74ecc3f8ce1c}</Project>
-      <Name>WeekendRoguelike.Lib</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

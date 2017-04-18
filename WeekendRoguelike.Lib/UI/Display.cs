@@ -1,4 +1,6 @@
 ﻿using System;
+using WeekendRoguelike.MapSystem;
+using WeekendRoguelike.MapSystem.UI;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.Mob.UI;
 
@@ -12,6 +14,7 @@ namespace WeekendRoguelike.UI
         private static object lockObject = new object();
 
         private CharacterDisplayFactory characterDisplayFactory;
+        private MapDisplayFactory mapDisplayFactory;
 
         #endregion Private Fields
 
@@ -35,6 +38,15 @@ namespace WeekendRoguelike.UI
             #endregion Public Methods
         }
 
+        public interface IMapGraphicsWrapper : IGraphicsWrapper
+        {
+            #region Public Methods
+
+            void Update(Map forMap);
+
+            #endregion Public Methods
+        }
+
         #endregion Public Interfaces
 
         #region Public Properties
@@ -49,6 +61,8 @@ namespace WeekendRoguelike.UI
         #region Protected Properties
 
         protected CharacterDisplayFactory CharacterDisplayFactory { get => characterDisplayFactory; set => characterDisplayFactory = value; }
+
+        protected MapDisplayFactory MapDisplayFactory { get => mapDisplayFactory; set => mapDisplayFactory = value; }
 
         #endregion Protected Properties
 
@@ -77,6 +91,11 @@ namespace WeekendRoguelike.UI
         public ICharacterGraphicsWrapper CreateGraphicsWrapper(CharacterEntity forCharacter)
         {
             return CharacterDisplayFactory.Create(forCharacter);
+        }
+
+        public IMapGraphicsWrapper CreateGraphicsWrapper(Map forMap)
+        {
+            return MapDisplayFactory.Create(forMap);
         }
 
         public ICharacterGraphicsWrapper CreateGraphicsWrapper(string name)

@@ -12,6 +12,11 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
+        public static bool NextBool()
+        {
+            return rand.Next(2) == 1;
+        }
+
         public static int NextInt()
         {
             return rand.Next();

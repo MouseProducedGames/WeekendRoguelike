@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1F2A4B6F-9615-4385-8DF2-7459F350FAFF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>WeekendRoguelike</RootNamespace>
-    <AssemblyName>WeekendRoguelike</AssemblyName>
+    <ProjectGuid>{152A2E3A-DAA1-4CD3-AF90-F05A14A5C989}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WeekendRoguelike.DungeonTranslator</RootNamespace>
+    <AssemblyName>WeekendRoguelike.DungeonTranslator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,37 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DungeonTranslator.cs" />
+    <Compile Include="IO\ITranslationReader.cs" />
+    <Compile Include="IO\TranslationReader.cs" />
+    <Compile Include="IO\TranslationTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Classes.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\ConsoleCharacterGraphics.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\ConsoleTileGraphics.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\TileData.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Factions.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Monsters.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Races.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="license.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WeekendRoguelike.DataTypes\WeekendRoguelike.DataTypes.csproj">
@@ -80,17 +52,18 @@
       <Name>WeekendRoguelike.DataTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\WeekendRoguelike.DungeonGenerator\WeekendRoguelike.DungeonGenerator.csproj">
-      <Project>{898116B6-5314-43D8-BE04-44DB4AE45394}</Project>
+      <Project>{898116b6-5314-43d8-be04-44db4ae45394}</Project>
       <Name>WeekendRoguelike.DungeonGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WeekendRoguelike.DungeonTranslator\WeekendRoguelike.DungeonTranslation.csproj">
-      <Project>{152A2E3A-DAA1-4CD3-AF90-F05A14A5C989}</Project>
-      <Name>WeekendRoguelike.DungeonTranslation</Name>
     </ProjectReference>
     <ProjectReference Include="..\WeekendRoguelike.Lib\WeekendRoguelike.Lib.csproj">
       <Project>{110fb817-ed72-4245-b76c-74ecc3f8ce1c}</Project>
       <Name>WeekendRoguelike.Lib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\DungeonTranslator\TranslateTable.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

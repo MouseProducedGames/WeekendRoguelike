@@ -1,0 +1,14 @@
+﻿[Wall]
+Symbol: #
+Foreground: Black
+Background: Gray
+
+[Floor]
+Symbol: #
+Foreground: Gray
+Background: DarkGray
+
+[Door]
+Symbol: +
+Foreground: White
+Background: Red
