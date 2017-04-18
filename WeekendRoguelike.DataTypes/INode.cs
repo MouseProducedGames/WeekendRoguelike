@@ -5,8 +5,8 @@
         #region Public Properties
 
         int F { get; }
-        int G { get; set; }
-        int H { get; set; }
+        int G { get; }
+        int H { get; }
 
         #endregion Public Properties
     }

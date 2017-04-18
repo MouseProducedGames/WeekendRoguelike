@@ -26,20 +26,69 @@ namespace WeekendRoguelike.AI.PlanningSystem
 
         #region Public Methods
 
-        public Queue<Point> GetPath(Point start, Point end)
+        public Stack<Point> GetPath(Point start, Point end)
         {
-            Queue<Point> path =
-                new Queue<Point>();
-            Point current = start;
-            while (current != end)
+            Stack<Point> path =
+                new Stack<Point>();
+            HashSet<Node> closed = new HashSet<Node>();
+            Dictionary<Point, Node> open = new Dictionary<Point, Node>();
+            PriorityQueue<Node> queue = new PriorityQueue<Node>();
+            Node current =
+                new Node(start, start, 0, (end - start).MagnitudeSquared);
+            queue.Enqueue(current);
+
+            void Explore(Node fromNode)
             {
-                Displacement disp = end - current;
-                disp.X = Math.Sign(disp.X);
-                disp.Y = Math.Sign(disp.Y);
-                path.Enqueue(current);
-                current += disp;
+                for (int y = -1; y <= 1; ++y)
+                {
+                    int yp = fromNode.Position.Y;
+                    for (int x = -1; x <= 1; ++x)
+                    {
+                        if (y == 0 && x == 0)
+                            continue;
+                        int xp = fromNode.Position.X;
+                        Point nextPos = new Point(xp, yp);
+                        Node nextNode = new Node(
+                            fromNode.Position,
+                            nextPos,
+                            (nextPos - fromNode.Position).MagnitudeSquared,
+                            (end - nextPos).MagnitudeSquared);
+                        if (closed.Contains(nextNode) == false &&
+                            map.TestMove(fromNode.Position, nextPos) == true &&
+                            (open.TryGetValue(nextPos, out var openNode) == false ||
+                            openNode.F > nextNode.F))
+                        {
+                            open[nextPos] = nextNode;
+                            queue.Enqueue(nextNode);
+                        }
+                    }
+                }
+                closed.Add(fromNode);
             }
-            path.Enqueue(end);
+
+            while (queue.Count > 0)
+            {
+                while (queue.Count > 0 &&
+                    closed.Contains(current = queue.Dequeue()) == true) ;
+                // We weren't able to find a new non-closed node.
+                if (closed.Contains(current))
+                    return path;
+
+                if (current.Position == end)
+                {
+                    while (current.Position != current.Parent)
+                    {
+                        path.Push(current.Position);
+                        current = open[current.Parent];
+                    }
+                    path.Push(start);
+                }
+
+                if (open.TryGetValue(current.Position, out var useInstead) == true)
+                    current = useInstead;
+
+                Explore(current);
+            }
             return path;
         }
 
@@ -53,5 +102,78 @@ namespace WeekendRoguelike.AI.PlanningSystem
         }
 
         #endregion Public Methods
+
+        #region Private Structs
+
+        private struct Node : INode, IEquatable<Node>
+        {
+            #region Private Fields
+
+            private readonly int g;
+            private readonly int h;
+            private readonly Point parent;
+            private readonly Point position;
+
+            #endregion Private Fields
+
+            #region Public Constructors
+
+            public Node(Point parent, Point position, int g, int h)
+            {
+                this.parent = parent;
+                this.position = position;
+                this.g = g;
+                this.h = h;
+            }
+
+            #endregion Public Constructors
+
+            #region Public Properties
+
+            public int F => G + H;
+
+            public int G { get => g; }
+            public int H { get => h; }
+            public Point Parent { get => parent; }
+            public Point Position { get => position; }
+
+            #endregion Public Properties
+
+            #region Public Methods
+
+            public static bool operator !=(Node left, Node right)
+            {
+                return (left == right) == false;
+            }
+
+            public static bool operator ==(Node left, Node right)
+            {
+                return left.Equals(right);
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is Node n && Equals(n);
+            }
+
+            public bool Equals(Node other)
+            {
+                return Position == other.Position;
+            }
+
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
+
+            public override string ToString()
+            {
+                return string.Format("{0} F: {1}, G: {2}, H: {3}", Position, F, G, H);
+            }
+
+            #endregion Public Methods
+        }
+
+        #endregion Private Structs
     }
 }

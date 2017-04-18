@@ -141,7 +141,7 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
-        public Queue<Point> GetPath(Point start, Point end)
+        public Stack<Point> GetPath(Point start, Point end)
         {
             return pathFinder.GetPath(start, end);
         }
@@ -192,29 +192,9 @@ namespace WeekendRoguelike.MapSystem
             return removeCharacters.Add(removeCharacter);
         }
 
-        public bool TryGetCharacterAt(Point at, out CharacterEntity characterAt)
+        public bool TestMove(Point start, Point to)
         {
-            if (PointInMap(at) == false)
-            {
-                characterAt = null;
-                return false;
-            }
-
-            foreach (var otherCharacter in allCharacters)
-            {
-                if (at == otherCharacter.Position)
-                {
-                    characterAt = otherCharacter;
-                    return true;
-                }
-            }
-            characterAt = null;
-            return false;
-        }
-
-        public bool TryMove(CharacterEntity moveCharacter, Point to)
-        {
-            Displacement disp = to - moveCharacter.Position;
+            Displacement disp = to - start;
 
             // Not sure that's a move, but ok. Should TryMove be called if you
             // stay in the same position? Hmm...
@@ -241,9 +221,9 @@ namespace WeekendRoguelike.MapSystem
                     {
                         movingDir = BlockDirections.Diagonal;
 
-                        Point linear = moveCharacter.Position +
+                        Point linear = start +
                             new Displacement(0, disp.Y);
-                        Point sideways = moveCharacter.Position +
+                        Point sideways = start +
                             new Displacement(disp.X, 0);
                         // "to" is be definition one tile away.
                         if (GetTileDataFor(linear)
@@ -261,6 +241,41 @@ namespace WeekendRoguelike.MapSystem
             }
 
             if (PointInMap(to) == false)
+                return false;
+            foreach (var otherCharacter in allCharacters)
+            {
+                if (to == otherCharacter.Position)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool TryGetCharacterAt(Point at, out CharacterEntity characterAt)
+        {
+            if (PointInMap(at) == false)
+            {
+                characterAt = null;
+                return false;
+            }
+
+            foreach (var otherCharacter in allCharacters)
+            {
+                if (at == otherCharacter.Position)
+                {
+                    characterAt = otherCharacter;
+                    return true;
+                }
+            }
+            characterAt = null;
+            return false;
+        }
+
+        public bool TryMove(CharacterEntity moveCharacter, Point to)
+        {
+            Point start = moveCharacter.Position;
+            if (TestMove(start, to) == false)
                 return false;
             foreach (var otherCharacter in allCharacters)
             {
