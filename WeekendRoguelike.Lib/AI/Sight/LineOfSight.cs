@@ -109,18 +109,13 @@ namespace WeekendRoguelike.AI.Sight
                     GetRelativeSignedCoordinates(new Displacement(x, y));
             }
 
-            double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y;
-            int startX = (int)((relPosY + 0.5) * innerSlope);
-            int endX = (int)((relPosY + 0.5) * outerSlope);
-
             for (; range <= maxRange; ++range, ++posY)
             {
-                relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y;
-                startX = (int)(relPosY * innerSlope);
-                endX = (int)(relPosY * outerSlope);
-                bool lastWasBlocker = CheckBlocking(character.Position.X + startX,
-                    posY);
-                for (int x = startX + character.Position.X; x >= endX + character.Position.X; --x)
+                double relPosY = GetRelativeUnsignedCoordinates(0, (int)posY).Y + 0.5;
+                int startX = (int)(relPosY * innerSlope) + character.Position.X;
+                int endX = (int)(relPosY * outerSlope) + character.Position.X;
+                bool lastWasBlocker = CheckBlocking(startX, posY);
+                for (int x = startX; x >= endX; --x)
                 {
                     bool isCurrentBlocker = CheckBlocking(x + 0.5, posY);
                     if (lastWasBlocker)
@@ -132,7 +127,7 @@ namespace WeekendRoguelike.AI.Sight
                                 pos.Y >= 0 || pos.Y < length)
                                 visibilityMap[pos.Y, pos.X] = VisibilityState.Visible;
 
-                            if (x > endX + character.Position.X)
+                            if (x > endX)
                             {
                                 continue;
                             }
@@ -164,7 +159,7 @@ namespace WeekendRoguelike.AI.Sight
                             Displacement slopeDisp = GetRelativeUnsignedCoordinates(x, (int)posY);
                             OctantVertical(posY + 1, signX, signY, range + 1, maxRange, innerSlope, (double)slopeDisp.X / slopeDisp.Y);
 
-                            if (x > endX + character.Position.X)
+                            if (x > endX)
                             {
                                 continue;
                             }
