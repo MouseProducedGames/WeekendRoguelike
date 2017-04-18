@@ -116,6 +116,22 @@ namespace WeekendRoguelike.MapSystem
             return changeMap[y, x];
         }
 
+        /// <summary>
+        /// Checks if the tile blocks any movement.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool Blocked(Point p)
+        {
+            return AllTileData.GetTileData(this[p.X, p.Y].ID).BlocksMovement
+                != BlockDirections.None;
+        }
+
+        public bool Changed(int x, int y)
+        {
+            return changeMap[y, x];
+        }
+
         public void Draw()
         {
             mapGraphics.Update(this);
@@ -147,6 +163,12 @@ namespace WeekendRoguelike.MapSystem
             return output;
         }
 
+        public TileData GetTileDataFor(Point to)
+        {
+            return AllTileData.GetTileData(this[to.X, to.Y].ID);
+        }
+
+        public Point GetSingleStep(Point start, Point end)
         public TileData GetTileDataFor(Point to)
         {
             return AllTileData.GetTileData(this[to.X, to.Y].ID);
