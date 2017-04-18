@@ -23,6 +23,11 @@ namespace WeekendRoguelike
 
         #region Public Methods
 
+        public static explicit operator Point(Displacement p)
+        {
+            return new Point(p.X, p.Y);
+        }
+
         public static Point operator -(Point left, Displacement right)
         {
             return new Point(

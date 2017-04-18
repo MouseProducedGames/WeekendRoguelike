@@ -24,8 +24,23 @@ namespace WeekendRoguelike.DungeonGenerator
 
             bool AddRoom(Room addRoom)
             {
-                if (rooms.Any(otherRoom => addRoom.Intersects(otherRoom)))
+                if (rooms.Any(otherRoom => addRoom.Intersects(otherRoom)) == false)
                 {
+                    if (addRoom.Position.X < 1 ||
+                        addRoom.Position.X + addRoom.Width >= width - 1 ||
+                        addRoom.Position.Y < 1 ||
+                        addRoom.Position.Y + addRoom.Length >= length - 1)
+                    {
+                        return false;
+                    }
+                    foreach (var door in addRoom.Doors)
+                    {
+                        if (door.Position.X < 1 || door.Position.X >= width - 1 ||
+                            door.Position.Y < 1 || door.Position.Y >= length - 1)
+                        {
+                            return false;
+                        }
+                    }
                     rooms.Add(addRoom);
                     return true;
                 }
@@ -37,7 +52,10 @@ namespace WeekendRoguelike.DungeonGenerator
 
             Room RandomRoomFromRooms()
             {
-                return rooms.ElementAt(Rand.NextInt(rooms.Count));
+                var useRooms = rooms.Where(
+                    room => room.RelativeDoors.Any(
+                        door => door.Filled == false));
+                return useRooms.ElementAt(Rand.NextInt(useRooms.Count()));
             }
 
             IReadOnlyCollection<RoomTemplate> NextTypeSet(Room fromRoom)
@@ -62,37 +80,59 @@ namespace WeekendRoguelike.DungeonGenerator
                 RoomTemplates.GetAllNameRoomTemplatesPairs().First().Value;
             RoomTemplate currentTemplate =
                 currentTypeSet.ElementAt(Rand.NextInt(currentTypeSet.Count));
-            Room currentRoom = new Room(currentTemplate);
+            Room currentRoom =
+                new Room(currentTemplate, maxDoors: true);
             currentRoom.Position =
                 new Point(
-                Rand.NextInt(1, width - 1 - currentRoom.Width),
-                Rand.NextInt(1, length - 1 - currentRoom.Length));
+                    width / 2 - currentRoom.Width / 2,
+                    length / 2 - currentRoom.Length / 2);
             if (AddRoom(currentRoom) == false)
                 throw new InvalidOperationException(
                     "The first room added to the set collided with nothing." +
                     " This should never happen.");
 
-            int tries = 50;
+            int tries = (width * length) / 4;
             while (--tries >= 0)
             {
                 Room parentRoom = RandomRoomFromRooms();
+                
                 currentRoom =
                     RoomFromRandomTemplate(NextTypeSet(parentRoom));
 
-                Point door = parentRoom.Doors.ElementAt(
-                    Rand.NextInt(parentRoom.Doors.Count));
-
                 bool success = false;
-                foreach (var parentDoor in parentRoom.Doors)
+                foreach (var parentDoor in parentRoom.RelativeDoors)
                 {
-                    foreach (var currentDoor in currentRoom.Doors)
+                    if (parentDoor.Filled == true)
+                        continue;
+                    foreach (var currentDoor in currentRoom.RelativeDoors)
                     {
+                        if (currentDoor.Filled == true)
+                            continue;
+                        if (parentDoor.Direction.X +
+                            currentDoor.Direction.X != 0 ||
+                            parentDoor.Direction.Y +
+                            currentDoor.Direction.Y != 0)
+                            continue;
+
+                        if (parentDoor.Direction.X > 0)
+                        {
+                            int j = 0;
+                            ++j;
+                        }
+
                         currentRoom.Position =
-                            parentDoor +
-                            new Displacement(currentDoor.X, currentDoor.Y);
+                            parentRoom.Position +
+                            parentDoor.Position -
+                            currentDoor.Position;
+                        /* if (currentRoom.Position + currentDoor.Position - currentDoor.Direction !=
+                            parentRoom.Position + parentDoor.Position - parentDoor.Direction)
+                            continue; */
                         if (AddRoom(currentRoom) == true)
                         {
+                            parentDoor.Fill();
+                            currentDoor.Fill();
                             success = true;
+                            // tries = -50;
                             break;
                         }
                     }
@@ -105,16 +145,20 @@ namespace WeekendRoguelike.DungeonGenerator
 
             foreach (var room in rooms)
             {
-                for (int y = 0; y < room.Width; ++y)
+                for (int y = 0; y < room.Length; ++y)
                 {
-                    for (int x = 0; x < room.Length; ++x)
+                    int py = y + room.Position.Y;
+                    for (int x = 0; x < room.Width; ++x)
                     {
-                        output[x, y] = Tile.Floor;
+                        int px = x + room.Position.X;
+                        output[px, py] = Tile.Floor;
                     }
                 }
                 foreach (var door in room.Doors)
                 {
-                    output[door.X, door.Y] = Tile.Door;
+                    if (door.Filled == false)
+                        continue;
+                    output[door.Position.X, door.Position.Y] = Tile.Door;
                 }
             }
 

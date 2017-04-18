@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.DungeonGen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.DataTypes", "WeekendRoguelike.DataTypes\WeekendRoguelike.DataTypes.csproj", "{9A55B8D8-CDD3-41CD-87CA-D8A511820E58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeekendRoguelike.DungeonViewer", "WeekendRoguelike.DungeonViewer\WeekendRoguelike.DungeonViewer.csproj", "{5AE869C0-1F34-459A-A264-F0AFA859A185}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9A55B8D8-CDD3-41CD-87CA-D8A511820E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A55B8D8-CDD3-41CD-87CA-D8A511820E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A55B8D8-CDD3-41CD-87CA-D8A511820E58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AE869C0-1F34-459A-A264-F0AFA859A185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE869C0-1F34-459A-A264-F0AFA859A185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE869C0-1F34-459A-A264-F0AFA859A185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE869C0-1F34-459A-A264-F0AFA859A185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

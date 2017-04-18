@@ -10,99 +10,127 @@ namespace WeekendRoguelike.DungeonGenerator
     {
         #region Private Fields
 
-        private Point position;
-
-        private readonly HashSet<Point> doors;
+        private readonly HashSet<Door> doors;
         private readonly int length;
-
         private readonly RoomTemplate template;
-
         private readonly int width;
+        private Point position;
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public Room(RoomTemplate template)
+        public Room(RoomTemplate template, bool maxDoors = false)
         {
             width = template.Width.RandomValueInRange;
             length = template.Length.RandomValueInRange;
             this.template = template;
 
-            void AddDoor(Func<Point> RandDoor)
+            bool AddDoor(Func<Door> RandDoor)
             {
                 var currentDoor = RandDoor();
                 bool failure = true;
                 int maxCount = 50;
                 while (--maxCount >= 0 &&
-                    (failure = doors.Any(otherDoor => (currentDoor - otherDoor).MagnitudeSquared == 1)) == true)
+                    (failure = doors.Any(otherDoor => (currentDoor.Position - otherDoor.Position).MagnitudeSquared == 1)) == true)
                 {
                     currentDoor = RandDoor();
                 }
                 if (failure == false)
+                {
                     doors.Add(currentDoor);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
-            doors = new HashSet<Point>();
+            doors = new HashSet<Door>();
             int doorCount = template.Doors.RandomValueInRange;
+            if (maxDoors)
+                doorCount = template.Doors.Max;
             for (int i = 0; i < doorCount; ++i)
             {
-                Side side = (Side)Rand.NextInt(1, 5);
-                switch (side)
+                int tries = 10;
+                bool success = false;
+                while (--tries >= 0 && success == false)
                 {
-                    case Side.North:
-                        {
-                            Point RandDoor()
+                    Side side = (Side)Rand.NextInt(1, 5);
+                    switch (side)
+                    {
+                        case Side.North:
                             {
-                                return new Point(Rand.NextInt(0, width), -1);
+                                Door RandDoor()
+                                {
+                                    return
+                                        new Door(
+                                            new Displacement(Rand.NextInt(0, width), -1),
+                                            new Displacement(0, -1));
+                                }
+
+                                if (AddDoor(RandDoor))
+                                    success = true;
+                                break;
                             }
 
-                            AddDoor(RandDoor);
-                            break;
-                        }
-
-                    case Side.South:
-                        {
-                            Point RandDoor()
+                        case Side.South:
                             {
-                                return new Point(Rand.NextInt(0, width), length);
-                            }
+                                Door RandDoor()
+                                {
+                                    return
+                                        new Door(
+                                            new Displacement(Rand.NextInt(0, width), length),
+                                            new Displacement(0, 1));
+                                }
 
-                            AddDoor(RandDoor);
-                            break;
-                        }
-                    case Side.West:
-                        {
-                            Point RandDoor()
+                                if (AddDoor(RandDoor))
+                                    success = true;
+                                break;
+                            }
+                        case Side.West:
                             {
-                                return new Point(-1, Rand.NextInt(0, length));
-                            }
+                                Door RandDoor()
+                                {
+                                    return
+                                        new Door(
+                                            new Displacement(-1, Rand.NextInt(0, length)),
+                                            new Displacement(-1, 0));
+                                }
 
-                            AddDoor(RandDoor);
-                            break;
-                        }
-                    case Side.East:
-                        {
-                            Point RandDoor()
+                                if (AddDoor(RandDoor))
+                                    success = true;
+                                break;
+                            }
+                        case Side.East:
                             {
-                                return new Point(width, Rand.NextInt(0, length));
-                            }
+                                Door RandDoor()
+                                {
+                                    return
+                                        new Door(
+                                            new Displacement(width, Rand.NextInt(0, length)),
+                                            new Displacement(1, 0));
+                                }
 
-                            AddDoor(RandDoor);
-                            break;
-                        }
+                                if (AddDoor(RandDoor))
+                                    success = true;
+                                break;
+                            }
+                    }
                 }
             }
         }
+
         public Room(
             int width,
             int length,
-            IReadOnlyCollection<Point> doors,
+            IReadOnlyCollection<Door> doors,
             RoomTemplate template)
         {
             this.width = width;
             this.length = length;
-            this.doors = new HashSet<Point>(doors);
+            this.doors = new HashSet<Door>(doors);
             this.template = template;
         }
 
@@ -110,28 +138,37 @@ namespace WeekendRoguelike.DungeonGenerator
 
         #region Public Properties
 
-        public IReadOnlyCollection<Point> Doors
+        public IEnumerable<Door> Doors
         {
-            get => (IReadOnlyCollection<Point>)doors;
+            get => (doors.Select(door => new Door((Displacement)(position + door.Position), door.Direction, filled: door.Filled)));
         }
+
         public int Length => length;
-
-        public int Width => width;
-
-        public RoomTemplate Template => template;
 
         public Point Position { get => position; set => position = value; }
 
+        public IReadOnlyCollection<Door> RelativeDoors
+        {
+            get => (IReadOnlyCollection<Door>)doors;
+        }
+
+        public RoomTemplate Template => template;
+        public int Width => width;
+
         #endregion Public Properties
+
+        #region Public Methods
 
         public bool Intersects(Room other)
         {
             return
                 (position.X > other.position.X + other.width ||
-                position.X + other.width < other.position.X ||
+                position.X + other.width + 1 < other.position.X ||
                 position.Y > other.position.Y + other.length ||
-                position.Y + other.length < other.position.Y)
+                position.Y + other.length + 1 < other.position.Y)
                 == false;
         }
+
+        #endregion Public Methods
     }
 }

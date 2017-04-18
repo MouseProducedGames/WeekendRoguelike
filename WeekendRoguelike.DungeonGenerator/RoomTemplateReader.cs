@@ -49,7 +49,7 @@ namespace WeekendRoguelike.DungeonGenerator
                 if (line[0] != '[')
                     continue;
 
-                string name = line.Substring(0, line.Length - 2).Trim();
+                string name = line.Substring(1, line.Length - 2).Trim();
                 string type = null;
                 Range width = new Range();
                 Range length = new Range();

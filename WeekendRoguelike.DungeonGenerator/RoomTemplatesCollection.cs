@@ -45,9 +45,10 @@ namespace WeekendRoguelike.DungeonGenerator
 
         public void LoadRoomTemplates(IRoomTemplateReader reader)
         {
-            void AddRoomtemplate(RoomTemplate nextRoomTemplate, Dictionary<string, HashSet<RoomTemplate>> roomLookup)
+            void AddRoomtemplate(string key, RoomTemplate nextRoomTemplate,
+                Dictionary<string, HashSet<RoomTemplate>> roomLookup)
             {
-                if (roomLookup.TryGetValue(nextRoomTemplate.Name.ToUpper(), out var set) == false)
+                if (roomLookup.TryGetValue(key.ToUpper(), out var set) == false)
                 {
                     set = new HashSet<RoomTemplate>();
                     roomLookup[nextRoomTemplate.Name.ToUpper()] = set;
@@ -59,8 +60,10 @@ namespace WeekendRoguelike.DungeonGenerator
             {
                 if (reader.TryReadNextRoomTemplate(out var nextRoomTemplate))
                 {
-                    AddRoomtemplate(nextRoomTemplate, roomTemplateByName);
-                    AddRoomtemplate(nextRoomTemplate, roomTemplateByType);
+                    AddRoomtemplate(nextRoomTemplate.Name, nextRoomTemplate,
+                        roomTemplateByName);
+                    AddRoomtemplate(nextRoomTemplate.Type, nextRoomTemplate,
+                        roomTemplateByType);
                 }
             }
         }
