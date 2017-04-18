@@ -33,7 +33,7 @@ namespace WeekendRoguelike.UI
         {
             #region Public Methods
 
-            void Draw();
+            void Draw(CharacterEntity viewpointCharacter);
 
             #endregion Public Methods
         }

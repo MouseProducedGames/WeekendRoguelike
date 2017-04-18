@@ -214,9 +214,15 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #region Public Methods
 
-            public void Draw()
+            public void Draw(CharacterEntity viewpointCharacter)
             {
-                Display.GetInstanceAs<ConsoleDisplay>().Draw(this);
+                Point drawAt = (Point)(position - viewpointCharacter.Position +
+                    new Displacement(12, 12));
+                if (drawAt.X < 0 || drawAt.X > 24 ||
+                    drawAt.Y < 0 || drawAt.Y > 25)
+                    return;
+                if (viewpointCharacter.Visibility[Position.X, Position.Y])
+                    Display.GetInstanceAs<ConsoleDisplay>().Draw(drawAt, this.data);
             }
 
             #endregion Public Methods
@@ -243,15 +249,25 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #region Public Methods
 
-            public void Draw()
+            public void Draw(CharacterEntity viewpointCharacter)
             {
                 ConsoleDisplay instance =
                     Display.GetInstanceAs<ConsoleDisplay>();
-                for (int y = 0; y < length; ++y)
+                Point viewpointPosition = viewpointCharacter.Position;
+                for (int y = -12; y <= 12; ++y)
                 {
-                    for (int x = 0; x < width; ++x)
+                    int yp = viewpointPosition.Y + y;
+                    if (yp < 0 || yp >= length)
+                        continue;
+                    for (int x = -12; x <= 12; ++x)
                     {
-                        instance.Draw(x, y, graphicsMap[y, x]);
+                        int xp = viewpointPosition.X + x;
+                        if (xp < 0 || xp >= width)
+                            continue;
+                        if (viewpointCharacter.Visibility[xp, yp])
+                            instance.Draw(12 + x, 12 + y, graphicsMap[yp, xp]);
+                        else
+                            instance.Draw(12 + x, 12 + y, new Graphics(' ', ConsoleColor.White, ConsoleColor.Black));
                     }
                 }
             }

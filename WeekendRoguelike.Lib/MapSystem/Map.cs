@@ -111,10 +111,10 @@ namespace WeekendRoguelike.MapSystem
             return changeMap[y, x];
         }
 
-        public void Draw()
+        public void Draw(CharacterEntity viewpointCharacter)
         {
             mapGraphics.Update(this);
-            mapGraphics.Draw();
+            mapGraphics.Draw(viewpointCharacter);
             if (TileMapChanged == true)
             {
                 tileMapChanged = false;
@@ -129,7 +129,7 @@ namespace WeekendRoguelike.MapSystem
 
             foreach (var character in allCharacters)
             {
-                character.Draw();
+                character.Draw(viewpointCharacter);
             }
         }
 

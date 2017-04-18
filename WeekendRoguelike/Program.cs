@@ -18,7 +18,7 @@ namespace WeekendRoguelike
 
         private static void DrawScreen(Map map, CharacterEntity playerCharacter)
         {
-            map.Draw();
+            map.Draw(playerCharacter);
             Console.SetCursorPosition(1, 29);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;

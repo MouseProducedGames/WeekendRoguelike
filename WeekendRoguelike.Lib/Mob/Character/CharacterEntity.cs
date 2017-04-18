@@ -65,10 +65,10 @@ namespace WeekendRoguelike.Mob.Character
 
         #region Public Methods
 
-        public void Draw()
+        public void Draw(CharacterEntity viewpointCharacter)
         {
             graphics.Update(this);
-            graphics.Draw();
+            graphics.Draw(viewpointCharacter);
         }
 
         public int GetOpinionOn(IMob otherCharacter)
