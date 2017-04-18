@@ -1,0 +1,8 @@
+﻿[Wall]
+Translation	: Wall
+
+[Floor]
+Translation	: Floor
+
+[Door]
+Translation	: Door
