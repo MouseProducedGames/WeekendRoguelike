@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using WeekendRoguelike.MapSystem.IO;
 using WeekendRoguelike.MapSystem.UI.IO;
 using WeekendRoguelike.UI.ConsoleUI;
 
-namespace WeekendRoguelike.MapSystem.UI
+namespace WeekendRoguelike.MapSystem
 {
     public static class AllTileData
     {
@@ -71,9 +72,9 @@ namespace WeekendRoguelike.MapSystem.UI
             }
         }
 
-        public static bool TryGetTileData(string name, out ConsoleDisplay.Graphics g)
+        public static bool TryGetTileData(string name, out TileData data)
         {
-            return tileDataLookup.TryGetValue(name.ToUpper(), out g);
+            return tileDataLookup.TryGetValue(name.ToUpper(), out data);
         }
 
         #endregion Public Methods

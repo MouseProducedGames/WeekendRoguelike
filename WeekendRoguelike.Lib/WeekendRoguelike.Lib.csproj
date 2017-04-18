@@ -52,10 +52,10 @@
     <Compile Include="MapSystem\Tile.cs" />
     <Compile Include="MapSystem\Map.cs" />
     <Compile Include="MapSystem\TileData.cs" />
-    <Compile Include="MapSystem\UI\IO\ITileDataReader.cs" />
-    <Compile Include="MapSystem\UI\IO\TileDataReader.cs" />
+    <Compile Include="MapSystem\IO\ITileDataReader.cs" />
+    <Compile Include="MapSystem\IO\TileDataReader.cs" />
     <Compile Include="MapSystem\UI\MapConsoleDisplayFactory.cs" />
-    <Compile Include="MapSystem\UI\AllTileData.cs" />
+    <Compile Include="MapSystem\AllTileData.cs" />
     <Compile Include="MapSystem\UI\MapDisplayFactory.cs" />
     <Compile Include="MapSystem\UI\MapConsoleGraphics.cs" />
     <Compile Include="MapSystem\UI\IO\MapConsoleGraphicsReader.cs" />

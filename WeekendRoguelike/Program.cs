@@ -41,6 +41,7 @@ namespace WeekendRoguelike
             AllMonsters.LoadMonsters(Path.Combine(startPath, "Data", "Monsters.txt"));
             AllFactions.LoadFactions(Path.Combine(startPath, "Data", "Factions.txt"));
             MapConsoleGraphics.LoadGraphics(Path.Combine(startPath, "Data", "ConsoleTileGraphics.txt"));
+            AllTileData.LoadTileData(Path.Combine(startPath, "Data", "TileData.txt"));
 
             Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
 

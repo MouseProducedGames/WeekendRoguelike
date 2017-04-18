@@ -2,7 +2,7 @@
 using System.IO;
 using WeekendRoguelike.UI.ConsoleUI;
 
-namespace WeekendRoguelike.MapSystem.UI.IO
+namespace WeekendRoguelike.MapSystem.IO
 {
     public class TileDataReader : ITileDataReader
     {
@@ -70,14 +70,14 @@ namespace WeekendRoguelike.MapSystem.UI.IO
                         case "BLOCKSMOVEMENT":
                             blocksMovement |=
                                 (BlockDirections)
-                                Enum.Parse(typeof(BlockDirections), split[1],
+                                Enum.Parse(typeof(BlockDirections), split[1].Trim(),
                                 ignoreCase: true);
                             break;
 
                         case "BLOCKSSIGHT":
                             blocksSight |=
                                 (BlockDirections)
-                                Enum.Parse(typeof(BlockDirections), split[1],
+                                Enum.Parse(typeof(BlockDirections), split[1].Trim(),
                                 ignoreCase: true);
                             break;
                     }

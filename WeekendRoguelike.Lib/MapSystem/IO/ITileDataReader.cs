@@ -1,6 +1,6 @@
 ﻿using WeekendRoguelike.UI.ConsoleUI;
 
-namespace WeekendRoguelike.MapSystem.UI.IO
+namespace WeekendRoguelike.MapSystem.IO
 {
     public interface ITileDataReader
     {

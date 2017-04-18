@@ -34,9 +34,10 @@ namespace WeekendRoguelike.DungeonTranslation
                     (DungeonGenerator.DataTypes.Tile)
                     Enum.Parse(typeof(DungeonGenerator.DataTypes.Tile),
                     kvp.Key, ignoreCase: true),
-                    (MapSystem.Tile)
-                    Enum.Parse(typeof(MapSystem.Tile),
-                    kvp.Value, ignoreCase: true));
+                    new MapSystem.Tile(
+                        MapSystem.AllTileData.GetTileDataIndexByName(
+                            kvp.Value))
+                    );
             }
         }
 
