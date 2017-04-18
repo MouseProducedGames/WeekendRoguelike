@@ -105,6 +105,8 @@ namespace WeekendRoguelike.UI
 
         public abstract Listbox CreateListbox();
 
+        public abstract void Update();
+
         #endregion Public Methods
     }
 

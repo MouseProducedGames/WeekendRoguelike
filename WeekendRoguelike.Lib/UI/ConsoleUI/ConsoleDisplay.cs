@@ -8,6 +8,15 @@ namespace WeekendRoguelike.UI.ConsoleUI
 {
     public class ConsoleDisplay : Display<ConsoleDisplay.Graphics>
     {
+        #region Private Fields
+
+        private Graphics[,] backBuffer;
+        private Graphics[,] frontBuffer;
+        private int length;
+        private int width;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         public ConsoleDisplay(string characterGraphicsFilename)
@@ -16,6 +25,10 @@ namespace WeekendRoguelike.UI.ConsoleUI
             Console.SetBufferSize(80, 31);
             Console.CursorSize = 1;
             Console.CursorVisible = false;
+            backBuffer = new Graphics[30, 80];
+            frontBuffer = new Graphics[30, 80];
+            length = 30;
+            width = 80;
 
             CharacterDisplayFactory = new CharacterConsoleDisplayFactory();
             MapDisplayFactory = new MapConsoleDisplayFactory();
@@ -38,18 +51,48 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
         public void Draw(GraphicsWrapperImpl item)
         {
-            var data = item.Data;
-            Console.SetCursorPosition(item.Position.X, item.Position.Y);
-            Console.BackgroundColor = data.BackgroundColour;
-            Console.ForegroundColor = data.ForegroundColour;
-            Console.Write(data.Symbol);
+            Draw(item.Position, item.Data);
+        }
+
+        public void Draw(Point p, Graphics g)
+        {
+            Draw(p.X, p.Y, g);
+        }
+
+        public void Draw(int x, int y, Graphics g)
+        {
+            backBuffer[y, x] = g;
+        }
+
+        public override void Update()
+        {
+            var temp = frontBuffer;
+            frontBuffer = backBuffer;
+            backBuffer = temp;
+
+            Console.SetCursorPosition(0, 0);
+            for (int y = 0; y < length; ++y)
+            {
+                for (int x = 0; x < width; ++x)
+                {
+                    if (frontBuffer[y, x] != backBuffer[y, x])
+                    {
+                        backBuffer[y, x] = frontBuffer[y, x];
+                        Console.BackgroundColor = frontBuffer[y, x].BackgroundColour;
+                        Console.ForegroundColor = frontBuffer[y, x].ForegroundColour;
+                        Console.SetCursorPosition(x, y);
+                        Console.Write(frontBuffer[y, x].Symbol);
+                    }
+                }
+            }
+            Console.SetCursorPosition(0, 0);
         }
 
         #endregion Public Methods
 
         #region Public Structs
 
-        public struct Graphics
+        public struct Graphics : IEquatable<Graphics>
         {
             #region Private Fields
 
@@ -81,6 +124,43 @@ namespace WeekendRoguelike.UI.ConsoleUI
             public char Symbol { get => symbol; set => symbol = value; }
 
             #endregion Public Properties
+
+            #region Public Methods
+
+            public static bool operator !=(Graphics left, Graphics right)
+            {
+                return (left == right) == false;
+            }
+
+            public static bool operator ==(Graphics left, Graphics right)
+            {
+                return left.Equals(right);
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is Graphics g && Equals(g);
+            }
+
+            public bool Equals(Graphics other)
+            {
+                return
+                    backgroundColour == other.backgroundColour &&
+                    foregroundColour == other.foregroundColour &&
+                    symbol == other.symbol;
+            }
+
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
+
+            public override string ToString()
+            {
+                return symbol.ToString();
+            }
+
+            #endregion Public Methods
         }
 
         #endregion Public Structs
@@ -165,15 +245,13 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             public void Draw()
             {
-                Console.SetCursorPosition(0, 0);
+                ConsoleDisplay instance =
+                    Display.GetInstanceAs<ConsoleDisplay>();
                 for (int y = 0; y < length; ++y)
                 {
-                    Console.SetCursorPosition(0, y);
                     for (int x = 0; x < width; ++x)
                     {
-                        Console.BackgroundColor = graphicsMap[y, x].BackgroundColour;
-                        Console.ForegroundColor = graphicsMap[y, x].ForegroundColour;
-                        Console.Write(graphicsMap[y, x].Symbol);
+                        instance.Draw(x, y, graphicsMap[y, x]);
                     }
                 }
             }
