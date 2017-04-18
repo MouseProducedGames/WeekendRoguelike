@@ -58,7 +58,8 @@ namespace WeekendRoguelike.AI.FactionSystem
             {
                 relate = new Relationship();
                 factionA.relationship.Add(factionB, relate);
-                factionB.relationship.Add(factionA, relate);
+                if (factionA.Equals(factionB) == false)
+                    factionB.relationship.Add(factionA, relate);
             }
             relate.Value = value;
         }

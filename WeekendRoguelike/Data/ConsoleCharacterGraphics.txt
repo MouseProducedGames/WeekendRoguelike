@@ -1,28 +1,38 @@
 ﻿// Classes
 
 [Assassin]
-Symbol: a
-Foreground: Yellow
-Background: Black
+Symbol		: a
+Foreground	: Yellow
+Background	: Black
 
 [Barbarian]
-Symbol: b
-Foreground: Red
-Background: Black
+Symbol		: b
+Foreground	: Red
+Background	: Black
 
 [Rogue]
-Symbol: r
-Foreground: Yellow
-Background: Black
+Symbol		: r
+Foreground	: Yellow
+Background	: Black
 
 [Fighter]
-Symbol: f
-Foreground: Gray
-Background: Black
+Symbol		: f
+Foreground	: Gray
+Background	: Black
 
 // Monsters
 
+[Large Rat]
+Symbol		: r
+Foreground	: Red
+Background	: Black
+
+[Skeletal Warrior]
+Symbol		: s
+Foreground	: White
+Background	: Black
+
 [Zombie]
-Symbol: z
-Foreground: Green
-Background: Black
+Symbol		: z
+Foreground	: Green
+Background	: Black

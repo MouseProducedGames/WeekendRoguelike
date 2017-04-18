@@ -89,16 +89,43 @@ namespace WeekendRoguelike
                 playerCharacter.Position = map.GetRandomValidPoint(playerCharacter);
             }
 
-            /* {
-                var info = new MonsterFactory.FacctoryInfo();
-                info.MonsterData = AllMonsters.GetAllNameMonsterPairs().First().Value;
+            void CreateMonster(string monsterName)
+            {
+                var info = new MonsterFactory.FacctoryInfo()
+                {
+                    MonsterData = AllMonsters.GetMonster(monsterName)
+                };
 
                 var factory = new MonsterFactory();
 
                 CharacterEntity monsterCharacter = factory.Create(info);
                 monsterCharacter.OnMap = map;
                 monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter);
-            } */
+
+                /* var info = new MonsterFactory.FacctoryInfo();
+                info.MonsterData = AllMonsters.GetAllNameMonsterPairs().First().Value;
+
+                var factory = new MonsterFactory();
+
+                CharacterEntity monsterCharacter = factory.Create(info);
+                monsterCharacter.OnMap = map;
+                monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter); */
+            }
+
+            for (int rat = 0; rat < 10; ++rat)
+            {
+                CreateMonster("Large Rat");
+            }
+
+            for (int zombie = 0; zombie < 3; ++zombie)
+            {
+                CreateMonster("Zombie");
+            }
+
+            for (int skeletalWarrior = 0; skeletalWarrior < 1; ++skeletalWarrior)
+            {
+                CreateMonster("Skeletal Warrior");
+            }
 
             while (Input.GetInput.Key != ConsoleKey.Escape)
             {

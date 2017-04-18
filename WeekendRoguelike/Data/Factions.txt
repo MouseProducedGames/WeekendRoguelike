@@ -1,5 +1,11 @@
 ﻿[Living]
 
+[Rodents]
+Relationship: Rodents
+Value		: 50
+Relationship: Undead
+Value		: -100
+
 [Undead]
 Relationship: Living
 Value		: -100

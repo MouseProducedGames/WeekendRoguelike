@@ -1,4 +1,21 @@
-﻿[Zombie]
+﻿[Large Rat]
+Health		: 25
+Strength	: 25
+Agility		: 150
+Coordination: 150
+SightRange	: 5
+Faction		: Rodents
+Faction		: Living
+
+[Skeletal Warrior]
+Health		: 100
+Strength	: 150
+Agility		: 170
+Coordination: 180
+SightRange	: 7
+Faction		: Undead
+
+[Zombie]
 Health		: 250
 Strength	: 150
 Agility		: 50
