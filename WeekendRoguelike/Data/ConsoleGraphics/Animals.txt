@@ -1,0 +1,6 @@
+﻿// Animals
+
+[Large Rat]
+Symbol		: r
+Foreground	: Red
+Background	: Black

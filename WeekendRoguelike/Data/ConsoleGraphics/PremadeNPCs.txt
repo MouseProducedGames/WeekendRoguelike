@@ -1,0 +1,26 @@
+﻿// PremadeNPCs
+
+[Halfling Assassin]
+Symbol		: a
+Foreground	: Yellow
+Background	: Black
+
+[Dwarven Barbarian]
+Symbol		: b
+Foreground	: Red
+Background	: Black
+
+[Orc Barbarian]
+Symbol		: b
+Foreground	: Red
+Background	: Black
+
+[Human Fighter]
+Symbol		: f
+Foreground	: Gray
+Background	: Black
+
+[Elven Rogue]
+Symbol		: r
+Foreground	: Yellow
+Background	: Black

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.Mob.Character;
-using WeekendRoguelike.Mob.Monster;
+using WeekendRoguelike.Mob.NPCSystem;
 
 namespace WeekendRoguelike.Mob.IO
 {
-    public class MonsterReader : IMonsterReader
+    public class PremadeNPCReader : IPremadeNPCReader
     {
         #region Private Fields
 
@@ -18,7 +19,7 @@ namespace WeekendRoguelike.Mob.IO
 
         #region Public Constructors
 
-        public MonsterReader(Stream stream)
+        public PremadeNPCReader(Stream stream)
         {
             if (stream.CanRead == false)
                 throw new ArgumentException("Cannot read from stream.");
@@ -35,9 +36,9 @@ namespace WeekendRoguelike.Mob.IO
 
         #region Public Methods
 
-        public bool TryReadNextMonster(out MonsterData output)
+        public bool TryReadNextPremadeNPC(out PremadeNPCData output)
         {
-            output = new MonsterData();
+            output = new PremadeNPCData();
             if (reader.EndOfStream == true)
             {
                 endOfFile = true;
@@ -52,10 +53,10 @@ namespace WeekendRoguelike.Mob.IO
                     continue;
 
                 output.Name = line.Substring(1, line.Length - 2);
-                CharacterStats stats = new CharacterStats();
                 List<Faction> factions =
                     new List<Faction>();
-                while (string.IsNullOrWhiteSpace(line = reader.ReadLine()) == false)
+                while (string.IsNullOrWhiteSpace(line = reader.ReadLine()) ==
+                    false)
                 {
                     line = line.Trim();
                     // Line is a comment.
@@ -70,11 +71,15 @@ namespace WeekendRoguelike.Mob.IO
                     switch (split[0].Trim().ToUpper())
                     {
                         case "FACTION": factions.Add(split[1].Trim()); break;
-                        default: stats.SetStatValue(CharacterDetail.StatTypeFromString(split[0]), int.Parse(split[1])); break;
+                        case "RACE":
+                            output.BaseRace = AllRaces.GetRace(
+                                split[1].Trim()); break;
+                        case "CLASS": output.BaseClass =
+                                AllCharacterClasses.GetCharacterClass(
+                                    split[1].Trim()); break;
                     }
                 }
-                output.Factions = factions.ToArray();
-                output.Stats = stats;
+                output.Factions = factions.Union(output.BaseRace.Factions).ToArray();
                 return true;
             }
             return false;

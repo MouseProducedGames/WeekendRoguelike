@@ -1,0 +1,3 @@
+﻿[Large Rat]
+Race	: Large Rat
+Class	: None

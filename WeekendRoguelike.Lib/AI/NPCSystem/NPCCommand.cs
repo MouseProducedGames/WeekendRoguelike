@@ -3,9 +3,9 @@ using WeekendRoguelike.AI.Mob;
 using WeekendRoguelike.Mob;
 using WeekendRoguelike.UI;
 
-namespace WeekendRoguelike.AI.Monster
+namespace WeekendRoguelike.AI.NPCSystem
 {
-    public class MonsterCommand : IMobCommand<WRCommand>
+    public class NPCCommand : IMobCommand<WRCommand>
     {
         private Point? wanderPoint;
 

@@ -1,4 +1,7 @@
-﻿[Dwarf]
+﻿// Humanoids
+
+[Dwarf]
+StartingRace: true
 Health		: 120
 Strength	: 100
 Agility		: 70
@@ -7,6 +10,7 @@ SightRange	: 5
 Faction		: Living
 
 [Elf]
+StartingRace: true
 Health		: 70
 Strength	: 80
 Agility		: 120
@@ -15,6 +19,7 @@ SightRange	: 4
 Faction: Living
 
 [Halfling]
+StartingRace: true
 Health		: 60
 Strength	: 60
 Agility		: 130
@@ -23,6 +28,7 @@ SightRange	: 3
 Faction		: Living
 
 [Human]
+StartingRace: true
 Health		: 100
 Strength	: 100
 Agility		: 100
@@ -31,6 +37,7 @@ SightRange	: 2
 Faction		: Living
 
 [Orc]
+StartingRace: true
 Health		: 100
 Strength	: 120
 Agility		: 80

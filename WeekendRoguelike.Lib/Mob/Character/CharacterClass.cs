@@ -8,6 +8,7 @@ namespace WeekendRoguelike.Mob.Character
 
         private string name;
         private CharacterStats stats;
+        private bool startingClass;
 
         #endregion Private Fields
 
@@ -15,6 +16,11 @@ namespace WeekendRoguelike.Mob.Character
 
         public string Name { get => name; set => name = value; }
         public CharacterStats Stats { get => stats; set => stats = value; }
+        /// <summary>
+        /// Indicates that the class should be included in the starting
+        /// choices for a player.
+        /// </summary>
+        public bool StartingClass { get => startingClass; set => startingClass = value; }
 
         #endregion Public Properties
 

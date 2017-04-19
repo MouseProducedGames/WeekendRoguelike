@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.AI.Mob;
-using WeekendRoguelike.AI.Monster;
+using WeekendRoguelike.AI.NPCSystem;
 using WeekendRoguelike.Mob.Character;
 using WeekendRoguelike.UI;
 
-namespace WeekendRoguelike.Mob.Monster
+namespace WeekendRoguelike.Mob.NPCSystem
 {
-    public class MonsterFactory
+    public class PremadeNPCFactory
     {
         #region Public Methods
 
-        public CharacterEntity Create(FacctoryInfo info)
+        public CharacterEntity Create(FactoryInfo info)
         {
             var output = new CharacterEntity();
 
@@ -19,7 +19,11 @@ namespace WeekendRoguelike.Mob.Monster
 
             CharacterStats maxStats = new CharacterStats();
 
-            maxStats = info.MonsterData.Stats;
+            maxStats = info.NPCData.BaseRace.Stats +
+                info.NPCData.BaseClass.Stats;
+
+            output.CharacterRace = info.NPCData.BaseRace;
+            output.CharacterClass = info.NPCData.BaseClass;
 
             entityData.MaxStats = maxStats;
             entityData.Stats = maxStats;
@@ -28,12 +32,12 @@ namespace WeekendRoguelike.Mob.Monster
 
             output.Controller = new MobController()
             {
-                CommandProvider = new MonsterCommand()
+                CommandProvider = new NPCCommand()
             };
 
-            output.Graphics = Display.Instance.CreateGraphicsWrapper(info.MonsterData.Name);
+            output.Graphics = Display.Instance.CreateGraphicsWrapper(info.NPCData.Name);
 
-            output.Factions = info.MonsterData.Factions;
+            output.Factions = info.NPCData.Factions;
 
             return output;
         }
@@ -42,17 +46,17 @@ namespace WeekendRoguelike.Mob.Monster
 
         #region Public Structs
 
-        public struct FacctoryInfo
+        public struct FactoryInfo
         {
             #region Private Fields
 
-            private MonsterData monsterData;
+            private PremadeNPCData npcData;
 
             #endregion Private Fields
 
             #region Public Properties
 
-            public MonsterData MonsterData { get => monsterData; set => monsterData = value; }
+            public PremadeNPCData NPCData { get => npcData; set => npcData = value; }
 
             #endregion Public Properties
         }

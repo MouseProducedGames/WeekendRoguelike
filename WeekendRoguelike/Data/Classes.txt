@@ -1,27 +1,38 @@
-﻿[Assassin]
-Health		: 30
-Strength	: 50
-Agility		: 40
-Coordination: 70
-SightRange	: 2
+﻿[None]
+Health			: 0
+Strength		: 0
+Agility			: 0
+Coordination	: 0
+SightRange		: 0
+
+[Assassin]
+Health			: 30
+Strength		: 50
+Agility			: 40
+Coordination	: 70
+SightRange		: 2
+StartingClass	: true
 
 [Barbarian]
-Health		: 70
-Strength	: 70
-Agility		: 30
-Coordination: 30
-SightRange	: 1
+Health			: 70
+Strength		: 70
+Agility			: 30
+Coordination	: 30
+SightRange		: 1
+StartingClass	: true
 
 [Rogue]
-Health		: 30
-Strength	: 30
-Agility		: 60
-Coordination: 60
-SightRange	: 3
+Health			: 30
+Strength		: 30
+Agility			: 60
+Coordination	: 60
+SightRange		: 3
+StartingClass	: true
 
 [Fighter]
-Health: 50
-Strength: 50
-Agility: 50
-Coordination: 50
-SightRange	: 1
+Health			: 50
+Strength		: 50
+Agility			: 50
+Coordination	: 50
+SightRange		: 1
+StartingClass	: true

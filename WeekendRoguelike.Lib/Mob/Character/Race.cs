@@ -12,6 +12,7 @@ namespace WeekendRoguelike.Mob.Character
         private HashSet<Faction> factions;
         private string name;
         private CharacterStats stats;
+        private bool startingRace;
 
         #endregion Private Fields
 
@@ -20,6 +21,13 @@ namespace WeekendRoguelike.Mob.Character
         public Faction[] Factions { get => factions.ToArray(); set => factions = new HashSet<Faction>(value); }
         public string Name { get => name; set => name = value; }
         public CharacterStats Stats { get => stats; set => stats = value; }
+        /// <summary>
+        /// Indicates that the player can start as a member of this race.
+        /// Not generally appropriate for non-sapient races, such as large rats.
+        /// Also probably not generally a good idea to let the player start as
+        /// a dragon. OTOH, it's moddable. :)
+        /// </summary>
+        public bool StartingRace { get => startingRace; set => startingRace = value; }
 
         #endregion Public Properties
 

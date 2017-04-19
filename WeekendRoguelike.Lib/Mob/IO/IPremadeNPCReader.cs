@@ -1,8 +1,8 @@
-﻿using WeekendRoguelike.Mob.Monster;
+﻿using WeekendRoguelike.Mob.NPCSystem;
 
 namespace WeekendRoguelike.Mob.IO
 {
-    public interface IMonsterReader
+    public interface IPremadeNPCReader
     {
         #region Public Properties
 
@@ -12,7 +12,7 @@ namespace WeekendRoguelike.Mob.IO
 
         #region Public Methods
 
-        bool TryReadNextMonster(out MonsterData output);
+        bool TryReadNextPremadeNPC(out PremadeNPCData output);
 
         #endregion Public Methods
     }

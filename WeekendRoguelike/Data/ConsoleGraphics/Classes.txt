@@ -19,20 +19,3 @@ Background	: Black
 Symbol		: f
 Foreground	: Gray
 Background	: Black
-
-// Monsters
-
-[Large Rat]
-Symbol		: r
-Foreground	: Red
-Background	: Black
-
-[Skeletal Warrior]
-Symbol		: s
-Foreground	: White
-Background	: Black
-
-[Zombie]
-Symbol		: z
-Foreground	: Green
-Background	: Black

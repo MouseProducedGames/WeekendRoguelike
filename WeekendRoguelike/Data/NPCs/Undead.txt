@@ -1,0 +1,11 @@
+﻿[Skeletal Warrior]
+Race	: Skeleton
+Class	: Fighter
+
+[Skeleton]
+Race	: Skeleton
+Class	: None
+
+[Zombie]
+Race	: Zombie
+Class	: None

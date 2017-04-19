@@ -3,16 +3,17 @@ using System.Linq;
 using WeekendRoguelike.AI.FactionSystem;
 using WeekendRoguelike.Mob.Character;
 
-namespace WeekendRoguelike.Mob.Monster
+namespace WeekendRoguelike.Mob.NPCSystem
 {
-    public struct MonsterData
+    public struct PremadeNPCData
     {
         #region Private Fields
 
         private HashSet<Faction> factions;
 
         private string name;
-        private CharacterStats stats;
+        private Race baseRace;
+        private CharacterClass baseClass;
 
         #endregion Private Fields
 
@@ -20,7 +21,8 @@ namespace WeekendRoguelike.Mob.Monster
 
         public Faction[] Factions { get => factions.ToArray(); set => factions = new HashSet<Faction>(value); }
         public string Name { get => name; set => name = value; }
-        public CharacterStats Stats { get => stats; set => stats = value; }
+        public Race BaseRace { get => baseRace; set => baseRace = value; }
+        public CharacterClass BaseClass { get => baseClass; set => baseClass = value; }
 
         #endregion Public Properties
     }

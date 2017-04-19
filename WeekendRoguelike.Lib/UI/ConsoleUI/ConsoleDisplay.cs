@@ -20,7 +20,7 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
         #region Public Constructors
 
-        public ConsoleDisplay(string characterGraphicsFilename)
+        public ConsoleDisplay(params string[] characterGraphicsFilenames)
         {
             Console.SetWindowSize(80, 30);
             Console.SetBufferSize(80, 31);
@@ -33,7 +33,8 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             CharacterDisplayFactory = new CharacterConsoleDisplayFactory();
             MapDisplayFactory = new MapConsoleDisplayFactory();
-            AllCharacterConsoleGraphics.LoadGraphics(characterGraphicsFilename);
+            foreach (var filename in characterGraphicsFilenames)
+                AllCharacterConsoleGraphics.LoadGraphics(filename);
         }
 
         #endregion Public Constructors

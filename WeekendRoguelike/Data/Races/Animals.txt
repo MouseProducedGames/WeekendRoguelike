@@ -1,0 +1,10 @@
+﻿// Animals
+
+[Large Rat]
+Health		: 25
+Strength	: 25
+Agility		: 150
+Coordination: 150
+SightRange	: 5
+Faction		: Rodents
+Faction		: Living

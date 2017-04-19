@@ -1,0 +1,16 @@
+﻿// Undead
+
+[Skeletal Warrior]
+Symbol		: s
+Foreground	: White
+Background	: Black
+
+[Skeleton]
+Symbol		: s
+Foreground	: Gray
+Background	: Black
+
+[Zombie]
+Symbol		: z
+Foreground	: Green
+Background	: Black

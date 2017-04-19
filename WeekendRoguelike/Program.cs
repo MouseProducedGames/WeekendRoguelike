@@ -7,7 +7,7 @@ using WeekendRoguelike.DungeonTranslation;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
 using WeekendRoguelike.Mob.Character;
-using WeekendRoguelike.Mob.Monster;
+using WeekendRoguelike.Mob.NPCSystem;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike
@@ -35,14 +35,22 @@ namespace WeekendRoguelike
         {
             string startPath = Directory.GetCurrentDirectory();
 
-            AllRaces.LoadRaces(Path.Combine(startPath, "Data", "Races.txt"));
+            AllRaces.LoadRaces(Path.Combine(startPath, "Data", "Races", "Animals.txt"));
+            AllRaces.LoadRaces(Path.Combine(startPath, "Data", "Races", "Humanoids.txt"));
+            AllRaces.LoadRaces(Path.Combine(startPath, "Data", "Races", "Undead.txt"));
             AllCharacterClasses.LoadClasses(Path.Combine(startPath, "Data", "Classes.txt"));
-            AllMonsters.LoadMonsters(Path.Combine(startPath, "Data", "Monsters.txt"));
+            AllPremadeNPCs.LoadPremadeNPCs(Path.Combine(startPath, "Data", "NPCs", "Animals.txt"));
+            AllPremadeNPCs.LoadPremadeNPCs(Path.Combine(startPath, "Data", "NPCs", "Premade.txt"));
+            AllPremadeNPCs.LoadPremadeNPCs(Path.Combine(startPath, "Data", "NPCs", "Undead.txt"));
             AllFactions.LoadFactions(Path.Combine(startPath, "Data", "Factions.txt"));
-            MapConsoleGraphics.LoadGraphics(Path.Combine(startPath, "Data", "ConsoleTileGraphics.txt"));
+            MapConsoleGraphics.LoadGraphics(Path.Combine(startPath, "Data", "ConsoleGraphics", "Tiles.txt"));
             AllTileData.LoadTileData(Path.Combine(startPath, "Data", "TileData.txt"));
 
-            Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(Path.Combine(startPath, "Data", "ConsoleCharacterGraphics.txt")));
+            Display.SetInstance(new UI.ConsoleUI.ConsoleDisplay(
+                Path.Combine(startPath, "Data", "ConsoleGraphics", "Animals.txt"),
+            Path.Combine(startPath, "Data", "ConsoleGraphics", "Classes.txt"),
+            Path.Combine(startPath, "Data", "ConsoleGraphics", "PremadeNPcs.txt"),
+            Path.Combine(startPath, "Data", "ConsoleGraphics", "Undead.txt")));
 
             string dungeonFilename = "RoomAndCorridor.txt";
             DungeonFactory dungeonFactory = new RoomAndCorridorFactory(
@@ -60,7 +68,9 @@ namespace WeekendRoguelike
                 var info = new CharacterFactory.FactoryInfo();
                 {
                     Listbox listbox = Display.Instance.CreateListbox();
-                    listbox.Items = AllRaces.GetAllNameRacePairs().Select(a => (object)a.Value).ToArray();
+                    listbox.Items = AllRaces.GetAllNameRacePairs()
+                        .Where(a => a.Value.StartingRace == true)
+                        .Select(a => (object)a.Value).ToArray();
                     while (listbox.Confirmed == false)
                     {
                         listbox.Draw();
@@ -71,7 +81,9 @@ namespace WeekendRoguelike
                 }
                 {
                     Listbox listbox = Display.Instance.CreateListbox();
-                    listbox.Items = AllCharacterClasses.GetAllNameClassPairs().Select(a => (object)a.Value).ToArray();
+                    listbox.Items = AllCharacterClasses.GetAllNameClassPairs()
+                        .Where(a => a.Value.StartingClass == true)
+                        .Select(a => (object)a.Value).ToArray();
                     while (listbox.Confirmed == false)
                     {
                         listbox.Draw();
@@ -89,42 +101,64 @@ namespace WeekendRoguelike
                 playerCharacter.Position = map.GetRandomValidPoint(playerCharacter);
             }
 
-            void CreateMonster(string monsterName)
+            void CreatePremadeNPC(string premadeNPCName)
             {
-                var info = new MonsterFactory.FacctoryInfo()
+                var info = new PremadeNPCFactory.FactoryInfo()
                 {
-                    MonsterData = AllMonsters.GetMonster(monsterName)
+                    NPCData = AllPremadeNPCs.GetPremadeNPC(premadeNPCName)
                 };
 
-                var factory = new MonsterFactory();
+                var factory = new PremadeNPCFactory();
 
-                CharacterEntity monsterCharacter = factory.Create(info);
-                monsterCharacter.OnMap = map;
-                monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter);
-
-                /* var info = new MonsterFactory.FacctoryInfo();
-                info.MonsterData = AllMonsters.GetAllNameMonsterPairs().First().Value;
-
-                var factory = new MonsterFactory();
-
-                CharacterEntity monsterCharacter = factory.Create(info);
-                monsterCharacter.OnMap = map;
-                monsterCharacter.Position = map.GetRandomValidPoint(monsterCharacter); */
+                CharacterEntity nonPlayerCharacter = factory.Create(info);
+                nonPlayerCharacter.OnMap = map;
+                nonPlayerCharacter.Position =
+                    map.GetRandomValidPoint(nonPlayerCharacter);
             }
 
             for (int rat = 0; rat < 20; ++rat)
             {
-                CreateMonster("Large Rat");
+                CreatePremadeNPC("Large Rat");
+            }
+
+            for (int skeleton = 0; skeleton < 5; ++skeleton)
+            {
+                CreatePremadeNPC("Skeleton");
             }
 
             for (int zombie = 0; zombie < 3; ++zombie)
             {
-                CreateMonster("Zombie");
+                CreatePremadeNPC("Zombie");
             }
 
             for (int skeletalWarrior = 0; skeletalWarrior < 1; ++skeletalWarrior)
             {
-                CreateMonster("Skeletal Warrior");
+                CreatePremadeNPC("Zombie");
+            }
+
+            for (int dwarvenBarbarian = 0; dwarvenBarbarian < 1; ++dwarvenBarbarian)
+            {
+                CreatePremadeNPC("Dwarven Barbarian");
+            }
+
+            for (int orcBarbarian = 0; orcBarbarian < 1; ++orcBarbarian)
+            {
+                CreatePremadeNPC("Orc Barbarian");
+            }
+
+            for (int elvenRogue = 0; elvenRogue < 1; ++elvenRogue)
+            {
+                CreatePremadeNPC("Elven Rogue");
+            }
+
+            for (int halflingAssassin = 0; halflingAssassin < 1; ++halflingAssassin)
+            {
+                CreatePremadeNPC("Halfling Assassin");
+            }
+
+            for (int humanFighter = 0; humanFighter < 1; ++humanFighter)
+            {
+                CreatePremadeNPC("Human Fighter");
             }
 
             while (Input.GetInput.Key != ConsoleKey.Escape)

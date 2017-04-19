@@ -1,0 +1,19 @@
+﻿[Dwarven Barbarian]
+Race	: Dwarf
+Class	: Barbarian
+
+[Orc Barbarian]
+Race	: Orc
+Class	: Barbarian
+
+[Elven Rogue]
+Race	: Elf
+Class	: Rogue
+
+[Halfling Assassin]
+Race	: Halfling
+Class	: Assassin
+
+[Human Fighter]
+Race	: Human
+Class	: Fighter

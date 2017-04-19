@@ -1,0 +1,17 @@
+﻿// Animals
+
+[Zombie]
+Health		: 250
+Strength	: 150
+Agility		: 50
+Coordination: 50
+SightRange	: 6
+Faction		: Undead
+
+[Skeleton]
+Health		: 50
+Strength	: 100
+Agility		: 120
+Coordination: 130
+SightRange	: 6
+Faction		: Undead

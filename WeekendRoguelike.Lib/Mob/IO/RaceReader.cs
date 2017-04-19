@@ -69,6 +69,7 @@ namespace WeekendRoguelike.Mob.IO
                     switch (split[0].Trim().ToUpper())
                     {
                         case "FACTION": factions.Add(split[1].Trim()); break;
+                        case "STARTINGRACE": output.StartingRace = bool.Parse(split[1].ToLower()); break;
                         default: stats.SetStatValue(CharacterDetail.StatTypeFromString(split[0]), int.Parse(split[1])); break;
                     }
                 }

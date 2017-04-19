@@ -62,7 +62,13 @@ namespace WeekendRoguelike.Mob.IO
                     // Not a stat line.
                     if (split.Length != 2)
                         continue;
-                    stats.SetStatValue(CharacterDetail.StatTypeFromString(split[0]), int.Parse(split[1]));
+                    switch(split[0].Trim().ToUpper())
+                    {
+                        case "STARTINGCLASS": output.StartingClass = bool.Parse(split[1].ToLower()); break;
+                        default: stats.SetStatValue(
+                            CharacterDetail.StatTypeFromString(
+                                split[0]), int.Parse(split[1])); break;
+                    }
                 }
                 output.Stats = stats;
                 return true;
