@@ -12,7 +12,9 @@ Insomnia may lead to unexpected productivity.
 # Features
 * Text-based in the classic style.
 * Data-driven.
+* Licensed under the MIT license.
 * Faction system.
 * AStar pathfinding.
 * Dungeon generation.
 * Race and class system that determines your starting point.
+* Shadow-casting line of sight with "Fog of war".
