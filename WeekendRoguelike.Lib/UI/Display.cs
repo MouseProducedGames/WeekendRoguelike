@@ -1,8 +1,8 @@
 ﻿using System;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
-using WeekendRoguelike.Mob.Character;
-using WeekendRoguelike.Mob.UI;
+using WeekendRoguelike.CharacterSystem.Base;
+using WeekendRoguelike.CharacterSystem.UI;
 
 namespace WeekendRoguelike.UI
 {
@@ -24,7 +24,7 @@ namespace WeekendRoguelike.UI
         {
             #region Public Methods
 
-            void Update(CharacterEntity forCharacter);
+            void Update(Character forCharacter);
 
             #endregion Public Methods
         }
@@ -33,7 +33,7 @@ namespace WeekendRoguelike.UI
         {
             #region Public Methods
 
-            void Draw(CharacterEntity viewpointCharacter);
+            void Draw(Character viewpointCharacter);
 
             #endregion Public Methods
         }
@@ -88,7 +88,7 @@ namespace WeekendRoguelike.UI
 
         public abstract IGraphicsWrapper CreateGraphicsWrapper();
 
-        public ICharacterGraphicsWrapper CreateGraphicsWrapper(CharacterEntity forCharacter)
+        public ICharacterGraphicsWrapper CreateGraphicsWrapper(Character forCharacter)
         {
             return CharacterDisplayFactory.Create(forCharacter);
         }

@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using WeekendRoguelike.AI.PlanningSystem;
-using WeekendRoguelike.Mob;
-using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.CharacterSystem;
+using WeekendRoguelike.CharacterSystem.Base;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike.MapSystem
 {
-    public class Map : IMobCollection
+    public class Map : ICharacterCollection
     {
         #region Public Fields
 
@@ -20,12 +20,12 @@ namespace WeekendRoguelike.MapSystem
 
         #region Private Fields
 
-        private HashSet<CharacterEntity> addCharacters = new HashSet<CharacterEntity>();
-        private HashSet<CharacterEntity> allCharacters = new HashSet<CharacterEntity>();
+        private HashSet<Character> addCharacters = new HashSet<Character>();
+        private HashSet<Character> allCharacters = new HashSet<Character>();
         private bool[,] changeMap;
         private Display.IMapGraphicsWrapper mapGraphics;
         private PathFindOnMap pathFinder;
-        private HashSet<CharacterEntity> removeCharacters = new HashSet<CharacterEntity>();
+        private HashSet<Character> removeCharacters = new HashSet<Character>();
         private Tile[,] tileMap;
         private bool tileMapChanged = false;
 
@@ -54,7 +54,7 @@ namespace WeekendRoguelike.MapSystem
 
         #region Public Properties
 
-        int IReadOnlyCollection<IMob>.Count => throw new NotImplementedException();
+        int IReadOnlyCollection<ICharacter>.Count => throw new NotImplementedException();
 
         public Tile[,] TileMap
         {
@@ -93,12 +93,12 @@ namespace WeekendRoguelike.MapSystem
 
         #region Public Methods
 
-        public bool AddCharacter(CharacterEntity newCharacter)
+        public bool AddCharacter(Character newCharacter)
         {
             return addCharacters.Add(newCharacter);
         }
 
-        public IEnumerable<IMob> AllMobs()
+        public IEnumerable<ICharacter> AllCharacters()
         {
             foreach (var character in allCharacters)
             {
@@ -111,7 +111,7 @@ namespace WeekendRoguelike.MapSystem
             return changeMap[y, x];
         }
 
-        public void Draw(CharacterEntity viewpointCharacter)
+        public void Draw(Character viewpointCharacter)
         {
             mapGraphics.Update(this);
             mapGraphics.Draw(viewpointCharacter);
@@ -133,7 +133,7 @@ namespace WeekendRoguelike.MapSystem
             }
         }
 
-        IEnumerator<IMob> IEnumerable<IMob>.GetEnumerator()
+        IEnumerator<ICharacter> IEnumerable<ICharacter>.GetEnumerator()
         {
             return allCharacters.GetEnumerator();
         }
@@ -148,7 +148,7 @@ namespace WeekendRoguelike.MapSystem
             return pathFinder.GetPath(start, end);
         }
 
-        public Point GetRandomValidPoint(IMob forCharacter)
+        public Point GetRandomValidPoint(ICharacter forCharacter)
         {
             Point output;
             while (Occupied(output = Rand.NextPoint(Width, Length), out var occupant) == true ||
@@ -178,7 +178,7 @@ namespace WeekendRoguelike.MapSystem
                 != BlockDirections.None;
         }
 
-        public bool Occupied(Point position, out CharacterEntity characterAt)
+        public bool Occupied(Point position, out Character characterAt)
         {
             foreach (var otherCharacter in allCharacters)
             {
@@ -204,7 +204,7 @@ namespace WeekendRoguelike.MapSystem
                 y >= 0 && y < Length;
         }
 
-        public bool RemoveCharacter(CharacterEntity removeCharacter)
+        public bool RemoveCharacter(Character removeCharacter)
         {
             return removeCharacters.Add(removeCharacter);
         }
@@ -292,7 +292,7 @@ namespace WeekendRoguelike.MapSystem
             return true;
         }
 
-        public bool TryGetCharacterAt(Point at, out CharacterEntity characterAt)
+        public bool TryGetCharacterAt(Point at, out Character characterAt)
         {
             if (PointInMap(at) == false)
             {
@@ -312,7 +312,7 @@ namespace WeekendRoguelike.MapSystem
             return false;
         }
 
-        public bool TryMove(CharacterEntity moveCharacter, Point to)
+        public bool TryMove(Character moveCharacter, Point to)
         {
             Point start = moveCharacter.Position;
             if (TestMove(start, to) == false)

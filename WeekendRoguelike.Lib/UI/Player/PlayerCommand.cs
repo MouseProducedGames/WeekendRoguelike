@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using WeekendRoguelike.Mob;
+using WeekendRoguelike.CharacterSystem;
 
 namespace WeekendRoguelike.UI.Player
 {
-    public class PlayerCommand : IMobCommand<WRCommand>
+    public class PlayerCommand : ICharacterCommand<WRCommand>
     {
         #region Private Fields
 
@@ -47,7 +47,7 @@ namespace WeekendRoguelike.UI.Player
 
         #region Public Methods
 
-        public WRCommand GetCommand(IMob mob)
+        public WRCommand GetCommand(ICharacter character)
         {
             return Translate(Input.GetInput);
         }

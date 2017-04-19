@@ -1,6 +1,6 @@
 ﻿using System;
-using WeekendRoguelike.Mob;
-using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.CharacterSystem;
+using WeekendRoguelike.CharacterSystem.Base;
 
 namespace WeekendRoguelike
 {
@@ -8,7 +8,7 @@ namespace WeekendRoguelike
     {
         #region Public Methods
 
-        public static void SingleAttack(IMob attacker, CharacterEntity defender)
+        public static void SingleAttack(ICharacter attacker, Character defender)
         {
             int attackerAttack = FormulaHelper.GetAttack(attacker);
             int defenderDefence = FormulaHelper.GetDefence(defender);

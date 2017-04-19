@@ -6,8 +6,8 @@ using WeekendRoguelike.DungeonGenerator.Factory;
 using WeekendRoguelike.DungeonTranslation;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
-using WeekendRoguelike.Mob.Character;
-using WeekendRoguelike.Mob.NPCSystem;
+using WeekendRoguelike.CharacterSystem.Base;
+using WeekendRoguelike.CharacterSystem.NPCSystem;
 using WeekendRoguelike.UI;
 
 namespace WeekendRoguelike
@@ -16,7 +16,7 @@ namespace WeekendRoguelike
     {
         #region Private Methods
 
-        private static void DrawScreen(Map map, CharacterEntity playerCharacter)
+        private static void DrawScreen(Map map, Character playerCharacter)
         {
             map.Draw(playerCharacter);
             Console.SetCursorPosition(1, 29);
@@ -63,7 +63,7 @@ namespace WeekendRoguelike
                 dungeonTranslateFilename);
             Map map = new Map(dungeonTranslator.Convert(dungeonFactory.Create(80, 80)));
 
-            CharacterEntity playerCharacter;
+            Character playerCharacter;
             {
                 var info = new CharacterFactory.FactoryInfo();
                 {
@@ -110,7 +110,7 @@ namespace WeekendRoguelike
 
                 var factory = new PremadeNPCFactory();
 
-                CharacterEntity nonPlayerCharacter = factory.Create(info);
+                Character nonPlayerCharacter = factory.Create(info);
                 nonPlayerCharacter.OnMap = map;
                 nonPlayerCharacter.Position =
                     map.GetRandomValidPoint(nonPlayerCharacter);
@@ -168,7 +168,7 @@ namespace WeekendRoguelike
                 Input.Update();
                 map.Update();
 
-                if (map.AllMobs().Count() <= 1 ||
+                if (map.AllCharacters().Count() <= 1 ||
                     playerCharacter.Alive == false)
                 {
                     DrawScreen(map, playerCharacter);

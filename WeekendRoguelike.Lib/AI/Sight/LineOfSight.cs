@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeekendRoguelike.MapSystem;
-using WeekendRoguelike.Mob.Character;
+using WeekendRoguelike.CharacterSystem.Base;
 
 namespace WeekendRoguelike.AI.Sight
 {
@@ -12,7 +12,7 @@ namespace WeekendRoguelike.AI.Sight
     {
         #region Private Fields
 
-        private CharacterEntity character;
+        private Character character;
         private int length;
         private VisibilityState[,] visibilityMap;
         private int width;
@@ -21,7 +21,7 @@ namespace WeekendRoguelike.AI.Sight
 
         #region Public Constructors
 
-        public LineOfSight(CharacterEntity character)
+        public LineOfSight(Character character)
         {
             Update(character);
         }
@@ -53,7 +53,7 @@ namespace WeekendRoguelike.AI.Sight
 
         #region Public Methods
 
-        public void Update(CharacterEntity character)
+        public void Update(Character character)
         {
             this.character = character;
             if (visibilityMap == null ||
@@ -71,7 +71,7 @@ namespace WeekendRoguelike.AI.Sight
 
         #region Private Methods
 
-        private void GenerateAll(CharacterEntity character)
+        private void GenerateAll(Character character)
         {
             width = character.OnMap.Width;
             length = character.OnMap.Length;
@@ -189,7 +189,7 @@ namespace WeekendRoguelike.AI.Sight
             }
         }
 
-        private void Scan(CharacterEntity character)
+        private void Scan(Character character)
         {
             int sightRange = character.EntityData.Stats.SightRange;
             int sightRangeSquared = sightRange * sightRange;

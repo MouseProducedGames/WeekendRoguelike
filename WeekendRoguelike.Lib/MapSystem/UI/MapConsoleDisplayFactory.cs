@@ -1,4 +1,4 @@
-﻿using WeekendRoguelike.Mob.Character;
+﻿using WeekendRoguelike.CharacterSystem.Base;
 using WeekendRoguelike.UI;
 using WeekendRoguelike.UI.ConsoleUI;
 

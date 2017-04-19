@@ -2,8 +2,8 @@
 using WeekendRoguelike.AI.Sight;
 using WeekendRoguelike.MapSystem;
 using WeekendRoguelike.MapSystem.UI;
-using WeekendRoguelike.Mob.Character;
-using WeekendRoguelike.Mob.UI;
+using WeekendRoguelike.CharacterSystem.Base;
+using WeekendRoguelike.CharacterSystem.UI;
 
 namespace WeekendRoguelike.UI.ConsoleUI
 {
@@ -200,7 +200,7 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #region Public Methods
 
-            public void Update(CharacterEntity forCharacter)
+            public void Update(Character forCharacter)
             {
                 Position = forCharacter.Position;
             }
@@ -235,7 +235,7 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #region Public Methods
 
-            public void Draw(CharacterEntity viewpointCharacter)
+            public void Draw(Character viewpointCharacter)
             {
                 Point drawAt = (Point)(position - viewpointCharacter.Position +
                     new Displacement(12, 12));
@@ -282,7 +282,7 @@ namespace WeekendRoguelike.UI.ConsoleUI
 
             #region Public Methods
 
-            public void Draw(CharacterEntity viewpointCharacter)
+            public void Draw(Character viewpointCharacter)
             {
                 ConsoleDisplay instance =
                     Display.GetInstanceAs<ConsoleDisplay>();
