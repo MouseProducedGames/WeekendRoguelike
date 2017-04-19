@@ -61,7 +61,7 @@ namespace WeekendRoguelike
             DungeonTranslator dungeonTranslator =
                 Path.Combine(startPath, "Data", "DungeonTranslator",
                 dungeonTranslateFilename);
-            Map map = new Map(dungeonTranslator.Convert(dungeonFactory.Create(80, 80)));
+            Map map = new Map(dungeonTranslator.Convert(dungeonFactory.Create(40, 40)));
 
             Character playerCharacter;
             {
@@ -121,17 +121,17 @@ namespace WeekendRoguelike
                 CreatePremadeNPC("Large Rat");
             }
 
-            for (int skeleton = 0; skeleton < 5; ++skeleton)
+            for (int skeleton = 0; skeleton < 8; ++skeleton)
             {
                 CreatePremadeNPC("Skeleton");
             }
 
-            for (int zombie = 0; zombie < 3; ++zombie)
+            for (int zombie = 0; zombie < 5; ++zombie)
             {
                 CreatePremadeNPC("Zombie");
             }
 
-            for (int skeletalWarrior = 0; skeletalWarrior < 1; ++skeletalWarrior)
+            for (int skeletalWarrior = 0; skeletalWarrior < 3; ++skeletalWarrior)
             {
                 CreatePremadeNPC("Zombie");
             }
