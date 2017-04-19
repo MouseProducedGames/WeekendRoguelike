@@ -248,13 +248,6 @@ namespace WeekendRoguelike.UI.ConsoleUI
                         Display.GetInstanceAs<ConsoleDisplay>()
                             .Draw(drawAt, this.data);
                         break;
-
-                    case VisibilityState.Seen:
-                        {
-                            Display.GetInstanceAs<ConsoleDisplay>()
-                            .Draw(drawAt, this.data.Darker);
-                            break;
-                        }
                 }
             }
 
