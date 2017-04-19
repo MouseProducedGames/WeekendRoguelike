@@ -133,7 +133,7 @@ namespace WeekendRoguelike
 
             for (int skeletalWarrior = 0; skeletalWarrior < 3; ++skeletalWarrior)
             {
-                CreatePremadeNPC("Zombie");
+                CreatePremadeNPC("Skeletal Warrior");
             }
 
             for (int dwarvenBarbarian = 0; dwarvenBarbarian < 1; ++dwarvenBarbarian)
